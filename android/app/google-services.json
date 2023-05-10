@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "625094720482",
+    "project_id": "bed3a-b919a",
+    "storage_bucket": "bed3a-b919a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:625094720482:android:ec1c6b20d56df2a9fcd7bb",
+        "android_client_info": {
+          "package_name": "com.topbusiness.bed3aecom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "625094720482-5ohjsqljkdl9gaf8c1i8q7sfl5746l5t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQWxp5tu1ddq-TMJwuVCe-PYRayJecbvI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "625094720482-5ohjsqljkdl9gaf8c1i8q7sfl5746l5t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
