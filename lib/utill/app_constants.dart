@@ -3,7 +3,7 @@ import 'package:bed3a_ecommerce/data/model/response/language_model.dart';
 class AppConstants {
   static const String APP_NAME = 'bed3a';
   static const String APP_VERSION = '13.1';
-  static const String BASE_URL = 'https://bed3a.6amtech.com';
+  static const String BASE_URL = 'https://medosedo.com';
   static const String USER_ID = 'userId';
   static const String NAME = 'name';
   static const String CATEGORIES_URI = '/api/v1/categories';
