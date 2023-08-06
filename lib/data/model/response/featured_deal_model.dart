@@ -3,7 +3,7 @@ import 'package:bed3a_ecommerce/data/model/response/product_model.dart';
 
 class FeaturedDealModel {
 
-  Product product;
+  Product? product;
 
   FeaturedDealModel(
       {this.product});
@@ -17,7 +17,7 @@ class FeaturedDealModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
 
     if (this.product != null) {
-      data['product'] = this.product.toJson();
+      data['product'] = this.product!.toJson();
     }
     return data;
   }

@@ -7,11 +7,11 @@ import 'package:bed3a_ecommerce/localization/language_constrants.dart';
 import 'package:bed3a_ecommerce/utill/app_constants.dart';
 
 class ProductRepo {
-  final DioClient dioClient;
-  ProductRepo({@required this.dioClient});
+  final DioClient? dioClient;
+  ProductRepo({required this.dioClient});
 
-  Future<ApiResponse> getLatestProductList(BuildContext context, String offset, ProductType productType, String title) async {
-    String endUrl;
+  Future<ApiResponse> getLatestProductList(BuildContext context, String offset, ProductType productType, String? title) async {
+    late String endUrl;
 
      if(productType == ProductType.BEST_SELLING){
       endUrl = AppConstants.BEST_SELLING_PRODUCTS_URI;
@@ -30,7 +30,7 @@ class ProductRepo {
      }
 
     try {
-      final response = await dioClient.get(
+      final response = await dioClient!.get(
         endUrl+offset);
       return ApiResponse.withSuccess(response);
     } catch (e) {
@@ -41,7 +41,7 @@ class ProductRepo {
   //Seller Products
   Future<ApiResponse> getSellerProductList(String sellerId, String offset) async {
     try {
-      final response = await dioClient.get(
+      final response = await dioClient!.get(
         AppConstants.SELLER_PRODUCT_URI+sellerId+'/products?limit=10&&offset='+offset);
       return ApiResponse.withSuccess(response);
     } catch (e) {
@@ -57,7 +57,7 @@ class ProductRepo {
       }else {
         uri = '${AppConstants.CATEGORY_PRODUCT_URI}$id';
       }
-      final response = await dioClient.get(uri);
+      final response = await dioClient!.get(uri);
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -68,7 +68,7 @@ class ProductRepo {
 
   Future<ApiResponse> getRelatedProductList(String id) async {
     try {
-      final response = await dioClient.get(
+      final response = await dioClient!.get(
         AppConstants.RELATED_PRODUCT_URI+id);
       return ApiResponse.withSuccess(response);
     } catch (e) {
@@ -79,7 +79,7 @@ class ProductRepo {
 
   Future<ApiResponse> getFeaturedProductList(String offset) async {
     try {
-      final response = await dioClient.get(
+      final response = await dioClient!.get(
         AppConstants.FEATURED_PRODUCTS_URI+offset,);
       return ApiResponse.withSuccess(response);
     } catch (e) {
@@ -88,7 +88,7 @@ class ProductRepo {
   }
   Future<ApiResponse> getLProductList(String offset) async {
     try {
-      final response = await dioClient.get(
+      final response = await dioClient!.get(
         AppConstants.LATEST_PRODUCTS_URI+offset,);
       return ApiResponse.withSuccess(response);
     } catch (e) {
@@ -98,7 +98,7 @@ class ProductRepo {
 
   Future<ApiResponse> getRecommendedProduct() async {
     try {
-      final response = await dioClient.get(AppConstants.DEAL_OF_THE_DAY_URI);
+      final response = await dioClient!.get(AppConstants.DEAL_OF_THE_DAY_URI);
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));

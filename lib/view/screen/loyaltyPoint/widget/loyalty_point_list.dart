@@ -9,20 +9,20 @@ import 'package:bed3a_ecommerce/view/screen/loyaltyPoint/widget/loyalty_point_wi
 import 'package:provider/provider.dart';
 
 class LoyaltyPointListView extends StatelessWidget {
-  final ScrollController scrollController;
-  const LoyaltyPointListView({Key key, this.scrollController}) : super(key: key);
+  final ScrollController? scrollController;
+  const LoyaltyPointListView({Key? key, this.scrollController}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     int offset = 1;
     scrollController?.addListener(() {
-      if(scrollController.position.maxScrollExtent == scrollController.position.pixels
+      if(scrollController!.position.maxScrollExtent == scrollController!.position.pixels
           && Provider.of<WalletTransactionProvider>(context, listen: false).loyaltyPointList.length != 0
           && !Provider.of<WalletTransactionProvider>(context, listen: false).isLoading) {
-        int pageSize;
+        int? pageSize;
         pageSize = Provider.of<WalletTransactionProvider>(context, listen: false).loyaltyPointPageSize;
 
-        if(offset < pageSize) {
+        if(offset < pageSize!) {
           offset++;
           print('end of the page');
           Provider.of<WalletTransactionProvider>(context, listen: false).showBottomLoader();

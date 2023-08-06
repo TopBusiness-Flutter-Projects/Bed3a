@@ -11,26 +11,26 @@ import 'package:bed3a_ecommerce/view/screen/chat/chat_screen.dart';
 import 'package:provider/provider.dart';
 
 class ChatItemWidget extends StatelessWidget {
-  final Chat chat;
-  const ChatItemWidget({Key key, this.chat}) : super(key: key);
+  final Chat? chat;
+  const ChatItemWidget({Key? key, this.chat}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
-    String baseUrl = Provider.of<ChatProvider>(context, listen: false).userTypeIndex == 0 ?
-    Provider.of<SplashProvider>(context, listen: false).baseUrls.shopImageUrl:
-    Provider.of<SplashProvider>(context, listen: false).baseUrls.deliveryManImage;
-    String image = Provider.of<ChatProvider>(context, listen: false).userTypeIndex == 0 ?
-    chat.sellerInfo != null? chat.sellerInfo?.shops[0]?.image :'' : chat.deliveryMan.image;
+    String? baseUrl = Provider.of<ChatProvider>(context, listen: false).userTypeIndex == 0 ?
+    Provider.of<SplashProvider>(context, listen: false).baseUrls!.shopImageUrl:
+    Provider.of<SplashProvider>(context, listen: false).baseUrls!.deliveryManImage;
+    String? image = Provider.of<ChatProvider>(context, listen: false).userTypeIndex == 0 ?
+    chat!.sellerInfo != null? chat!.sellerInfo?.shops![0]?.image :'' : chat!.deliveryMan!.image;
 
-    int id = Provider.of<ChatProvider>(context, listen: false).userTypeIndex == 0 ?
-    chat.sellerId : chat.deliveryManId;
+    int? id = Provider.of<ChatProvider>(context, listen: false).userTypeIndex == 0 ?
+    chat!.sellerId : chat!.deliveryManId;
 
     print('here is image==>$baseUrl/$image');
 
 
     String name = Provider.of<ChatProvider>(context, listen: false).userTypeIndex == 0 ?
-    chat.sellerInfo != null ? chat.sellerInfo.shops[0].name : 'Shop not found': chat.deliveryMan.fName+" "+chat.deliveryMan.lName;
+    chat!.sellerInfo != null ? chat!.sellerInfo!.shops![0].name! : 'Shop not found': chat!.deliveryMan!.fName!+" "+chat!.deliveryMan!.lName!;
 
     
     return Column(
@@ -43,11 +43,11 @@ class ChatItemWidget extends StatelessWidget {
 
           title: Text(name, style: titilliumSemiBold),
 
-          subtitle: Container(child: Text(chat.message, maxLines: 4,overflow: TextOverflow.ellipsis,
+          subtitle: Container(child: Text(chat!.message!, maxLines: 4,overflow: TextOverflow.ellipsis,
               style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL))),
 
           trailing: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(chat.createdAt)),
+            Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(chat!.createdAt!)),
                 style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL)),
 
           ]),

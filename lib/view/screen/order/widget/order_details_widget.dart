@@ -22,10 +22,10 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 class OrderDetailsWidget extends StatefulWidget {
-  final OrderDetailsModel orderDetailsModel;
-  final String orderType;
-  final String paymentStatus;
-  final Function callback;
+  final OrderDetailsModel? orderDetailsModel;
+  final String? orderType;
+  final String? paymentStatus;
+  final Function? callback;
   OrderDetailsWidget({this.orderDetailsModel, this.callback, this.orderType, this.paymentStatus});
 
   @override
@@ -53,7 +53,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
 
   @pragma('vm:entry-point')
   static void downloadCallback(String id, DownloadTaskStatus status, int progress) {
-    final SendPort send = IsolateNameServer.lookupPortByName('downloader_send_port');
+    final SendPort send = IsolateNameServer.lookupPortByName('downloader_send_port')!;
     send.send([id, status, progress]);
   }
 
@@ -72,7 +72,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                 child: FadeInImage.assetNetwork(
                   placeholder: Images.placeholder, fit: BoxFit.scaleDown, width: 60, height: 60,
                   image: '${Provider.of<SplashProvider>(context, listen: false).
-                  baseUrls.productThumbnailUrl}/${widget.orderDetailsModel.productDetails?.thumbnail}',
+                  baseUrls!.productThumbnailUrl}/${widget.orderDetailsModel!.productDetails?.thumbnail}',
                   imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder,
                       fit: BoxFit.scaleDown, width: 50, height: 50),),
               ),
@@ -84,7 +84,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(children: [
-                      Expanded(child: Text(widget.orderDetailsModel.productDetails?.name??'',
+                      Expanded(child: Text(widget.orderDetailsModel!.productDetails?.name??'',
                         style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL,
                             color: Theme.of(context).hintColor),
                         maxLines: 2, overflow: TextOverflow.ellipsis,),),
@@ -99,7 +99,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                               showModalBottomSheet(context: context, isScrollControlled: true,
                                   backgroundColor: Colors.transparent, builder: (context) =>
                                   ReviewBottomSheet(
-                                      productID: widget.orderDetailsModel.productDetails.id.toString(),
+                                      productID: widget.orderDetailsModel!.productDetails!.id.toString(),
                                       callback: widget.callback));
                             }
                           },
@@ -113,7 +113,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                             ),
 
 
-                            child: Text(getTranslated('review', context), style: titilliumRegular.copyWith(
+                            child: Text(getTranslated('review', context)!, style: titilliumRegular.copyWith(
                               fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL,
                               color: ColorResources.getTextTitle(context),
                             )),
@@ -122,15 +122,15 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
 
 
                         Consumer<OrderProvider>(builder: (context,refund,_){
-                          return refund.orderTypeIndex == 1 && widget.orderDetailsModel.refundReq == 0 && widget.orderType != "POS"?
+                          return refund.orderTypeIndex == 1 && widget.orderDetailsModel!.refundReq == 0 && widget.orderType != "POS"?
                           InkWell(
                             onTap: () {
                               Provider.of<ProductDetailsProvider>(context, listen: false).removeData();
-                              refund.getRefundReqInfo(context, widget.orderDetailsModel.id).then((value) {
-                                    if(value.response.statusCode==200){
+                              refund.getRefundReqInfo(context, widget.orderDetailsModel!.id).then((value) {
+                                    if(value.response!.statusCode==200){
                                       Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                                          RefundBottomSheet(product: widget.orderDetailsModel.productDetails,
-                                              orderDetailsId: widget.orderDetailsModel.id)));
+                                          RefundBottomSheet(product: widget.orderDetailsModel!.productDetails,
+                                              orderDetailsId: widget.orderDetailsModel!.id)));
                                     }
                               });},
 
@@ -142,7 +142,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                               decoration: BoxDecoration(color: ColorResources.getPrimary(context),
                                 borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_DEFAULT),),
 
-                              child: Text(getTranslated('refund_request', context),
+                              child: Text(getTranslated('refund_request', context)!,
                                   style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL,
                                 color: Theme.of(context).highlightColor,)),),
                           ) :SizedBox();
@@ -151,15 +151,15 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
 
                         Consumer<OrderProvider>(builder: (context,refund,_){
                              return (Provider.of<OrderProvider>(context).orderTypeIndex == 1 &&
-                                 widget.orderDetailsModel.refundReq != 0 && widget.orderType != "POS")?
+                                 widget.orderDetailsModel!.refundReq != 0 && widget.orderType != "POS")?
                              InkWell(
                                onTap: () {
                                  Provider.of<ProductDetailsProvider>(context, listen: false).removeData();
-                                 refund.getRefundReqInfo(context, widget.orderDetailsModel.id).then((value) {
-                                   if(value.response.statusCode==200){
+                                 refund.getRefundReqInfo(context, widget.orderDetailsModel!.id).then((value) {
+                                   if(value.response!.statusCode==200){
                                      Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                                         RefundResultBottomSheet(product: widget.orderDetailsModel.productDetails,
-                                             orderDetailsId: widget.orderDetailsModel.id,
+                                         RefundResultBottomSheet(product: widget.orderDetailsModel!.productDetails,
+                                             orderDetailsId: widget.orderDetailsModel!.id,
                                              orderDetailsModel:  widget.orderDetailsModel)));}});},
 
 
@@ -173,7 +173,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                                  decoration: BoxDecoration(color: ColorResources.getPrimary(context),
                                    borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_DEFAULT),),
 
-                                 child: Text(getTranslated('refund_status_btn', context),
+                                 child: Text(getTranslated('refund_status_btn', context)!,
                                      style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL,
                                        color: Theme.of(context).highlightColor,)),),
                              ) :SizedBox();
@@ -186,14 +186,14 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                     Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
 
-                        Text(PriceConverter.convertPrice(context, widget.orderDetailsModel.price),
+                        Text(PriceConverter.convertPrice(context, widget.orderDetailsModel!.price),
                           style: titilliumSemiBold.copyWith(color: ColorResources.getPrimary(context)),
                         ),
-                        Text('x${widget.orderDetailsModel.qty}',
+                        Text('x${widget.orderDetailsModel!.qty}',
                             style: titilliumSemiBold.copyWith(color: ColorResources.getPrimary(context))),
 
 
-                        widget.orderDetailsModel.discount>0?
+                        widget.orderDetailsModel!.discount!>0?
                         Container(height: 20,
                           alignment: Alignment.center,
                           padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
@@ -202,8 +202,8 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
 
 
                           child: Text(PriceConverter.percentageCalculation(context,
-                              (widget.orderDetailsModel.price * widget.orderDetailsModel.qty),
-                              widget.orderDetailsModel.discount, 'amount'),
+                              (widget.orderDetailsModel!.price! * widget.orderDetailsModel!.qty!),
+                              widget.orderDetailsModel!.discount, 'amount'),
                             style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL,
                                 color: ColorResources.getPrimary(context)),
                           ),
@@ -219,7 +219,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
             ],
           ),
 
-          (widget.orderDetailsModel.variant != null && widget.orderDetailsModel.variant.isNotEmpty) ?
+          (widget.orderDetailsModel!.variant != null && widget.orderDetailsModel!.variant!.isNotEmpty) ?
           Padding(
             padding: EdgeInsets.only(left: Dimensions.PADDING_SIZE_SMALL,
               top: Dimensions.PADDING_SIZE_EXTRA_SMALL),
@@ -230,7 +230,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                   style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL)),
 
 
-              Flexible(child: Text(widget.orderDetailsModel.variant,
+              Flexible(child: Text(widget.orderDetailsModel!.variant!,
                   style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL,
                     color: Theme.of(context).disabledColor,))),
             ]),
@@ -241,7 +241,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
             padding: const EdgeInsets.only(left: 75, right: 75, top: 5),
             child: Row(
               children: [
-                Text('${getTranslated('tax', context)} ${widget.orderDetailsModel.productDetails.taxModel}(${widget.orderDetailsModel.tax})'),
+                Text('${getTranslated('tax', context)} ${widget.orderDetailsModel!.productDetails!.taxModel}(${widget.orderDetailsModel!.tax})'),
               ],
             ),
           ),
@@ -250,18 +250,18 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
 
 
 
-          SizedBox(height: (widget.orderDetailsModel.productDetails != null && widget.orderDetailsModel.productDetails?.productType =='digital' && widget.paymentStatus == 'paid')?
+          SizedBox(height: (widget.orderDetailsModel!.productDetails != null && widget.orderDetailsModel!.productDetails?.productType =='digital' && widget.paymentStatus == 'paid')?
           Dimensions.PADDING_SIZE_EXTRA_LARGE : 0),
-          widget.orderDetailsModel.productDetails?.productType =='digital' && widget.paymentStatus == 'paid'?
+          widget.orderDetailsModel!.productDetails?.productType =='digital' && widget.paymentStatus == 'paid'?
           Consumer<OrderProvider>(
             builder: (context, orderProvider, _) {
               return InkWell(
                 onTap : () async {
-                  if(widget.orderDetailsModel.productDetails.digitalProductType == 'ready_after_sell' &&
-                      widget.orderDetailsModel.digitalFileAfterSell == null ){
+                  if(widget.orderDetailsModel!.productDetails!.digitalProductType == 'ready_after_sell' &&
+                      widget.orderDetailsModel!.digitalFileAfterSell == null ){
 
                     Fluttertoast.showToast(
-                        msg: getTranslated('product_not_uploaded_yet', context),
+                        msg: getTranslated('product_not_uploaded_yet', context)!,
                         toastLength: Toast.LENGTH_SHORT,
                         gravity: ToastGravity.BOTTOM,
                         timeInSecForIosWeb: 1,
@@ -271,19 +271,19 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                     );
                   }else{
                     print('ios url click=====>${'${Provider.of<SplashProvider>(context, listen: false).
-                    baseUrls.digitalProductUrl}/${widget.orderDetailsModel.digitalFileAfterSell}'}');
+                    baseUrls!.digitalProductUrl}/${widget.orderDetailsModel!.digitalFileAfterSell}'}');
                     final status = await Permission.storage.request();
                     if(status.isGranted){
                       Directory directory = Directory('/storage/emulated/0/Download');
                       if (!await directory.exists()) directory = Platform.isAndroid
-                          ? await getExternalStorageDirectory()
+                          ? (await getExternalStorageDirectory())!
                           : await getApplicationSupportDirectory();
                       orderProvider.downloadFile(
-                          widget.orderDetailsModel.productDetails.digitalProductType == 'ready_after_sell'?
+                          widget.orderDetailsModel!.productDetails!.digitalProductType == 'ready_after_sell'?
                           '${Provider.of<SplashProvider>(context, listen: false).
-                          baseUrls.digitalProductUrl}/${widget.orderDetailsModel.digitalFileAfterSell}':
+                          baseUrls!.digitalProductUrl}/${widget.orderDetailsModel!.digitalFileAfterSell}':
                           '${Provider.of<SplashProvider>(context, listen: false).
-                          baseUrls.digitalProductUrl}/${widget.orderDetailsModel.productDetails.digitalFileReady}',
+                          baseUrls!.digitalProductUrl}/${widget.orderDetailsModel!.productDetails!.digitalFileReady}',
                           directory.path);
                     }else{
                       print('=====permission denied=====');

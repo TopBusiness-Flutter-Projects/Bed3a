@@ -55,16 +55,16 @@ Future<void> main() async {
   await Firebase.initializeApp( options: DefaultFirebaseOptions.currentPlatform,);
   await FlutterDownloader.initialize(debug: true , ignoreSsl: true);
   await di.init();
-  final NotificationAppLaunchDetails notificationAppLaunchDetails =
+  final NotificationAppLaunchDetails? notificationAppLaunchDetails =
   await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
-  int _orderID;
+  int? _orderID;
   if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
-    _orderID = (notificationAppLaunchDetails.payload != null && notificationAppLaunchDetails.payload.isNotEmpty)
-        ? int.parse(notificationAppLaunchDetails.payload) : null;
+    _orderID = (notificationAppLaunchDetails!.payload != null && notificationAppLaunchDetails.payload!.isNotEmpty)
+        ? int.parse(notificationAppLaunchDetails.payload!) : null;
   }
-  final RemoteMessage remoteMessage = await FirebaseMessaging.instance.getInitialMessage();
+  final RemoteMessage? remoteMessage = await FirebaseMessaging.instance.getInitialMessage();
   if (remoteMessage != null) {
-    _orderID = remoteMessage.notification.titleLocKey != null ? int.parse(remoteMessage.notification.titleLocKey) : null;
+    _orderID = remoteMessage.notification!.titleLocKey != null ? int.parse(remoteMessage.notification!.titleLocKey!) : null;
   }
   print('========-notification-----$_orderID----===========');
 
@@ -107,8 +107,8 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final int orderId;
-  MyApp({@required this.orderId});
+  final int? orderId;
+  MyApp({required this.orderId});
 
   static final navigatorKey = new GlobalKey<NavigatorState>();
 
@@ -116,7 +116,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Locale> _locals = [];
     AppConstants.languages.forEach((language) {
-      _locals.add(Locale(language.languageCode, language.countryCode));
+      _locals.add(Locale(language.languageCode!, language.countryCode));
     });
     return MaterialApp(
       title: AppConstants.APP_NAME,
@@ -139,7 +139,7 @@ class MyApp extends StatelessWidget {
 }
 class MyHttpOverrides extends HttpOverrides {
   @override
-  HttpClient createHttpClient(SecurityContext context) {
+  HttpClient createHttpClient(SecurityContext? context) {
     return super.createHttpClient(context)..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
   }
 }

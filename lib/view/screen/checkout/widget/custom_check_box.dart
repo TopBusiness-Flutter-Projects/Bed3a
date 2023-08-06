@@ -8,8 +8,8 @@ import 'package:provider/provider.dart';
 class CustomCheckBox extends StatelessWidget {
   final int index;
   final bool isDigital;
-  final String icon;
-  CustomCheckBox({ @required this.index, this.isDigital =  false, this.icon});
+  final String? icon;
+  CustomCheckBox({ required this.index, this.isDigital =  false, this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +32,9 @@ class CustomCheckBox extends StatelessWidget {
                   shape: CircleBorder(),
                   value: order.paymentMethodIndex == index,
                   activeColor: Theme.of(context).primaryColor,
-                  onChanged: (bool isChecked) => order.setPaymentMethod(index),
+                  onChanged: (bool? isChecked) => order.setPaymentMethod(index),
                 ),
-                SizedBox(width: 100,child: Image.asset(icon))
+                SizedBox(width: 100,child: Image.asset(icon!))
 
               ]),
             ),

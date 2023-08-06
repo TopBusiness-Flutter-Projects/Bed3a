@@ -12,8 +12,8 @@ import 'package:bed3a_ecommerce/view/screen/product/widget/cart_bottom_sheet.dar
 import 'package:provider/provider.dart';
 
 class BottomCartView extends StatefulWidget {
-  final ProductDetailsModel product;
-  BottomCartView({@required this.product});
+  final ProductDetailsModel? product;
+  BottomCartView({required this.product});
 
   @override
   State<BottomCartView> createState() => _BottomCartViewState();
@@ -28,14 +28,14 @@ class _BottomCartViewState extends State<BottomCartView> {
 
     super.initState();
 
-    if(widget.product != null && widget.product.seller.shop.vacationEndDate != null){
-      DateTime vacationDate = DateTime.parse(widget.product.seller.shop.vacationEndDate);
-      DateTime vacationStartDate = DateTime.parse(widget.product.seller.shop.vacationStartDate);
+    if(widget.product != null && widget.product!.seller!.shop!.vacationEndDate != null){
+      DateTime vacationDate = DateTime.parse(widget.product!.seller!.shop!.vacationEndDate!);
+      DateTime vacationStartDate = DateTime.parse(widget.product!.seller!.shop!.vacationStartDate!);
       final today = DateTime.now();
       final difference = vacationDate.difference(today).inDays;
       final startDate = vacationStartDate.difference(today).inDays;
 
-      if(difference >= 0 && widget.product.seller.shop.vacationStatus == 1 && startDate <= 0){
+      if(difference >= 0 && widget.product!.seller!.shop!.vacationStatus == 1 && startDate <= 0){
         vacationIsOn = true;
       }
 
@@ -115,7 +115,7 @@ class _BottomCartViewState extends State<BottomCartView> {
               color: ColorResources.getPrimary(context),
             ),
             child: Text(
-              getTranslated('add_to_cart', context),
+              getTranslated('add_to_cart', context)!,
               style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE, color: Theme.of(context).highlightColor),
             ),
           ),

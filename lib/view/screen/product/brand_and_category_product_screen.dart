@@ -15,9 +15,9 @@ import 'package:provider/provider.dart';
 class BrandAndCategoryProductScreen extends StatelessWidget {
   final bool isBrand;
   final String id;
-  final String name;
-  final String image;
-  BrandAndCategoryProductScreen({@required this.isBrand, @required this.id, @required this.name, this.image});
+  final String? name;
+  final String? image;
+  BrandAndCategoryProductScreen({required this.isBrand, required this.id, required this.name, this.image});
   @override
   Widget build(BuildContext context) {
     Provider.of<ProductProvider>(context, listen: false).initBrandOrCategoryProductList(isBrand, id, context);
@@ -36,13 +36,13 @@ class BrandAndCategoryProductScreen extends StatelessWidget {
               child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
                 FadeInImage.assetNetwork(
                   placeholder: Images.placeholder, width: 80, height: 80, fit: BoxFit.cover,
-                  image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls.brandImageUrl}/$image',
+                  image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.brandImageUrl}/$image',
                   imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder, width: 80, height: 80, fit: BoxFit.cover),
                 ),
                 SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
 
 
-                Text(name, style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
+                Text(name!, style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
               ]),
             ) : SizedBox.shrink(),
 
@@ -63,7 +63,7 @@ class BrandAndCategoryProductScreen extends StatelessWidget {
               ),
             ) :
 
-            Expanded(child: Center(child: productProvider.hasData ?
+            Expanded(child: Center(child: productProvider.hasData! ?
 
               ProductShimmer(isHomePage: false,
                 isEnabled: Provider.of<ProductProvider>(context).brandOrCategoryProductList.length == 0)

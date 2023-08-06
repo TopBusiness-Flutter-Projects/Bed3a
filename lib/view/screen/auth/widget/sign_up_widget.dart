@@ -31,7 +31,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
   TextEditingController _phoneController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmPasswordController = TextEditingController();
-  GlobalKey<FormState> _formKey;
+  GlobalKey<FormState>? _formKey;
 
   FocusNode _fNameFocus = FocusNode();
   FocusNode _lNameFocus = FocusNode();
@@ -45,56 +45,56 @@ class _SignUpWidgetState extends State<SignUpWidget> {
 
 
   addUser() async {
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
+    if (_formKey!.currentState!.validate()) {
+      _formKey!.currentState!.save();
       isEmailVerified = true;
 
       String _firstName = _firstNameController.text.trim();
       String _lastName = _lastNameController.text.trim();
       String _email = _emailController.text.trim();
       String _phone = _phoneController.text.trim();
-      String _phoneNumber = _countryDialCode+_phoneController.text.trim();
+      String _phoneNumber = _countryDialCode!+_phoneController.text.trim();
       String _password = _passwordController.text.trim();
       String _confirmPassword = _confirmPasswordController.text.trim();
 
       if (_firstName.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('first_name_field_is_required', context)),
+          content: Text(getTranslated('first_name_field_is_required', context)!),
           backgroundColor: Colors.red,
         ));
       }else if (_lastName.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('last_name_field_is_required', context)),
+          content: Text(getTranslated('last_name_field_is_required', context)!),
           backgroundColor: Colors.red,
         ));
       } else if (_email.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('EMAIL_MUST_BE_REQUIRED', context)),
+          content: Text(getTranslated('EMAIL_MUST_BE_REQUIRED', context)!),
           backgroundColor: Colors.red,
         ));
       }else if (EmailChecker.isNotValid(_email)) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('enter_valid_email_address', context)),
+          content: Text(getTranslated('enter_valid_email_address', context)!),
           backgroundColor: Colors.red,
         ));
       } else if (_phone.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('PHONE_MUST_BE_REQUIRED', context)),
+          content: Text(getTranslated('PHONE_MUST_BE_REQUIRED', context)!),
           backgroundColor: Colors.red,
         ));
       } else if (_password.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('PASSWORD_MUST_BE_REQUIRED', context)),
+          content: Text(getTranslated('PASSWORD_MUST_BE_REQUIRED', context)!),
           backgroundColor: Colors.red,
         ));
       } else if (_confirmPassword.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('CONFIRM_PASSWORD_MUST_BE_REQUIRED', context)),
+          content: Text(getTranslated('CONFIRM_PASSWORD_MUST_BE_REQUIRED', context)!),
           backgroundColor: Colors.red,
         ));
       } else if (_password != _confirmPassword) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('PASSWORD_DID_NOT_MATCH', context)),
+          content: Text(getTranslated('PASSWORD_DID_NOT_MATCH', context)!),
           backgroundColor: Colors.red,
         ));
       } else {
@@ -111,9 +111,9 @@ class _SignUpWidgetState extends State<SignUpWidget> {
   }
 
   route(bool isRoute, String token, String tempToken, String errorMessage) async {
-    String _phone = _countryDialCode+_phoneController.text.trim();
+    String _phone = _countryDialCode!+_phoneController.text.trim();
     if (isRoute) {
-      if(Provider.of<SplashProvider>(context,listen: false).configModel.emailVerification){
+      if(Provider.of<SplashProvider>(context,listen: false).configModel!.emailVerification!){
         Provider.of<AuthProvider>(context, listen: false).checkEmail(_emailController.text.toString(), tempToken).then((value) async {
           if (value.isSuccess) {
             Provider.of<AuthProvider>(context, listen: false).updateEmail(_emailController.text.toString());
@@ -121,7 +121,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
 
           }
         });
-      }else if(Provider.of<SplashProvider>(context,listen: false).configModel.phoneVerification){
+      }else if(Provider.of<SplashProvider>(context,listen: false).configModel!.phoneVerification!){
         Provider.of<AuthProvider>(context, listen: false).checkPhone(_phone,tempToken).then((value) async {
           if (value.isSuccess) {
             Provider.of<AuthProvider>(context, listen: false).updatePhone(_phone);
@@ -147,12 +147,12 @@ class _SignUpWidgetState extends State<SignUpWidget> {
     }
   }
 
-  String _countryDialCode = "+880";
+  String? _countryDialCode = "+880";
   @override
   void initState() {
     super.initState();
     Provider.of<SplashProvider>(context,listen: false).configModel;
-    _countryDialCode = CountryCode.fromCountryCode(Provider.of<SplashProvider>(context, listen: false).configModel.countryCode).dialCode;
+    _countryDialCode = CountryCode.fromCountryCode(Provider.of<SplashProvider>(context, listen: false).configModel!.countryCode!).dialCode;
 
 
     _formKey = GlobalKey<FormState>();
@@ -223,7 +223,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                     showDropDownButton: true,
                     padding: EdgeInsets.zero,
                     showFlagMain: true,
-                    textStyle: TextStyle(color: Theme.of(context).textTheme.displayLarge.color),
+                    textStyle: TextStyle(color: Theme.of(context).textTheme.displayLarge!.color),
 
                   ),
 
@@ -299,7 +299,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               children: [TextButton(
                   onPressed: () =>
                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => DashBoardScreen())),
-                  child: Text(getTranslated('SKIP_FOR_NOW', context),
+                  child: Text(getTranslated('SKIP_FOR_NOW', context)!,
                       style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT,
                           color: ColorResources.getPrimary(context)))),
                 Icon(Icons.arrow_forward, size: 15,color: Theme.of(context).primaryColor,)

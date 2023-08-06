@@ -6,21 +6,21 @@ import 'package:bed3a_ecommerce/utill/dimensions.dart';
 
 class CustomSearchTextField extends StatefulWidget {
   final String hintText;
-  final TextEditingController controller;
-  final FocusNode focusNode;
-  final FocusNode nextFocus;
+  final TextEditingController? controller;
+  final FocusNode? focusNode;
+  final FocusNode? nextFocus;
   final TextInputType inputType;
   final TextInputAction inputAction;
   final bool isPassword;
-  final Function onChanged;
-  final Function onSubmit;
+  final Function? onChanged;
+  final Function? onSubmit;
   final bool isEnabled;
   final int maxLines;
   final TextCapitalization capitalization;
-  final String prefixIcon;
-  final String suffixIcon;
+  final String? prefixIcon;
+  final String? suffixIcon;
   final bool suffix;
-  final Color fillColor;
+  final Color? fillColor;
 
   CustomSearchTextField(
       {this.hintText = 'Write something...',
@@ -85,19 +85,19 @@ class _CustomSearchTextFieldState extends State<CustomSearchTextField> {
         filled: true,
         prefixIcon: widget.prefixIcon != null ? Padding(
           padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL),
-          child: Image.asset(widget.prefixIcon, height: 20, width: 20),
+          child: Image.asset(widget.prefixIcon!, height: 20, width: 20),
         ) : null,
 
         suffixIcon: widget.suffix? Container(width:Dimensions.ICON_SIZE_SMALL, height: Dimensions.ICON_SIZE_SMALL,
             padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
-            child: Image.asset(widget.suffixIcon, scale: 4,color: Theme.of(context).primaryColor,)) :widget.isPassword ? IconButton(
+            child: Image.asset(widget.suffixIcon!, scale: 4,color: Theme.of(context).primaryColor,)) :widget.isPassword ? IconButton(
           icon: Icon(_obscureText ? Icons.visibility_off : Icons.visibility, color: Theme.of(context).hintColor.withOpacity(0.3)),
           onPressed: _toggle,
         ) : null,
       ),
       onSubmitted: (text) => widget.nextFocus != null ? FocusScope.of(context).requestFocus(widget.nextFocus)
-          : widget.onSubmit != null ? widget.onSubmit(text) : null,
-      onChanged: widget.onChanged,
+          : widget.onSubmit != null ? widget.onSubmit!(text) : null,
+      onChanged: widget.onChanged as void Function(String)?,
     );
   }
 

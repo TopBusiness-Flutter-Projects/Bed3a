@@ -22,7 +22,7 @@ class OrderScreen extends StatefulWidget {
 }
 
 class _OrderScreenState extends State<OrderScreen> {
-  bool isGuestMode;
+  late bool isGuestMode;
   @override
   void initState() {
     Provider.of<OrderProvider>(context, listen: false).initOrderList(context);
@@ -55,7 +55,7 @@ class _OrderScreenState extends State<OrderScreen> {
           Provider.of<OrderProvider>(context).pendingList != null ?
           Consumer<OrderProvider>(
             builder: (context, order, child) {
-              List<OrderModel> orderList = [];
+              List<OrderModel>? orderList = [];
               if (Provider.of<OrderProvider>(context, listen: false).orderTypeIndex == 0) {
                 orderList = order.pendingList;
               }
@@ -74,9 +74,9 @@ class _OrderScreenState extends State<OrderScreen> {
                     await Provider.of<OrderProvider>(context, listen: false).initOrderList(context);
                     },
                   child: ListView.builder(
-                    itemCount: orderList.length,
+                    itemCount: orderList!.length,
                     padding: EdgeInsets.all(0),
-                    itemBuilder: (context, index) => OrderWidget(orderModel: orderList[index]),
+                    itemBuilder: (context, index) => OrderWidget(orderModel: orderList![index]),
                   ),),);},)
               : Expanded(child: OrderShimmer()),
         ],

@@ -1,45 +1,45 @@
 class ConfigModel {
-  int _systemDefaultCurrency;
-  bool _digitalPayment;
-  bool _cod;
-  BaseUrls _baseUrls;
-  StaticUrls _staticUrls;
-  String _aboutUs;
-  String _privacyPolicy;
-  List<Faq> _faq;
-  String _termsConditions;
-  RefundPolicy _refundPolicy;
-  RefundPolicy _returnPolicy;
-  RefundPolicy _cancellationPolicy;
-  List<CurrencyList> _currencyList;
-  String _currencySymbolPosition;
-  bool _maintenanceMode;
-  List<String> _language;
-  List<Colors> _colors;
-  List<String> _unit;
-  String _shippingMethod;
-  String _currencyModel;
-  bool _emailVerification;
-  bool _phoneVerification;
-  String _countryCode;
-  List<SocialLogin> _socialLogin;
-  String _forgetPasswordVerification;
-  Announcement _announcement;
-  String _version;
-  String _businessMode;
-  int _decimalPointSetting;
-  String _inHouseSelectedShippingType;
-  int _billingAddress;
-  int _walletStatus;
-  int _loyaltyPointStatus;
-  int _loyaltyPointExchangeRate;
-  int _loyaltyPointMinimumPoint;
-  String _brandSetting;
-  String _digitalProductSetting;
-  bool _cashOnDelivery;
-  int _deliveryCountryRestriction;
-  int _deliveryZipCodeAreaRestriction;
-  PaymentMethods _paymentMethods;
+  int? _systemDefaultCurrency;
+  bool? _digitalPayment;
+  bool? _cod;
+  BaseUrls? _baseUrls;
+  StaticUrls? _staticUrls;
+  String? _aboutUs;
+  String? _privacyPolicy;
+  List<Faq>? _faq;
+  String? _termsConditions;
+  RefundPolicy? _refundPolicy;
+  RefundPolicy? _returnPolicy;
+  RefundPolicy? _cancellationPolicy;
+  List<CurrencyList>? _currencyList;
+  String? _currencySymbolPosition;
+  bool? _maintenanceMode;
+  List<String>? _language;
+  List<Colors>? _colors;
+  List<String>? _unit;
+  String? _shippingMethod;
+  String? _currencyModel;
+  bool? _emailVerification;
+  bool? _phoneVerification;
+  String? _countryCode;
+  List<SocialLogin>? _socialLogin;
+  String? _forgetPasswordVerification;
+  Announcement? _announcement;
+  String? _version;
+  String? _businessMode;
+  int? _decimalPointSetting;
+  String? _inHouseSelectedShippingType;
+  int? _billingAddress;
+  int? _walletStatus;
+  int? _loyaltyPointStatus;
+  int? _loyaltyPointExchangeRate;
+  int? _loyaltyPointMinimumPoint;
+  String? _brandSetting;
+  String? _digitalProductSetting;
+  bool? _cashOnDelivery;
+  int? _deliveryCountryRestriction;
+  int? _deliveryZipCodeAreaRestriction;
+  PaymentMethods? _paymentMethods;
 
 
 
@@ -47,47 +47,47 @@ class ConfigModel {
 
 
   ConfigModel(
-      {int systemDefaultCurrency,
-        bool digitalPayment,
-        bool cod,
-        BaseUrls baseUrls,
-        StaticUrls staticUrls,
-        String aboutUs,
-        String privacyPolicy,
-        List<Faq> faq,
-        String termsConditions,
-        RefundPolicy refundPolicy,
-        RefundPolicy returnPolicy,
-        RefundPolicy cancellationPolicy,
-        List<CurrencyList> currencyList,
-        String currencySymbolPosition,
-        bool maintenanceMode,
-        List<String> language,
-        List<Colors> colors,
-        List<String> unit,
-        String shippingMethod,
-        String currencyModel,
-        bool emailVerification,
-        bool phoneVerification,
-        String countryCode,
-        List<SocialLogin> socialLogin,
-        String forgetPasswordVerification,
-        Announcement announcement,
-        String version,
-        String businessMode,
-        int decimalPointSetting,
-        String inHouseSelectedShippingType,
-        int billingAddress,
-        int walletStatus,
-        int loyaltyPointStatus,
-        int loyaltyPointExchangeRate,
-        int loyaltyPointMinimumPoint,
-        String brandSetting,
-        String digitalProductSetting,
-        bool cashOnDelivery,
-        int deliveryCountryRestriction,
-        int deliveryZipCodeAreaRestriction,
-        PaymentMethods paymentMethods
+      {int? systemDefaultCurrency,
+        bool? digitalPayment,
+        bool? cod,
+        BaseUrls? baseUrls,
+        StaticUrls? staticUrls,
+        String? aboutUs,
+        String? privacyPolicy,
+        List<Faq>? faq,
+        String? termsConditions,
+        RefundPolicy? refundPolicy,
+        RefundPolicy? returnPolicy,
+        RefundPolicy? cancellationPolicy,
+        List<CurrencyList>? currencyList,
+        String? currencySymbolPosition,
+        bool? maintenanceMode,
+        List<String>? language,
+        List<Colors>? colors,
+        List<String>? unit,
+        String? shippingMethod,
+        String? currencyModel,
+        bool? emailVerification,
+        bool? phoneVerification,
+        String? countryCode,
+        List<SocialLogin>? socialLogin,
+        String? forgetPasswordVerification,
+        Announcement? announcement,
+        String? version,
+        String? businessMode,
+        int? decimalPointSetting,
+        String? inHouseSelectedShippingType,
+        int? billingAddress,
+        int? walletStatus,
+        int? loyaltyPointStatus,
+        int? loyaltyPointExchangeRate,
+        int? loyaltyPointMinimumPoint,
+        String? brandSetting,
+        String? digitalProductSetting,
+        bool? cashOnDelivery,
+        int? deliveryCountryRestriction,
+        int? deliveryZipCodeAreaRestriction,
+        PaymentMethods? paymentMethods
 
       }) {
     this._systemDefaultCurrency = systemDefaultCurrency;
@@ -161,47 +161,47 @@ class ConfigModel {
 
   }
 
-  int get systemDefaultCurrency => _systemDefaultCurrency;
-  bool get digitalPayment => _digitalPayment;
-  bool get cod => _cod;
-  BaseUrls get baseUrls => _baseUrls;
-  StaticUrls get staticUrls => _staticUrls;
-  String get aboutUs => _aboutUs;
-  String get privacyPolicy => _privacyPolicy;
-  List<Faq> get faq => _faq;
-  String get termsConditions => _termsConditions;
-  RefundPolicy get refundPolicy => _refundPolicy;
-  RefundPolicy get returnPolicy => _returnPolicy;
-  RefundPolicy get cancellationPolicy => _cancellationPolicy;
-  List<CurrencyList> get currencyList => _currencyList;
-  String get currencySymbolPosition => _currencySymbolPosition;
-  bool get maintenanceMode => _maintenanceMode;
-  List<String> get language => _language;
-  List<Colors> get colors => _colors;
-  List<String> get unit => _unit;
-  String get shippingMethod => _shippingMethod;
-  String get currencyModel => _currencyModel;
-  bool get emailVerification => _emailVerification;
-  bool get phoneVerification => _phoneVerification;
-  String get countryCode =>_countryCode;
-  List<SocialLogin> get socialLogin => _socialLogin;
-  String get forgetPasswordVerification => _forgetPasswordVerification;
-  Announcement get announcement => _announcement;
-  String get version => _version;
-  String get businessMode => _businessMode;
-  int get decimalPointSetting => _decimalPointSetting;
-  String get inHouseSelectedShippingType => _inHouseSelectedShippingType;
-  int get billingAddress => _billingAddress;
-  int get walletStatus => _walletStatus;
-  int get loyaltyPointStatus => _loyaltyPointStatus;
-  int get loyaltyPointExchangeRate => _loyaltyPointExchangeRate;
-  int get loyaltyPointMinimumPoint => _loyaltyPointMinimumPoint;
-  String get brandSetting => _brandSetting;
-  String get digitalProductSetting => _digitalProductSetting;
-  bool get cashOnDelivery => _cashOnDelivery;
-  int get deliveryCountryRestriction => _deliveryCountryRestriction;
-  int get deliveryZipCodeAreaRestriction => _deliveryZipCodeAreaRestriction;
-  PaymentMethods get paymentMethods => _paymentMethods;
+  int? get systemDefaultCurrency => _systemDefaultCurrency;
+  bool? get digitalPayment => _digitalPayment;
+  bool? get cod => _cod;
+  BaseUrls? get baseUrls => _baseUrls;
+  StaticUrls? get staticUrls => _staticUrls;
+  String? get aboutUs => _aboutUs;
+  String? get privacyPolicy => _privacyPolicy;
+  List<Faq>? get faq => _faq;
+  String? get termsConditions => _termsConditions;
+  RefundPolicy? get refundPolicy => _refundPolicy;
+  RefundPolicy? get returnPolicy => _returnPolicy;
+  RefundPolicy? get cancellationPolicy => _cancellationPolicy;
+  List<CurrencyList>? get currencyList => _currencyList;
+  String? get currencySymbolPosition => _currencySymbolPosition;
+  bool? get maintenanceMode => _maintenanceMode;
+  List<String>? get language => _language;
+  List<Colors>? get colors => _colors;
+  List<String>? get unit => _unit;
+  String? get shippingMethod => _shippingMethod;
+  String? get currencyModel => _currencyModel;
+  bool? get emailVerification => _emailVerification;
+  bool? get phoneVerification => _phoneVerification;
+  String? get countryCode =>_countryCode;
+  List<SocialLogin>? get socialLogin => _socialLogin;
+  String? get forgetPasswordVerification => _forgetPasswordVerification;
+  Announcement? get announcement => _announcement;
+  String? get version => _version;
+  String? get businessMode => _businessMode;
+  int? get decimalPointSetting => _decimalPointSetting;
+  String? get inHouseSelectedShippingType => _inHouseSelectedShippingType;
+  int? get billingAddress => _billingAddress;
+  int? get walletStatus => _walletStatus;
+  int? get loyaltyPointStatus => _loyaltyPointStatus;
+  int? get loyaltyPointExchangeRate => _loyaltyPointExchangeRate;
+  int? get loyaltyPointMinimumPoint => _loyaltyPointMinimumPoint;
+  String? get brandSetting => _brandSetting;
+  String? get digitalProductSetting => _digitalProductSetting;
+  bool? get cashOnDelivery => _cashOnDelivery;
+  int? get deliveryCountryRestriction => _deliveryCountryRestriction;
+  int? get deliveryZipCodeAreaRestriction => _deliveryZipCodeAreaRestriction;
+  PaymentMethods? get paymentMethods => _paymentMethods;
 
 
 
@@ -219,7 +219,7 @@ class ConfigModel {
     _privacyPolicy = json['privacy_policy'];
     if (json['faq'] != null) {
       _faq = [];
-      json['faq'].forEach((v) {_faq.add(new Faq.fromJson(v));
+      json['faq'].forEach((v) {_faq!.add(new Faq.fromJson(v));
       });
     }
     _termsConditions = json['terms_&_conditions'];
@@ -228,7 +228,7 @@ class ConfigModel {
     _cancellationPolicy = json['cancellation_policy'] != null ? new RefundPolicy.fromJson(json['cancellation_policy']) : null;
     if (json['currency_list'] != null) {
       _currencyList = [];
-      json['currency_list'].forEach((v) {_currencyList.add(new CurrencyList.fromJson(v));
+      json['currency_list'].forEach((v) {_currencyList!.add(new CurrencyList.fromJson(v));
       });
     }
     _currencySymbolPosition = json['currency_symbol_position'];
@@ -236,7 +236,7 @@ class ConfigModel {
     _language = json['language'].cast<String>();
     if (json['colors'] != null) {
       _colors = [];
-      json['colors'].forEach((v) {_colors.add(new Colors.fromJson(v));
+      json['colors'].forEach((v) {_colors!.add(new Colors.fromJson(v));
       });
     }
 
@@ -248,7 +248,7 @@ class ConfigModel {
     _countryCode = json['country_code'];
     if (json['social_login'] != null) {
       _socialLogin = [];
-      json['social_login'].forEach((v) { _socialLogin.add(new SocialLogin.fromJson(v)); });
+      json['social_login'].forEach((v) { _socialLogin!.add(new SocialLogin.fromJson(v)); });
     }
     _forgetPasswordVerification = json['forgot_password_verification'];
     _announcement = json['announcement'] != null
@@ -331,35 +331,35 @@ class ConfigModel {
     data['digital_payment'] = this._digitalPayment;
     data['cash_on_delivery'] = this._cod;
     if (this._baseUrls != null) {
-      data['base_urls'] = this._baseUrls.toJson();
+      data['base_urls'] = this._baseUrls!.toJson();
     }
     if (this._staticUrls != null) {
-      data['static_urls'] = this._staticUrls.toJson();
+      data['static_urls'] = this._staticUrls!.toJson();
     }
     data['about_us'] = this._aboutUs;
     data['privacy_policy'] = this._privacyPolicy;
     if (this._faq != null) {
-      data['faq'] = this._faq.map((v) => v.toJson()).toList();
+      data['faq'] = this._faq!.map((v) => v.toJson()).toList();
     }
     data['terms_&_conditions'] = this._termsConditions;
     if (this._refundPolicy != null) {
-      data['refund_policy'] = this._refundPolicy.toJson();
+      data['refund_policy'] = this._refundPolicy!.toJson();
     }
     if (this._returnPolicy != null) {
-      data['return_policy'] = this._returnPolicy.toJson();
+      data['return_policy'] = this._returnPolicy!.toJson();
     }
     if (this._cancellationPolicy != null) {
-      data['cancellation_policy'] = this._cancellationPolicy.toJson();
+      data['cancellation_policy'] = this._cancellationPolicy!.toJson();
     }
     if (this._currencyList != null) {
       data['currency_list'] =
-          this._currencyList.map((v) => v.toJson()).toList();
+          this._currencyList!.map((v) => v.toJson()).toList();
     }
     data['currency_symbol_position'] = this._currencySymbolPosition;
     data['maintenance_mode'] = this._maintenanceMode;
     data['language'] = this._language;
     if (this._colors != null) {
-      data['colors'] = this._colors.map((v) => v.toJson()).toList();
+      data['colors'] = this._colors!.map((v) => v.toJson()).toList();
     }
     data['unit'] = this._unit;
     data['shipping_method'] = this._shippingMethod;
@@ -368,11 +368,11 @@ class ConfigModel {
     data['phone_verification'] = this._phoneVerification;
     data['country_code'] = this._countryCode;
     if (this._socialLogin != null) {
-      data['social_login'] = this._socialLogin.map((v) => v.toJson()).toList();
+      data['social_login'] = this._socialLogin!.map((v) => v.toJson()).toList();
     }
     data['forgot_password_verification'] = this._forgetPasswordVerification;
     if (this._announcement != null) {
-      data['announcement'] = this._announcement.toJson();
+      data['announcement'] = this._announcement!.toJson();
     }
     if (this._version != null) {
       data['software_version'] = this._version;
@@ -396,39 +396,39 @@ class ConfigModel {
     data['delivery_country_restriction'] = this._deliveryCountryRestriction;
     data['delivery_zip_code_area_restriction'] = this._deliveryZipCodeAreaRestriction;
     if (this._paymentMethods != null) {
-      data['payment_methods'] = this._paymentMethods.toJson();
+      data['payment_methods'] = this._paymentMethods!.toJson();
     }
     return data;
   }
 }
 
 class BaseUrls {
-  String _productImageUrl;
-  String _productThumbnailUrl;
-  String _brandImageUrl;
-  String _customerImageUrl;
-  String _bannerImageUrl;
-  String _categoryImageUrl;
-  String _reviewImageUrl;
-  String _sellerImageUrl;
-  String _shopImageUrl;
-  String _notificationImageUrl;
-  String _digitalProductUrl;
-  String _deliveryManImage;
+  String? _productImageUrl;
+  String? _productThumbnailUrl;
+  String? _brandImageUrl;
+  String? _customerImageUrl;
+  String? _bannerImageUrl;
+  String? _categoryImageUrl;
+  String? _reviewImageUrl;
+  String? _sellerImageUrl;
+  String? _shopImageUrl;
+  String? _notificationImageUrl;
+  String? _digitalProductUrl;
+  String? _deliveryManImage;
 
   BaseUrls(
-      {String productImageUrl,
-        String productThumbnailUrl,
-        String brandImageUrl,
-        String customerImageUrl,
-        String bannerImageUrl,
-        String categoryImageUrl,
-        String reviewImageUrl,
-        String sellerImageUrl,
-        String shopImageUrl,
-        String notificationImageUrl,
-        String digitalProductUrl,
-        String deliveryManImage,
+      {String? productImageUrl,
+        String? productThumbnailUrl,
+        String? brandImageUrl,
+        String? customerImageUrl,
+        String? bannerImageUrl,
+        String? categoryImageUrl,
+        String? reviewImageUrl,
+        String? sellerImageUrl,
+        String? shopImageUrl,
+        String? notificationImageUrl,
+        String? digitalProductUrl,
+        String? deliveryManImage,
       }) {
     this._productImageUrl = productImageUrl;
     this._productThumbnailUrl = productThumbnailUrl;
@@ -446,18 +446,18 @@ class BaseUrls {
     this._deliveryManImage = deliveryManImage;
   }
 
-  String get productImageUrl => _productImageUrl;
-  String get productThumbnailUrl => _productThumbnailUrl;
-  String get brandImageUrl => _brandImageUrl;
-  String get customerImageUrl => _customerImageUrl;
-  String get bannerImageUrl => _bannerImageUrl;
-  String get categoryImageUrl => _categoryImageUrl;
-  String get reviewImageUrl => _reviewImageUrl;
-  String get sellerImageUrl => _sellerImageUrl;
-  String get shopImageUrl => _shopImageUrl;
-  String get notificationImageUrl => _notificationImageUrl;
-  String get digitalProductUrl => _digitalProductUrl;
-  String get deliveryManImage => _deliveryManImage;
+  String? get productImageUrl => _productImageUrl;
+  String? get productThumbnailUrl => _productThumbnailUrl;
+  String? get brandImageUrl => _brandImageUrl;
+  String? get customerImageUrl => _customerImageUrl;
+  String? get bannerImageUrl => _bannerImageUrl;
+  String? get categoryImageUrl => _categoryImageUrl;
+  String? get reviewImageUrl => _reviewImageUrl;
+  String? get sellerImageUrl => _sellerImageUrl;
+  String? get shopImageUrl => _shopImageUrl;
+  String? get notificationImageUrl => _notificationImageUrl;
+  String? get digitalProductUrl => _digitalProductUrl;
+  String? get deliveryManImage => _deliveryManImage;
 
 
   BaseUrls.fromJson(Map<String, dynamic> json) {
@@ -494,26 +494,26 @@ class BaseUrls {
 }
 
 class StaticUrls {
-  String _contactUs;
-  String _brands;
-  String _categories;
-  String _customerAccount;
+  String? _contactUs;
+  String? _brands;
+  String? _categories;
+  String? _customerAccount;
 
   StaticUrls(
-      {String contactUs,
-        String brands,
-        String categories,
-        String customerAccount}) {
+      {String? contactUs,
+        String? brands,
+        String? categories,
+        String? customerAccount}) {
     this._contactUs = contactUs;
     this._brands = brands;
     this._categories = categories;
     this._customerAccount = customerAccount;
   }
 
-  String get contactUs => _contactUs;
-  String get brands => _brands;
-  String get categories => _categories;
-  String get customerAccount => _customerAccount;
+  String? get contactUs => _contactUs;
+  String? get brands => _brands;
+  String? get categories => _categories;
+  String? get customerAccount => _customerAccount;
 
 
   StaticUrls.fromJson(Map<String, dynamic> json) {
@@ -534,16 +534,16 @@ class StaticUrls {
 }
 
 class SocialLogin {
-  String _loginMedium;
-  bool _status;
+  String? _loginMedium;
+  bool? _status;
 
-  SocialLogin({String loginMedium, bool status}) {
+  SocialLogin({String? loginMedium, bool? status}) {
     this._loginMedium = loginMedium;
     this._status = status;
   }
 
-  String get loginMedium => _loginMedium;
-  bool get status => _status;
+  String? get loginMedium => _loginMedium;
+  bool? get status => _status;
 
   SocialLogin.fromJson(Map<String, dynamic> json) {
     _loginMedium = json['login_medium'];
@@ -559,22 +559,22 @@ class SocialLogin {
 }
 
 class Faq {
-  int _id;
-  String _question;
-  String _answer;
-  int _ranking;
-  int _status;
-  String _createdAt;
-  String _updatedAt;
+  int? _id;
+  String? _question;
+  String? _answer;
+  int? _ranking;
+  int? _status;
+  String? _createdAt;
+  String? _updatedAt;
 
   Faq(
-      {int id,
-        String question,
-        String answer,
-        int ranking,
-        int status,
-        String createdAt,
-        String updatedAt}) {
+      {int? id,
+        String? question,
+        String? answer,
+        int? ranking,
+        int? status,
+        String? createdAt,
+        String? updatedAt}) {
     this._id = id;
     this._question = question;
     this._answer = answer;
@@ -584,13 +584,13 @@ class Faq {
     this._updatedAt = updatedAt;
   }
 
-  int get id => _id;
-  String get question => _question;
-  String get answer => _answer;
-  int get ranking => _ranking;
-  int get status => _status;
-  String get createdAt => _createdAt;
-  String get updatedAt => _updatedAt;
+  int? get id => _id;
+  String? get question => _question;
+  String? get answer => _answer;
+  int? get ranking => _ranking;
+  int? get status => _status;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
 
 
   Faq.fromJson(Map<String, dynamic> json) {
@@ -617,24 +617,24 @@ class Faq {
 }
 
 class CurrencyList {
-  int _id;
-  String _name;
-  String _symbol;
-  String _code;
-  double _exchangeRate;
-  int _status;
-  String _createdAt;
-  String _updatedAt;
+  int? _id;
+  String? _name;
+  String? _symbol;
+  String? _code;
+  double? _exchangeRate;
+  int? _status;
+  String? _createdAt;
+  String? _updatedAt;
 
   CurrencyList(
-      {int id,
-        String name,
-        String symbol,
-        String code,
-        double exchangeRate,
-        int status,
-        String createdAt,
-        String updatedAt}) {
+      {int? id,
+        String? name,
+        String? symbol,
+        String? code,
+        double? exchangeRate,
+        int? status,
+        String? createdAt,
+        String? updatedAt}) {
     this._id = id;
     this._name = name;
     this._symbol = symbol;
@@ -645,14 +645,14 @@ class CurrencyList {
     this._updatedAt = updatedAt;
   }
 
-  int get id => _id;
-  String get name => _name;
-  String get symbol => _symbol;
-  String get code => _code;
-  double get exchangeRate => _exchangeRate;
-  int get status => _status;
-  String get createdAt => _createdAt;
-  String get updatedAt => _updatedAt;
+  int? get id => _id;
+  String? get name => _name;
+  String? get symbol => _symbol;
+  String? get code => _code;
+  double? get exchangeRate => _exchangeRate;
+  int? get status => _status;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
 
 
   CurrencyList.fromJson(Map<String, dynamic> json) {
@@ -681,14 +681,14 @@ class CurrencyList {
 }
 
 class Colors {
-  int _id;
-  String _name;
-  String _code;
-  String _createdAt;
-  String _updatedAt;
+  int? _id;
+  String? _name;
+  String? _code;
+  String? _createdAt;
+  String? _updatedAt;
 
   Colors(
-      {int id, String name, String code, String createdAt, String updatedAt}) {
+      {int? id, String? name, String? code, String? createdAt, String? updatedAt}) {
     this._id = id;
     this._name = name;
     this._code = code;
@@ -696,11 +696,11 @@ class Colors {
     this._updatedAt = updatedAt;
   }
 
-  int get id => _id;
-  String get name => _name;
-  String get code => _code;
-  String get createdAt => _createdAt;
-  String get updatedAt => _updatedAt;
+  int? get id => _id;
+  String? get name => _name;
+  String? get code => _code;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
 
 
   Colors.fromJson(Map<String, dynamic> json) {
@@ -722,12 +722,12 @@ class Colors {
   }
 }
 class Announcement {
-  String _status;
-  String _color;
-  String _textColor;
-  String _announcement;
+  String? _status;
+  String? _color;
+  String? _textColor;
+  String? _announcement;
 
-  Announcement({String status, String color,String textColor, String announcement}) {
+  Announcement({String? status, String? color,String? textColor, String? announcement}) {
     if (status != null) {
       this._status = status;
     }
@@ -742,10 +742,10 @@ class Announcement {
     }
   }
 
-  String get status => _status;
-  String get color => _color;
-  String get textColor => _textColor;
-  String get announcement => _announcement;
+  String? get status => _status;
+  String? get color => _color;
+  String? get textColor => _textColor;
+  String? get announcement => _announcement;
   Announcement.fromJson(Map<String, dynamic> json) {
     _status = json['status'];
     _color = json['color'];
@@ -764,10 +764,10 @@ class Announcement {
 }
 
 class RefundPolicy {
-  int _status;
-  String _content;
+  int? _status;
+  String? _content;
 
-  RefundPolicy({int status, String content}) {
+  RefundPolicy({int? status, String? content}) {
     if (status != null) {
       this._status = status;
     }
@@ -776,8 +776,8 @@ class RefundPolicy {
     }
   }
 
-  int get status => _status;
-  String get content => _content;
+  int? get status => _status;
+  String? get content => _content;
 
 
   RefundPolicy.fromJson(Map<String, dynamic> json) {
@@ -795,39 +795,39 @@ class RefundPolicy {
 
 
 class PaymentMethods {
-  bool _offlinePayment;
-  bool _sslCommerzPayment;
-  bool _paypal;
-  bool _stripe;
-  bool _razorPay;
-  bool _senangPay;
-  bool _paytabs;
-  bool _paystack;
-  bool _paymobAccept;
-  bool _fawryPay;
-  bool _mercadopago;
-  bool _liqpay;
-  bool _flutterwave;
-  bool _paytm;
-  bool _bkash;
+  bool? _offlinePayment;
+  bool? _sslCommerzPayment;
+  bool? _paypal;
+  bool? _stripe;
+  bool? _razorPay;
+  bool? _senangPay;
+  bool? _paytabs;
+  bool? _paystack;
+  bool? _paymobAccept;
+  bool? _fawryPay;
+  bool? _mercadopago;
+  bool? _liqpay;
+  bool? _flutterwave;
+  bool? _paytm;
+  bool? _bkash;
 
   PaymentMethods(
       {
-        bool offlinePayment,
-        bool sslCommerzPayment,
-        bool paypal,
-        bool stripe,
-        bool razorPay,
-        bool senangPay,
-        bool paytabs,
-        bool paystack,
-        bool paymobAccept,
-        bool fawryPay,
-        bool mercadopago,
-        bool liqpay,
-        bool flutterwave,
-        bool paytm,
-        bool bkash}) {
+        bool? offlinePayment,
+        bool? sslCommerzPayment,
+        bool? paypal,
+        bool? stripe,
+        bool? razorPay,
+        bool? senangPay,
+        bool? paytabs,
+        bool? paystack,
+        bool? paymobAccept,
+        bool? fawryPay,
+        bool? mercadopago,
+        bool? liqpay,
+        bool? flutterwave,
+        bool? paytm,
+        bool? bkash}) {
 
     if (offlinePayment != null) {
       this._offlinePayment = offlinePayment;
@@ -877,21 +877,21 @@ class PaymentMethods {
   }
 
 
-  bool get offlinePayment => _offlinePayment;
-  bool get sslCommerzPayment => _sslCommerzPayment;
-  bool get paypal => _paypal;
-  bool get stripe => _stripe;
-  bool get razorPay => _razorPay;
-  bool get senangPay => _senangPay;
-  bool get paytabs => _paytabs;
-  bool get paystack => _paystack;
-  bool get paymobAccept => _paymobAccept;
-  bool get fawryPay => _fawryPay;
-  bool get mercadopago => _mercadopago;
-  bool get liqpay => _liqpay;
-  bool get flutterwave => _flutterwave;
-  bool get paytm => _paytm;
-  bool get bkash => _bkash;
+  bool? get offlinePayment => _offlinePayment;
+  bool? get sslCommerzPayment => _sslCommerzPayment;
+  bool? get paypal => _paypal;
+  bool? get stripe => _stripe;
+  bool? get razorPay => _razorPay;
+  bool? get senangPay => _senangPay;
+  bool? get paytabs => _paytabs;
+  bool? get paystack => _paystack;
+  bool? get paymobAccept => _paymobAccept;
+  bool? get fawryPay => _fawryPay;
+  bool? get mercadopago => _mercadopago;
+  bool? get liqpay => _liqpay;
+  bool? get flutterwave => _flutterwave;
+  bool? get paytm => _paytm;
+  bool? get bkash => _bkash;
 
   PaymentMethods.fromJson(Map<String, dynamic> json) {
     _offlinePayment = json['offline_payment'];

@@ -11,18 +11,18 @@ import 'package:provider/provider.dart';
 
 class MessageBubble extends StatelessWidget {
   final Message message;
-  MessageBubble({@required this.message});
+  MessageBubble({required this.message});
 
   @override
   Widget build(BuildContext context) {
 
     bool isMe = message.sentByCustomer == 1;
-    String dateTime = DateConverter.localDateToIsoStringAMPM(DateTime.parse(message.createdAt));
-    String baseUrl = Provider.of<ChatProvider>(context, listen: false).userTypeIndex == 0 ?
-    Provider.of<SplashProvider>(context, listen: false).baseUrls.shopImageUrl:
-    Provider.of<SplashProvider>(context, listen: false).baseUrls.deliveryManImage;
-    String image = Provider.of<ChatProvider>(context, listen: false).userTypeIndex == 0 ?
-    message.sellerInfo != null? message.sellerInfo?.shops[0]?.image :'' : message.deliveryMan.image;
+    String dateTime = DateConverter.localDateToIsoStringAMPM(DateTime.parse(message.createdAt!));
+    String? baseUrl = Provider.of<ChatProvider>(context, listen: false).userTypeIndex == 0 ?
+    Provider.of<SplashProvider>(context, listen: false).baseUrls!.shopImageUrl:
+    Provider.of<SplashProvider>(context, listen: false).baseUrls!.deliveryManImage;
+    String? image = Provider.of<ChatProvider>(context, listen: false).userTypeIndex == 0 ?
+    message.sellerInfo != null? message.sellerInfo?.shops![0]?.image :'' : message.deliveryMan!.image;
 
     return Row(crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -54,7 +54,7 @@ class MessageBubble extends StatelessWidget {
                 !isMe? Text(dateTime, style: titilliumRegular.copyWith(
                   fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL,
                   color: ColorResources.getHint(context),)) : SizedBox.shrink(),
-                message.message.isNotEmpty ? Text(message.message,
+                message.message!.isNotEmpty ? Text(message.message!,
                     textAlign: TextAlign.justify,
                     style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL)) :
                 SizedBox.shrink(),

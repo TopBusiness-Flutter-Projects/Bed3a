@@ -14,26 +14,26 @@ import 'package:webview_flutter/webview_flutter.dart';
 class PaymentScreen extends StatefulWidget {
   final String addressID;
   final String billingId;
-  final String orderNote;
+  final String? orderNote;
   final String customerID;
   final String couponCode;
-  final String couponCodeAmount;
-  final String paymentMethod;
+  final String? couponCodeAmount;
+  final String? paymentMethod;
 
-  PaymentScreen({@required this.addressID, @required this.customerID, @required this.couponCode, @required this.billingId, this.orderNote, this.couponCodeAmount, this.paymentMethod});
+  PaymentScreen({required this.addressID, required this.customerID, required this.couponCode, required this.billingId, this.orderNote, this.couponCodeAmount, this.paymentMethod});
 
   @override
   _PaymentScreenState createState() => _PaymentScreenState();
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
-  String selectedUrl;
+  String? selectedUrl;
   double value = 0.0;
   bool _isLoading = true;
 
-  WebViewController controllerGlobal;
-  PullToRefreshController pullToRefreshController;
-  MyInAppBrowser browser;
+  late WebViewController controllerGlobal;
+  PullToRefreshController? pullToRefreshController;
+  late MyInAppBrowser browser;
 
   @override
   void initState() {
@@ -80,7 +80,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     browser.pullToRefreshController = pullToRefreshController;
 
     await browser.openUrlRequest(
-      urlRequest: URLRequest(url: Uri.parse(selectedUrl)),
+      urlRequest: URLRequest(url: Uri.parse(selectedUrl!)),
       options: InAppBrowserClassOptions(
         inAppWebViewGroupOptions: InAppWebViewGroupOptions(
           crossPlatform: InAppWebViewOptions(useShouldOverrideUrlLoading: true, useOnLoadResource: true),
@@ -141,8 +141,8 @@ class MyInAppBrowser extends InAppBrowser {
   final BuildContext context;
 
   MyInAppBrowser(this.context, {
-    int windowId,
-    UnmodifiableListView<UserScript> initialUserScripts,
+    int? windowId,
+    UnmodifiableListView<UserScript>? initialUserScripts,
   })
       : super(windowId: windowId, initialUserScripts: initialUserScripts);
 

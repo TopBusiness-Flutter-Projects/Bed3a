@@ -10,16 +10,16 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CallAndChatWidget extends StatelessWidget {
-  final OrderProvider orderProvider;
-  final OrderModel orderModel;
+  final OrderProvider? orderProvider;
+  final OrderModel? orderModel;
   final bool isSeller;
-  const CallAndChatWidget({Key key, this.orderProvider, this.isSeller = false, this.orderModel}) : super(key: key);
+  const CallAndChatWidget({Key? key, this.orderProvider, this.isSeller = false, this.orderModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String phone = isSeller? orderProvider.orderDetails[0].seller.phone : orderModel.deliveryMan.phone;
-    String name = isSeller? orderProvider.orderDetails[0].seller.shop.name : orderModel.deliveryMan.fName+' '+orderModel.deliveryMan.lName;
-    int id =  isSeller ? orderProvider.orderDetails[0].seller.id : orderModel.deliveryMan.id;
+    String? phone = isSeller? orderProvider!.orderDetails![0].seller!.phone : orderModel!.deliveryMan!.phone;
+    String? name = isSeller? orderProvider!.orderDetails![0].seller!.shop!.name : orderModel!.deliveryMan!.fName!+' '+orderModel!.deliveryMan!.lName!;
+    int? id =  isSeller ? orderProvider!.orderDetails![0].seller!.id : orderModel!.deliveryMan!.id;
     return Row(children: [
       InkWell(
         onTap: ()=> _launchUrl("tel:$phone"),

@@ -23,7 +23,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   GlobalKey<ScaffoldMessengerState> _globalKey = GlobalKey();
-  StreamSubscription<ConnectivityResult> _onConnectivityChanged;
+  late StreamSubscription<ConnectivityResult> _onConnectivityChanged;
 
   @override
   void initState() {
@@ -38,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
           backgroundColor: isNotConnected ? Colors.red : Colors.green,
           duration: Duration(seconds: isNotConnected ? 6000 : 3),
           content: Text(
-            isNotConnected ? getTranslated('no_connection', context) : getTranslated('connected', context),
+            isNotConnected ? getTranslated('no_connection', context)! : getTranslated('connected', context)!,
             textAlign: TextAlign.center,
           ),
         ));
@@ -64,7 +64,7 @@ class _SplashScreenState extends State<SplashScreen> {
       if(isSuccess) {
         Provider.of<SplashProvider>(context, listen: false).initSharedPrefData();
         Timer(Duration(seconds: 1), () {
-          if(Provider.of<SplashProvider>(context, listen: false).configModel.maintenanceMode) {
+          if(Provider.of<SplashProvider>(context, listen: false).configModel!.maintenanceMode!) {
             Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => MaintenanceScreen()));
           }else {
             if (Provider.of<AuthProvider>(context, listen: false).isLoggedIn()) {
@@ -72,7 +72,7 @@ class _SplashScreenState extends State<SplashScreen> {
               Provider.of<ProfileProvider>(context, listen: false).getUserInfo(context);
               Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => DashBoardScreen()));
             } else {
-              if(Provider.of<SplashProvider>(context, listen: false).showIntro()) {
+              if(Provider.of<SplashProvider>(context, listen: false).showIntro()!) {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => OnBoardingScreen(
                   indicatorColor: ColorResources.GREY, selectedIndicatorColor: Theme.of(context).primaryColor,
                 )));

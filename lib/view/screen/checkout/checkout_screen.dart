@@ -35,11 +35,11 @@ class CheckoutScreen extends StatefulWidget {
   final double shippingFee;
   final double discount;
   final double tax;
-  final int sellerId;
+  final int? sellerId;
   final bool onlyDigital;
 
-  CheckoutScreen({@required this.cartList, this.fromProductDetails = false,
-    @required this.discount, @required this.tax, @required this.totalOrderAmount, @required this.shippingFee, this.sellerId, this.onlyDigital = false});
+  CheckoutScreen({required this.cartList, this.fromProductDetails = false,
+    required this.discount, required this.tax, required this.totalOrderAmount, required this.shippingFee, this.sellerId, this.onlyDigital = false});
 
 
   @override
@@ -52,10 +52,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   final TextEditingController _orderNoteController = TextEditingController();
   final FocusNode _orderNoteNode = FocusNode();
   double _order = 0;
-  bool _digitalPayment;
-  bool _cod;
-  bool _billingAddress;
-  double _couponDiscount;
+  bool? _digitalPayment;
+  bool? _cod;
+  late bool _billingAddress;
+  double? _couponDiscount;
 
 
   TextEditingController paymentByController = TextEditingController();
@@ -72,9 +72,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     Provider.of<CouponProvider>(context, listen: false).removePrevCouponData();
     Provider.of<CartProvider>(context, listen: false).getCartDataAPI(context);
     Provider.of<CartProvider>(context, listen: false).getChosenShippingMethod(context);
-    _digitalPayment = Provider.of<SplashProvider>(context, listen: false).configModel.digitalPayment;
-    _cod = Provider.of<SplashProvider>(context, listen: false).configModel.cod;
-    _billingAddress = Provider.of<SplashProvider>(context, listen: false).configModel.billingAddress == 1;
+    _digitalPayment = Provider.of<SplashProvider>(context, listen: false).configModel!.digitalPayment;
+    _cod = Provider.of<SplashProvider>(context, listen: false).configModel!.cod;
+    _billingAddress = Provider.of<SplashProvider>(context, listen: false).configModel!.billingAddress == 1;
 
   }
 
@@ -85,37 +85,37 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
 
     List<PaymentMethod> _paymentMethods = [
-      if(_cod && !widget.onlyDigital)
+      if(_cod! && !widget.onlyDigital)
       PaymentMethod('cash_on_delivery', Images.cod),
-      if(_digitalPayment && Provider.of<SplashProvider>(context, listen: false).configModel.paymentMethods.bkash)
+      if(_digitalPayment! && Provider.of<SplashProvider>(context, listen: false).configModel!.paymentMethods!.bkash!)
         PaymentMethod('bkash', Images.bKash),
-      if(_digitalPayment && Provider.of<SplashProvider>(context, listen: false).configModel.paymentMethods.liqpay)
+      if(_digitalPayment! && Provider.of<SplashProvider>(context, listen: false).configModel!.paymentMethods!.liqpay!)
         PaymentMethod('liqpay', Images.liqpay),
-      if(_digitalPayment && Provider.of<SplashProvider>(context, listen: false).configModel.paymentMethods.mercadopago)
+      if(_digitalPayment! && Provider.of<SplashProvider>(context, listen: false).configModel!.paymentMethods!.mercadopago!)
         PaymentMethod('mercadopago', Images.mercadopago),
-      if(_digitalPayment && Provider.of<SplashProvider>(context, listen: false).configModel.paymentMethods.paymobAccept)
+      if(_digitalPayment! && Provider.of<SplashProvider>(context, listen: false).configModel!.paymentMethods!.paymobAccept!)
         PaymentMethod('paymob_accept', Images.paymob),
-      if(_digitalPayment && Provider.of<SplashProvider>(context, listen: false).configModel.paymentMethods.paystack)
+      if(_digitalPayment! && Provider.of<SplashProvider>(context, listen: false).configModel!.paymentMethods!.paystack!)
         PaymentMethod('paystack', Images.paystack),
-      if(_digitalPayment && Provider.of<SplashProvider>(context, listen: false).configModel.paymentMethods.paytabs)
+      if(_digitalPayment! && Provider.of<SplashProvider>(context, listen: false).configModel!.paymentMethods!.paytabs!)
         PaymentMethod('paytabs', Images.paytabs),
-      if(_digitalPayment && Provider.of<SplashProvider>(context, listen: false).configModel.paymentMethods.razorPay)
+      if(_digitalPayment! && Provider.of<SplashProvider>(context, listen: false).configModel!.paymentMethods!.razorPay!)
         PaymentMethod('razor_pay', Images.razorpay),
-      if(_digitalPayment && Provider.of<SplashProvider>(context, listen: false).configModel.paymentMethods.paypal)
+      if(_digitalPayment! && Provider.of<SplashProvider>(context, listen: false).configModel!.paymentMethods!.paypal!)
         PaymentMethod('paypal', Images.paypal),
-      if(_digitalPayment && Provider.of<SplashProvider>(context, listen: false).configModel.paymentMethods.senangPay)
+      if(_digitalPayment! && Provider.of<SplashProvider>(context, listen: false).configModel!.paymentMethods!.senangPay!)
         PaymentMethod('senang_pay', Images.snangpay),
-      if(_digitalPayment && Provider.of<SplashProvider>(context, listen: false).configModel.paymentMethods.sslCommerzPayment)
+      if(_digitalPayment! && Provider.of<SplashProvider>(context, listen: false).configModel!.paymentMethods!.sslCommerzPayment!)
         PaymentMethod('ssl_commerz_payment', Images.sslCommerz),
-      if(_digitalPayment && Provider.of<SplashProvider>(context, listen: false).configModel.paymentMethods.stripe)
+      if(_digitalPayment! && Provider.of<SplashProvider>(context, listen: false).configModel!.paymentMethods!.stripe!)
         PaymentMethod('stripe', Images.stripe),
-      if(_digitalPayment && Provider.of<SplashProvider>(context, listen: false).configModel.paymentMethods.flutterwave)
+      if(_digitalPayment! && Provider.of<SplashProvider>(context, listen: false).configModel!.paymentMethods!.flutterwave!)
         PaymentMethod('flutterwave', Images.flutterwave),
-      if(_digitalPayment && Provider.of<SplashProvider>(context, listen: false).configModel.paymentMethods.fawryPay)
+      if(_digitalPayment! && Provider.of<SplashProvider>(context, listen: false).configModel!.paymentMethods!.fawryPay!)
         PaymentMethod('fawry_pay', Images.fawryPay),
-      if(_digitalPayment && Provider.of<SplashProvider>(context, listen: false).configModel.paymentMethods.offlinePayment)
+      if(_digitalPayment! && Provider.of<SplashProvider>(context, listen: false).configModel!.paymentMethods!.offlinePayment!)
         PaymentMethod('offline_payment', Images.offline_pay),
-      if(_digitalPayment && Provider.of<SplashProvider>(context, listen: false).configModel.walletStatus == 1)
+      if(_digitalPayment! && Provider.of<SplashProvider>(context, listen: false).configModel!.walletStatus == 1)
         PaymentMethod('wallet', Images.wallet_pay),
 
     ];
@@ -152,7 +152,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 }
 
                 String orderNote = _orderNoteController.text.trim();
-                double couponDiscount = Provider.of<CouponProvider>(context, listen: false).discount != null ?
+                double? couponDiscount = Provider.of<CouponProvider>(context, listen: false).discount != null ?
                 Provider.of<CouponProvider>(context, listen: false).discount : 0;
                 String couponCode =Provider.of<CouponProvider>(context, listen: false).discount != null &&
                     Provider.of<CouponProvider>(context, listen: false).discount != 0?
@@ -167,13 +167,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     'cash_on_delivery' , couponDiscount,
                   ), _callback,
                       widget.onlyDigital ? '':
-                      Provider.of<ProfileProvider>(context, listen: false).addressList[order.addressIndex].id.toString(),
+                      Provider.of<ProfileProvider>(context, listen: false).addressList[order.addressIndex!].id.toString(),
                       couponCode,
                       couponCodeAmount,
                       _billingAddress?
-                      Provider.of<ProfileProvider>(context, listen: false).billingAddressList[order.billingAddressIndex].id.toString():
+                      Provider.of<ProfileProvider>(context, listen: false).billingAddressList[order.billingAddressIndex!].id.toString():
                       widget.onlyDigital ? '':
-                      Provider.of<ProfileProvider>(context, listen: false).addressList[order.addressIndex].id.toString(),
+                      Provider.of<ProfileProvider>(context, listen: false).addressList[order.addressIndex!].id.toString(),
                       orderNote, paymentByController.text, transactionIdController.text, paymentNoteController.text
                   );
                 }
@@ -194,13 +194,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           'offline_payment', couponDiscount,
                         ), _callback,
                             widget.onlyDigital ? '':
-                            Provider.of<ProfileProvider>(context, listen: false).addressList[order.addressIndex].id.toString(),
+                            Provider.of<ProfileProvider>(context, listen: false).addressList[order.addressIndex!].id.toString(),
                             couponCode,
                             couponCodeAmount,
                             _billingAddress?
-                            Provider.of<ProfileProvider>(context, listen: false).billingAddressList[order.billingAddressIndex].id.toString():
+                            Provider.of<ProfileProvider>(context, listen: false).billingAddressList[order.billingAddressIndex!].id.toString():
                             widget.onlyDigital ? '':
-                            Provider.of<ProfileProvider>(context, listen: false).addressList[order.addressIndex].id.toString(),
+                            Provider.of<ProfileProvider>(context, listen: false).addressList[order.addressIndex!].id.toString(),
                             orderNote, paymentByController.text, transactionIdController.text, paymentNoteController.text, isfOffline: true);
                       }
 
@@ -212,9 +212,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     builder: (context, profile,_) {
                       return WalletPayment(
                         currentBalance: profile.balance,
-                        orderAmount: _order + widget.shippingFee - widget.discount - _couponDiscount + widget.tax,
+                        orderAmount: _order + widget.shippingFee - widget.discount - _couponDiscount! + widget.tax,
                         onTap: (){
-                          if(profile.balance < (_order + widget.shippingFee - widget.discount - _couponDiscount + widget.tax)){
+                          if(profile.balance! < (_order + widget.shippingFee - widget.discount - _couponDiscount! + widget.tax)){
                             showCustomSnackBar(getTranslated('insufficient_balance', context), context, isToaster: true);
                           }else{
                             Navigator.pop(context);
@@ -222,13 +222,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               'pay_by_wallet', couponDiscount,
                             ), _callback,
                                 widget.onlyDigital ? '':
-                                Provider.of<ProfileProvider>(context, listen: false).addressList[order.addressIndex].id.toString(),
+                                Provider.of<ProfileProvider>(context, listen: false).addressList[order.addressIndex!].id.toString(),
                                 couponCode,
                                 couponCodeAmount,
                                 _billingAddress?
-                                Provider.of<ProfileProvider>(context, listen: false).billingAddressList[order.billingAddressIndex].id.toString():
+                                Provider.of<ProfileProvider>(context, listen: false).billingAddressList[order.billingAddressIndex!].id.toString():
                                 widget.onlyDigital ? '':
-                                Provider.of<ProfileProvider>(context, listen: false).addressList[order.addressIndex].id.toString(),
+                                Provider.of<ProfileProvider>(context, listen: false).addressList[order.addressIndex!].id.toString(),
                                 orderNote, paymentByController.text, transactionIdController.text, paymentNoteController.text, wallet: true);
                           }
 
@@ -242,13 +242,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => PaymentScreen(
                     customerID: userID,
                     addressID: widget.onlyDigital ? '':
-                    Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex].id.toString(),
+                    Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex!].id.toString(),
                     couponCode: couponCode,
                     couponCodeAmount: couponCodeAmount,
                     billingId: _billingAddress?
-                    Provider.of<ProfileProvider>(context, listen: false).billingAddressList[Provider.of<OrderProvider>(context, listen: false).billingAddressIndex].id.toString():
+                    Provider.of<ProfileProvider>(context, listen: false).billingAddressList[Provider.of<OrderProvider>(context, listen: false).billingAddressIndex!].id.toString():
                     widget.onlyDigital ? '':
-                    Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex].id.toString(),
+                    Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex!].id.toString(),
                     orderNote: orderNote,
                     paymentMethod: _paymentMethods[order.paymentMethodIndex].name,
 
@@ -268,7 +268,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   return !Provider.of<OrderProvider>(context).isLoading ? Builder(
                     builder: (context) => Padding(
                       padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/2.9),
-                      child: Text(getTranslated('proceed', context), style: titilliumSemiBold.copyWith(
+                      child: Text(getTranslated('proceed', context)!, style: titilliumSemiBold.copyWith(
                         fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE,
                         color: Theme.of(context).cardColor,
                       )),
@@ -333,7 +333,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                           Provider.of<OrderProvider>(context,listen: false).addressIndex == null ?
                                           '${getTranslated('address_type', context)}' :
                                           Provider.of<ProfileProvider>(context, listen: false).addressList[
-                                          Provider.of<OrderProvider>(context, listen: false).addressIndex].addressType,
+                                          Provider.of<OrderProvider>(context, listen: false).addressIndex!].addressType!,
                                           style: titilliumBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),
                                           maxLines: 3, overflow: TextOverflow.fade,
                                         ),
@@ -344,9 +344,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                       Container(
                                         child: Text(
                                           Provider.of<OrderProvider>(context,listen: false).addressIndex == null ?
-                                          getTranslated('add_your_address', context) :
+                                          getTranslated('add_your_address', context)! :
                                           Provider.of<ProfileProvider>(context, listen: false).addressList[
-                                            shipping.addressIndex].address,
+                                            shipping.addressIndex!].address!,
                                           style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL),
                                           maxLines: 3, overflow: TextOverflow.fade,
                                         ),
@@ -389,7 +389,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                         child: Text(
                                           Provider.of<OrderProvider>(context).billingAddressIndex == null ? '${getTranslated('address_type', context)}'
                                               : Provider.of<ProfileProvider>(context, listen: false).billingAddressList[
-                                          Provider.of<OrderProvider>(context, listen: false).billingAddressIndex].addressType,
+                                          Provider.of<OrderProvider>(context, listen: false).billingAddressIndex!].addressType!,
                                           style: titilliumBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),
                                           maxLines: 1, overflow: TextOverflow.fade,
                                         ),
@@ -397,9 +397,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                       Divider(),
                                       Container(
                                         child: Text(
-                                          Provider.of<OrderProvider>(context).billingAddressIndex == null ? getTranslated('add_your_address', context)
+                                          Provider.of<OrderProvider>(context).billingAddressIndex == null ? getTranslated('add_your_address', context)!
                                               : Provider.of<ProfileProvider>(context, listen: false).billingAddressList[
-                                                shipping.billingAddressIndex].address,
+                                                shipping.billingAddressIndex!].address!,
                                           style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL),
                                           maxLines: 3, overflow: TextOverflow.fade,
                                         ),
@@ -418,7 +418,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               // Order Details
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_DEFAULT),
-                child: Text(getTranslated('ORDER_DETAILS', context),style: robotoBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),),
+                child: Text(getTranslated('ORDER_DETAILS', context)!,style: robotoBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),),
               ),
               Container(
                 transform: Matrix4.translationValues(0.0, -30.0, 0.0),
@@ -439,7 +439,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_EXTRA_SMALL),
                               child: FadeInImage.assetNetwork(
                                 placeholder: Images.placeholder, fit: BoxFit.cover, width: 50, height: 50,
-                                image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls.productThumbnailUrl}'
+                                image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.productThumbnailUrl}'
                                     '/${Provider.of<CartProvider>(context,listen: false).cartList[index].thumbnail}',
                                 imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder, fit: BoxFit.cover, width: 50, height: 50),
                               ),
@@ -453,7 +453,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      Provider.of<CartProvider>(context,listen: false).cartList[index].name,
+                                      Provider.of<CartProvider>(context,listen: false).cartList[index].name!,
                                       style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT,
                                           color: ColorResources.getPrimary(context)),
                                       maxLines: 2,
@@ -524,7 +524,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                   topRight: Radius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL))
 
                           ),
-                          child: Center(child: Text(getTranslated('APPLY', context),
+                          child: Center(child: Text(getTranslated('APPLY', context)!,
                             style: titleRegular.copyWith(color: Theme.of(context).cardColor, fontSize: Dimensions.FONT_SIZE_LARGE),
                           ))),
                     ) : Padding(
@@ -542,7 +542,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor.withOpacity(.055),
                 ),
-                child: Center(child: Text(getTranslated('order_summary', context),
+                child: Center(child: Text(getTranslated('order_summary', context)!,
                   style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),)),
               ),
               // Total bill
@@ -564,7 +564,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       AmountWidget(title: getTranslated('TAX', context), amount: PriceConverter.convertPrice(context, widget.tax)),
                       Divider(height: 5, color: Theme.of(context).hintColor),
                       AmountWidget(title: getTranslated('TOTAL_PAYABLE', context), amount: PriceConverter.convertPrice(context,
-                          (_order + widget.shippingFee - widget.discount - _couponDiscount + widget.tax))),
+                          (_order + widget.shippingFee - widget.discount - _couponDiscount! + widget.tax))),
                     ]);
                   },
                 ),
@@ -578,7 +578,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 color: Theme.of(context).highlightColor,
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                  Text(getTranslated('payment_method', context), style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),),
+                  Text(getTranslated('payment_method', context)!, style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),),
                   SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                   SizedBox(height: 100,
                       child: ListView.builder(
@@ -651,13 +651,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
 class PaymentButton extends StatelessWidget {
   final String image;
-  final Function onTap;
-  PaymentButton({@required this.image, this.onTap});
+  final Function? onTap;
+  PaymentButton({required this.image, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: onTap as void Function()?,
       child: Container(
         height: 45,
         margin: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),

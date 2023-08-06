@@ -7,14 +7,14 @@ import 'package:bed3a_ecommerce/localization/language_constrants.dart';
 import 'package:bed3a_ecommerce/view/basewidget/show_custom_snakbar.dart';
 
 class CouponProvider extends ChangeNotifier {
-  final CouponRepo couponRepo;
-  CouponProvider({@required this.couponRepo});
+  final CouponRepo? couponRepo;
+  CouponProvider({required this.couponRepo});
 
-  CouponModel _coupon;
-  double _discount;
+  CouponModel? _coupon;
+  double? _discount;
   bool _isLoading = false;
-  CouponModel get coupon => _coupon;
-  double get discount => _discount;
+  CouponModel? get coupon => _coupon;
+  double? get discount => _discount;
   bool get isLoading => _isLoading;
   String _couponCode = '';
   String get couponCode => _couponCode;
@@ -23,11 +23,11 @@ class CouponProvider extends ChangeNotifier {
     _isLoading = true;
     _discount = 0;
     notifyListeners();
-    ApiResponse apiResponse = await couponRepo.getCoupon(coupon);
-    if (apiResponse.response != null  && apiResponse.response.statusCode == 200) {
+    ApiResponse apiResponse = await couponRepo!.getCoupon(coupon);
+    if (apiResponse.response != null  && apiResponse.response!.statusCode == 200) {
       _isLoading = false;
       _couponCode = coupon;
-      Map map = apiResponse.response.data;
+      Map map = apiResponse.response!.data;
       String dis = map['coupon_discount'].toString();
       print('=========>$dis');
       if(map['coupon_discount'] !=null){
@@ -37,7 +37,7 @@ class CouponProvider extends ChangeNotifier {
           '${PriceConverter.convertPrice(context, _discount)} '
           '${getTranslated('discount', context)}', context, isError: false);
     } else {
-      showCustomSnackBar(apiResponse.response.data, context, isToaster: true);
+      showCustomSnackBar(apiResponse.response!.data, context, isToaster: true);
     }
     _isLoading = false;
     notifyListeners();

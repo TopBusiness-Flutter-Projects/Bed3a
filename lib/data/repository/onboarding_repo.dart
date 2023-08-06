@@ -8,8 +8,8 @@ import 'package:bed3a_ecommerce/localization/language_constrants.dart';
 import 'package:bed3a_ecommerce/utill/app_constants.dart';
 
 class OnBoardingRepo{
-  final DioClient dioClient;
-  OnBoardingRepo({@required this.dioClient});
+  final DioClient? dioClient;
+  OnBoardingRepo({required this.dioClient});
 
   Future<ApiResponse> getOnBoardingList(BuildContext context) async {
     try {

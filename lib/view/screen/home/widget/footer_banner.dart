@@ -11,10 +11,10 @@ import 'package:bed3a_ecommerce/view/screen/product/product_details_screen.dart'
 import 'package:bed3a_ecommerce/view/screen/topSeller/top_seller_product_screen.dart';
 import 'package:provider/provider.dart';
 class FooterBannersView extends StatelessWidget {
-  final int index;
-  const FooterBannersView({Key key, this.index}) : super(key: key);
+  final int? index;
+  const FooterBannersView({Key? key, this.index}) : super(key: key);
 
-  _clickBannerRedirect(BuildContext context, int id, Product product,  String type){
+  _clickBannerRedirect(BuildContext context, int? id, Product? product,  String? type){
 
     final cIndex =  Provider.of<CategoryProvider>(context, listen: false).categoryList.indexWhere((element) => element.id == id);
     final bIndex =  Provider.of<BrandProvider>(context, listen: false).brandList.indexWhere((element) => element.id == id);
@@ -32,7 +32,7 @@ class FooterBannersView extends StatelessWidget {
 
     }else if(type == 'product'){
       Navigator.push(context, MaterialPageRoute(builder: (_) => ProductDetails(
-        productId: product.id,slug: product.slug,
+        productId: product!.id,slug: product.slug,
       )));
 
     }else if(type == 'brand'){
@@ -65,10 +65,10 @@ class FooterBannersView extends StatelessWidget {
       return InkWell(
         onTap: () {
           _clickBannerRedirect(context,
-              footerBannerProvider.footerBannerList[index].resourceId,
-              footerBannerProvider.footerBannerList[index].resourceType =='product'?
-              footerBannerProvider.footerBannerList[index].product : null,
-              footerBannerProvider.footerBannerList[index].resourceType);
+              footerBannerProvider.footerBannerList![index!].resourceId,
+              footerBannerProvider.footerBannerList![index!].resourceType =='product'?
+              footerBannerProvider.footerBannerList![index!].product : null,
+              footerBannerProvider.footerBannerList![index!].resourceType);
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 2.0),
@@ -80,8 +80,8 @@ class FooterBannersView extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(5)),
               child: FadeInImage.assetNetwork(
                 placeholder: Images.placeholder, fit: BoxFit.cover,
-                image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls.bannerImageUrl}'
-                    '/${footerBannerProvider.footerBannerList[index].photo}',
+                image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.bannerImageUrl}'
+                    '/${footerBannerProvider.footerBannerList![index!].photo}',
                 imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder, fit: BoxFit.cover),
               ),
             ),

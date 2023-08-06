@@ -11,8 +11,8 @@ const double BAR_HEIGHT = 60;
 
 class FancyBottomNavBar extends StatefulWidget {
   FancyBottomNavBar(
-      {@required this.tabs,
-        @required this.onTabChangedListener,
+      {required this.tabs,
+        required this.onTabChangedListener,
         this.key,
         this.isLtr,
         this.initialSelection = 0,
@@ -26,16 +26,16 @@ class FancyBottomNavBar extends StatefulWidget {
         assert(tabs.length > 1 && tabs.length < 6);
 
   final Function(int position) onTabChangedListener;
-  final Color circleColor;
-  final Color activeIconColor;
-  final Color inactiveIconColor;
-  final Color textColor;
-  final bool isLtr;
-  final Color barBackgroundColor;
+  final Color? circleColor;
+  final Color? activeIconColor;
+  final Color? inactiveIconColor;
+  final Color? textColor;
+  final bool? isLtr;
+  final Color? barBackgroundColor;
   final List<FancyTabData> tabs;
   final int initialSelection;
 
-  final Key key;
+  final Key? key;
 
   @override
   FancyBottomNavBarState createState() => FancyBottomNavBarState();
@@ -50,11 +50,11 @@ class FancyBottomNavBarState extends State<FancyBottomNavBar>
   double _circleAlignX = 0;
   double _circleIconAlpha = 1;
 
-  Color circleColor;
-  Color activeIconColor;
-  Color inactiveIconColor;
-  Color barBackgroundColor;
-  Color textColor;
+  Color? circleColor;
+  Color? activeIconColor;
+  Color? inactiveIconColor;
+  Color? barBackgroundColor;
+  Color? textColor;
 
   @override
   void didChangeDependencies() {
@@ -103,7 +103,7 @@ class FancyBottomNavBarState extends State<FancyBottomNavBar>
     if (mounted) {
       setState(() {
         currentSelected = selected;
-        if(widget.isLtr) {
+        if(widget.isLtr!) {
           _circleAlignX = -1 + (2 / (widget.tabs.length - 1) * selected);
         }else {
           _circleAlignX = -1 + (2 / (widget.tabs.length - 1) * (widget.tabs.length - selected - 1));
@@ -158,7 +158,7 @@ class FancyBottomNavBarState extends State<FancyBottomNavBar>
                 child: FractionallySizedBox(
                   widthFactor: 1 / widget.tabs.length,
                   child: GestureDetector(
-                    onTap: widget.tabs[currentSelected].onclick,
+                    onTap: widget.tabs[currentSelected].onclick as void Function()?,
                     child: Stack(
                       alignment: Alignment.center,
                       children: <Widget>[
@@ -189,7 +189,7 @@ class FancyBottomNavBarState extends State<FancyBottomNavBar>
                             height: ARC_HEIGHT,
                             width: ARC_WIDTH,
                             child: CustomPaint(
-                              painter: HalfPainter(barBackgroundColor),
+                              painter: HalfPainter(barBackgroundColor!),
                             )),
                         SizedBox(
                           height: CIRCLE_SIZE,
@@ -239,7 +239,7 @@ class FancyBottomNavBarState extends State<FancyBottomNavBar>
           _circleIconAlpha = 1;
         });
       });
-    });
+    } as Future<void> Function(Null));
   }
 
   void setPage(int page) {
@@ -254,11 +254,11 @@ class FancyBottomNavBarState extends State<FancyBottomNavBar>
 }
 
 class FancyTabData {
-  FancyTabData({@required this.imagePath, @required this.title, this.onclick});
+  FancyTabData({required this.imagePath, required this.title, this.onclick});
 
   String imagePath;
   String title;
-  Function onclick;
+  Function? onclick;
   final UniqueKey key = UniqueKey();
 }
 
@@ -272,21 +272,21 @@ const int ANIM_DURATION = 300;
 
 class TabItem extends StatelessWidget {
   TabItem(
-      {@required this.uniqueKey,
-        @required this.selected,
-        @required this.imagePath,
-        @required this.title,
-        @required this.callbackFunction,
-        @required this.textColor,
-        @required this.iconColor});
+      {required this.uniqueKey,
+        required this.selected,
+        required this.imagePath,
+        required this.title,
+        required this.callbackFunction,
+        required this.textColor,
+        required this.iconColor});
 
   final UniqueKey uniqueKey;
   final String title;
   final String imagePath;
   final bool selected;
   final Function(UniqueKey uniqueKey) callbackFunction;
-  final Color textColor;
-  final Color iconColor;
+  final Color? textColor;
+  final Color? iconColor;
 
   final double iconYAlign = ICON_ON;
   final double textYAlign = TEXT_OFF;

@@ -17,61 +17,61 @@ import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 
 class OrderProvider with ChangeNotifier {
-  final OrderRepo orderRepo;
-  OrderProvider({@required this.orderRepo});
+  final OrderRepo? orderRepo;
+  OrderProvider({required this.orderRepo});
 
-  List<OrderModel> _pendingList;
-  List<OrderModel> _deliveredList;
-  List<OrderModel> _canceledList;
-  int _addressIndex;
-  int _billingAddressIndex;
-  int get billingAddressIndex => _billingAddressIndex;
-  int _shippingIndex;
+  List<OrderModel>? _pendingList;
+  List<OrderModel>? _deliveredList;
+  List<OrderModel>? _canceledList;
+  int? _addressIndex;
+  int? _billingAddressIndex;
+  int? get billingAddressIndex => _billingAddressIndex;
+  int? _shippingIndex;
   bool _isLoading = false;
   bool _isRefund = false;
   bool get isRefund => _isRefund;
-  List<ShippingMethodModel> _shippingList;
+  List<ShippingMethodModel>? _shippingList;
   int _paymentMethodIndex = 0;
   bool _onlyDigital = true;
   bool get onlyDigital => _onlyDigital;
 
-  List<OrderModel> get pendingList => _pendingList != null ? _pendingList.reversed.toList() : _pendingList;
-  List<OrderModel> get deliveredList => _deliveredList != null ? _deliveredList.reversed.toList() : _deliveredList;
-  List<OrderModel> get canceledList => _canceledList != null ? _canceledList.reversed.toList() : _canceledList;
-  int get addressIndex => _addressIndex;
-  int get shippingIndex => _shippingIndex;
+  List<OrderModel>? get pendingList => _pendingList != null ? _pendingList!.reversed.toList() : _pendingList;
+  List<OrderModel>? get deliveredList => _deliveredList != null ? _deliveredList!.reversed.toList() : _deliveredList;
+  List<OrderModel>? get canceledList => _canceledList != null ? _canceledList!.reversed.toList() : _canceledList;
+  int? get addressIndex => _addressIndex;
+  int? get shippingIndex => _shippingIndex;
   bool get isLoading => _isLoading;
-  List<ShippingMethodModel> get shippingList => _shippingList;
+  List<ShippingMethodModel>? get shippingList => _shippingList;
   int get paymentMethodIndex => _paymentMethodIndex;
-  XFile _imageFile;
-  XFile get imageFile => _imageFile;
-  List <XFile>_refundImage = [];
-  List<XFile> get refundImage => _refundImage;
+  XFile? _imageFile;
+  XFile? get imageFile => _imageFile;
+  List <XFile?>_refundImage = [];
+  List<XFile?> get refundImage => _refundImage;
 
-  RefundInfoModel _refundInfoModel;
-  RefundInfoModel get refundInfoModel => _refundInfoModel;
-  RefundResultModel _refundResultModel;
-  RefundResultModel get refundResultModel => _refundResultModel;
+  RefundInfoModel? _refundInfoModel;
+  RefundInfoModel? get refundInfoModel => _refundInfoModel;
+  RefundResultModel? _refundResultModel;
+  RefundResultModel? get refundResultModel => _refundResultModel;
 
 
 
 
   Future<void> initOrderList(BuildContext context) async {
-    ApiResponse apiResponse = await orderRepo.getOrderList();
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    ApiResponse apiResponse = await orderRepo!.getOrderList();
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _pendingList = [];
       _deliveredList = [];
       _canceledList = [];
-      apiResponse.response.data.forEach((order) {
+      apiResponse.response!.data.forEach((order) {
         OrderModel orderModel = OrderModel.fromJson(order);
         if (orderModel.orderStatus == AppConstants.PENDING || orderModel.orderStatus == AppConstants.CONFIRMED || orderModel.orderStatus ==AppConstants.OUT_FOR_DELIVERY
             || orderModel.orderStatus == AppConstants.PROCESSING || orderModel.orderStatus == AppConstants.PROCESSED) {
-          _pendingList.add(orderModel);
+          _pendingList!.add(orderModel);
         } else if (orderModel.orderStatus == AppConstants.DELIVERED) {
-          _deliveredList.add(orderModel);
+          _deliveredList!.add(orderModel);
         } else if (orderModel.orderStatus == AppConstants.CANCELLED || orderModel.orderStatus == AppConstants.FAILED
             || orderModel.orderStatus == AppConstants.RETURNED) {
-          _canceledList.add(orderModel);
+          _canceledList!.add(orderModel);
         }
       });
     } else {
@@ -88,16 +88,16 @@ class OrderProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  List<OrderDetailsModel> _orderDetails;
-  List<OrderDetailsModel> get orderDetails => _orderDetails;
+  List<OrderDetailsModel>? _orderDetails;
+  List<OrderDetailsModel>? get orderDetails => _orderDetails;
 
-  Future <void> getOrderDetails(String orderID, BuildContext context, String languageCode) async {
+  Future <void> getOrderDetails(String orderID, BuildContext context, String? languageCode) async {
     _orderDetails = null;
     notifyListeners();
-    ApiResponse apiResponse = await orderRepo.getOrderDetails(orderID, languageCode);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    ApiResponse apiResponse = await orderRepo!.getOrderDetails(orderID, languageCode);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _orderDetails = [];
-      apiResponse.response.data.forEach((order) => _orderDetails.add(OrderDetailsModel.fromJson(order)));
+      apiResponse.response!.data.forEach((order) => _orderDetails!.add(OrderDetailsModel.fromJson(order)));
     } else {
       ApiChecker.checkApi(context, apiResponse);
     }
@@ -105,13 +105,13 @@ class OrderProvider with ChangeNotifier {
   }
 
 
-  OrderModel _orderModel;
-  OrderModel get orderModel => _orderModel;
+  OrderModel? _orderModel;
+  OrderModel? get orderModel => _orderModel;
 
   Future <void> getOrderFromOrderId(String orderID, BuildContext context) async {
-    ApiResponse apiResponse = await orderRepo.getOrderFromOrderId(orderID);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
-      _orderModel = OrderModel.fromJson(apiResponse.response.data);
+    ApiResponse apiResponse = await orderRepo!.getOrderFromOrderId(orderID);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      _orderModel = OrderModel.fromJson(apiResponse.response!.data);
     } else {
       ApiChecker.checkApi(context, apiResponse);
     }
@@ -123,26 +123,26 @@ class OrderProvider with ChangeNotifier {
     notifyListeners();
     ApiResponse apiResponse;
      isfOffline?
-     apiResponse = await orderRepo.offlinePaymentPlaceOrder(addressID, couponCode,couponAmount, billingAddressId, orderNote,paymentBy,transactionId,paymentNote):
+     apiResponse = await orderRepo!.offlinePaymentPlaceOrder(addressID, couponCode,couponAmount, billingAddressId, orderNote,paymentBy,transactionId,paymentNote):
      wallet?
-     apiResponse = await orderRepo.walletPaymentPlaceOrder(addressID, couponCode,couponAmount, billingAddressId, orderNote):
-     apiResponse = await orderRepo.placeOrder(addressID, couponCode,couponAmount, billingAddressId, orderNote);
+     apiResponse = await orderRepo!.walletPaymentPlaceOrder(addressID, couponCode,couponAmount, billingAddressId, orderNote):
+     apiResponse = await orderRepo!.placeOrder(addressID, couponCode,couponAmount, billingAddressId, orderNote);
     _isLoading = false;
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _addressIndex = null;
       _billingAddressIndex = null;
 
-      String message = apiResponse.response.data.toString();
+      String message = apiResponse.response!.data.toString();
       callback(true, message, '');
     } else {
-      String errorMessage;
+      String? errorMessage;
       if (apiResponse.error is String) {
         print(apiResponse.error.toString());
         errorMessage = apiResponse.error.toString();
       } else {
         ErrorResponse errorResponse = apiResponse.error;
-        print(errorResponse.errors[0].message);
-        errorMessage = errorResponse.errors[0].message;
+        print(errorResponse.errors![0].message);
+        errorMessage = errorResponse.errors![0].message;
       }
       callback(false, errorMessage, '-1');
     }
@@ -168,10 +168,10 @@ class OrderProvider with ChangeNotifier {
     _paymentMethodIndex = 0;
     _shippingIndex = null;
     _addressIndex = null;
-    ApiResponse apiResponse = await orderRepo.getShippingMethod(sellerID);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    ApiResponse apiResponse = await orderRepo!.getShippingMethod(sellerID);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _shippingList = [];
-      apiResponse.response.data.forEach((shippingMethod) => _shippingList.add(ShippingMethodModel.fromJson(shippingMethod)));
+      apiResponse.response!.data.forEach((shippingMethod) => _shippingList!.add(ShippingMethodModel.fromJson(shippingMethod)));
     } else {
       ApiChecker.checkApi(context, apiResponse);
     }
@@ -197,13 +197,13 @@ class OrderProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  OrderModel _trackingModel;
-  OrderModel get trackingModel => _trackingModel;
+  OrderModel? _trackingModel;
+  OrderModel? get trackingModel => _trackingModel;
 
   Future<void> initTrackingInfo(String orderID, BuildContext context) async {
-      ApiResponse apiResponse = await orderRepo.getTrackingInfo(orderID);
-      if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
-        _trackingModel = OrderModel.fromJson(apiResponse.response.data);
+      ApiResponse apiResponse = await orderRepo!.getTrackingInfo(orderID);
+      if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+        _trackingModel = OrderModel.fromJson(apiResponse.response!.data);
       } else {
         ApiChecker.checkApi(context, apiResponse);
       }
@@ -233,10 +233,10 @@ class OrderProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<http.StreamedResponse> refundRequest(BuildContext context, int orderDetailsId, double amount, String refundReason, String token) async {
+  Future<http.StreamedResponse> refundRequest(BuildContext context, int? orderDetailsId, double? amount, String refundReason, String token) async {
     _isLoading = true;
     notifyListeners();
-    http.StreamedResponse response = await orderRepo.refundRequest(orderDetailsId, amount, refundReason,refundImage, token);
+    http.StreamedResponse response = await orderRepo!.refundRequest(orderDetailsId, amount, refundReason,refundImage, token);
     if (response.statusCode == 200) {
       getRefundReqInfo(context, orderDetailsId);
       _imageFile = null;
@@ -253,17 +253,17 @@ class OrderProvider with ChangeNotifier {
     notifyListeners();
     return response;
   }
-  Future<ApiResponse> getRefundReqInfo(BuildContext context, int orderDetailId) async {
+  Future<ApiResponse> getRefundReqInfo(BuildContext context, int? orderDetailId) async {
     _isRefund = true;
-    ApiResponse apiResponse = await orderRepo.getRefundInfo(orderDetailId);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
-      _refundInfoModel = RefundInfoModel.fromJson(apiResponse.response.data);
+    ApiResponse apiResponse = await orderRepo!.getRefundInfo(orderDetailId);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      _refundInfoModel = RefundInfoModel.fromJson(apiResponse.response!.data);
       _isRefund = false;
-    } else if(apiResponse.response.statusCode == 202){
+    } else if(apiResponse.response!.statusCode == 202){
       _isRefund = false;
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         backgroundColor:Colors.red,
-        content: Text('${apiResponse.response.data['message']}'),
+        content: Text('${apiResponse.response!.data['message']}'),
       ));
     }
     else {
@@ -274,13 +274,13 @@ class OrderProvider with ChangeNotifier {
     return apiResponse;
   }
 
-  Future<ApiResponse> getRefundResult(BuildContext context, int orderDetailId) async {
+  Future<ApiResponse> getRefundResult(BuildContext context, int? orderDetailId) async {
     _isLoading =true;
 
-    ApiResponse apiResponse = await orderRepo.getRefundResult(orderDetailId);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    ApiResponse apiResponse = await orderRepo!.getRefundResult(orderDetailId);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _isLoading = false;
-      _refundResultModel = RefundResultModel.fromJson(apiResponse.response.data);
+      _refundResultModel = RefundResultModel.fromJson(apiResponse.response!.data);
     } else {
       _isLoading = false;
       ApiChecker.checkApi(context, apiResponse);
@@ -289,10 +289,10 @@ class OrderProvider with ChangeNotifier {
     return apiResponse;
   }
 
-  Future<ApiResponse> cancelOrder(BuildContext context, int orderId) async {
+  Future<ApiResponse> cancelOrder(BuildContext context, int? orderId) async {
     _isLoading = true;
-    ApiResponse apiResponse = await orderRepo.cancelOrder(orderId);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    ApiResponse apiResponse = await orderRepo!.cancelOrder(orderId);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _isLoading = false;
 
     } else {

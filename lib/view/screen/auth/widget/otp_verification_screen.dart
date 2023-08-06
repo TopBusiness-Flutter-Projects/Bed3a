@@ -78,7 +78,7 @@ class VerificationScreen extends StatelessWidget {
                         ),
                       ),
 
-                      Center(child: Text(getTranslated('i_didnt_receive_the_code', context),)),
+                      Center(child: Text(getTranslated('i_didnt_receive_the_code', context)!,)),
 
 
                       Center(
@@ -94,7 +94,7 @@ class VerificationScreen extends StatelessWidget {
                           },
                           child: Padding(
                             padding: EdgeInsets.all(Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                            child: Text(getTranslated('resend_code', context),),),
+                            child: Text(getTranslated('resend_code', context)!,),),
                         ),
                       ),
                       SizedBox(height: 48),
@@ -107,7 +107,7 @@ class VerificationScreen extends StatelessWidget {
                           buttonText: getTranslated('verify', context),
 
                           onTap: () {
-                            bool phoneVerification = Provider.of<SplashProvider>(context,listen: false).configModel.forgetPasswordVerification =='phone';
+                            bool phoneVerification = Provider.of<SplashProvider>(context,listen: false).configModel!.forgetPasswordVerification =='phone';
                             if(phoneVerification && fromForgetPassword){
                               Provider.of<AuthProvider>(context, listen: false).verifyOtp(mobileNumber).then((value) {
                                 if(value.isSuccess) {
@@ -116,17 +116,17 @@ class VerificationScreen extends StatelessWidget {
                                           otp: authProvider.verificationCode)), (route) => false);
                                   }else {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text(getTranslated('input_valid_otp', context)),
+                                      SnackBar(content: Text(getTranslated('input_valid_otp', context)!),
                                         backgroundColor: Colors.red,)
                                   );
                                 }
                               });
                             }else{
-                              if(Provider.of<SplashProvider>(context,listen: false).configModel.phoneVerification){
+                              if(Provider.of<SplashProvider>(context,listen: false).configModel!.phoneVerification!){
                                 Provider.of<AuthProvider>(context, listen: false).verifyPhone(mobileNumber,tempToken).then((value) {
                                   if(value.isSuccess) {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(content: Text(getTranslated('sign_up_successfully_now_login', context)),
+                                        SnackBar(content: Text(getTranslated('sign_up_successfully_now_login', context)!),
                                           backgroundColor: Colors.green,)
                                     );
                                     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
@@ -141,14 +141,14 @@ class VerificationScreen extends StatelessWidget {
                                 Provider.of<AuthProvider>(context, listen: false).verifyEmail(email,tempToken).then((value) {
                                   if(value.isSuccess) {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(content: Text(getTranslated('sign_up_successfully_now_login', context)),
+                                        SnackBar(content: Text(getTranslated('sign_up_successfully_now_login', context)!),
                                           backgroundColor: Colors.green,)
                                     );
                                     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
                                         builder: (_) => AuthScreen(initialPage: 0)), (route) => false);
                                   }else {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(content: Text(value.message),backgroundColor: Colors.red)
+                                        SnackBar(content: Text(value.message!),backgroundColor: Colors.red)
                                     );
                                   }
                                 });

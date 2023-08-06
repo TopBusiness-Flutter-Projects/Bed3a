@@ -2,111 +2,111 @@ import 'package:bed3a_ecommerce/data/model/response/product_model.dart';
 import 'package:bed3a_ecommerce/data/model/response/seller_model.dart';
 
 class ProductDetailsModel {
-  int _id;
-  String _addedBy;
-  int _userId;
-  String _name;
-  String _slug;
-  String _productType;
-  List<CategoryIds> _categoryIds;
-  int _brandId;
-  String _unit;
-  int _minQty;
-  int _refundable;
-  String _digitalProductType;
-  String _digitalFileReady;
-  List<String> _images;
-  String _thumbnail;
-  int _featured;
-  String _videoProvider;
-  String _videoUrl;
-  List<Colors> _colors;
-  int _variantProduct;
-  List<int> _attributes;
-  List<ChoiceOptions> _choiceOptions;
-  List<Variation> _variation;
-  int _published;
-  double _unitPrice;
-  double _purchasePrice;
-  double _tax;
-  String _taxModel;
-  String _taxType;
-  double _discount;
-  String _discountType;
-  int _currentStock;
-  int _minimumOrderQty;
-  String _details;
-  int _freeShipping;
-  String _createdAt;
-  String _updatedAt;
-  int _status;
-  int _featuredStatus;
-  String _metaTitle;
-  String _metaDescription;
-  String _metaImage;
-  int _requestStatus;
-  String _deniedNote;
-  double _shippingCost;
-  int _multiplyQty;
-  String _code;
-  int _reviewsCount;
-  String _averageReview;
-  List<Reviews> _reviews;
-  Seller _seller;
+  int? _id;
+  String? _addedBy;
+  int? _userId;
+  String? _name;
+  String? _slug;
+  String? _productType;
+  List<CategoryIds>? _categoryIds;
+  int? _brandId;
+  String? _unit;
+  int? _minQty;
+  int? _refundable;
+  String? _digitalProductType;
+  String? _digitalFileReady;
+  List<String>? _images;
+  String? _thumbnail;
+  int? _featured;
+  String? _videoProvider;
+  String? _videoUrl;
+  List<Colors>? _colors;
+  int? _variantProduct;
+  List<int>? _attributes;
+  List<ChoiceOptions>? _choiceOptions;
+  List<Variation>? _variation;
+  int? _published;
+  double? _unitPrice;
+  double? _purchasePrice;
+  double? _tax;
+  String? _taxModel;
+  String? _taxType;
+  double? _discount;
+  String? _discountType;
+  int? _currentStock;
+  int? _minimumOrderQty;
+  String? _details;
+  int? _freeShipping;
+  String? _createdAt;
+  String? _updatedAt;
+  int? _status;
+  int? _featuredStatus;
+  String? _metaTitle;
+  String? _metaDescription;
+  String? _metaImage;
+  int? _requestStatus;
+  String? _deniedNote;
+  double? _shippingCost;
+  int? _multiplyQty;
+  String? _code;
+  int? _reviewsCount;
+  String? _averageReview;
+  List<Reviews>? _reviews;
+  Seller? _seller;
 
 
   ProductDetailsModel(
-      {int id,
-        String addedBy,
-        int userId,
-        String name,
-        String slug,
-        String productType,
-        List<CategoryIds> categoryIds,
-        int brandId,
-        String unit,
-        int minQty,
-        int refundable,
-        String digitalProductType,
-        String digitalFileReady,
-        List<String> images,
-        String thumbnail,
-        int featured,
-        String videoProvider,
-        String videoUrl,
-        List<Colors> colors,
-        int variantProduct,
-        List<int> attributes,
-        List<ChoiceOptions> choiceOptions,
-        List<Variation> variation,
-        int published,
-        double unitPrice,
-        double purchasePrice,
-        double tax,
-        String taxModel,
-        String taxType,
-        double discount,
-        String discountType,
-        int currentStock,
-        int minimumOrderQty,
-        String details,
-        int freeShipping,
-        String createdAt,
-        String updatedAt,
-        int status,
-        int featuredStatus,
-        String metaTitle,
-        String metaDescription,
-        String metaImage,
-        int requestStatus,
-        String deniedNote,
-        double shippingCost,
-        int multiplyQty,
-        String code,
-        int reviewsCount,
-        String averageReview,
-        List<Reviews> reviews,
-        Seller seller,
+      {int? id,
+        String? addedBy,
+        int? userId,
+        String? name,
+        String? slug,
+        String? productType,
+        List<CategoryIds>? categoryIds,
+        int? brandId,
+        String? unit,
+        int? minQty,
+        int? refundable,
+        String? digitalProductType,
+        String? digitalFileReady,
+        List<String>? images,
+        String? thumbnail,
+        int? featured,
+        String? videoProvider,
+        String? videoUrl,
+        List<Colors>? colors,
+        int? variantProduct,
+        List<int>? attributes,
+        List<ChoiceOptions>? choiceOptions,
+        List<Variation>? variation,
+        int? published,
+        double? unitPrice,
+        double? purchasePrice,
+        double? tax,
+        String? taxModel,
+        String? taxType,
+        double? discount,
+        String? discountType,
+        int? currentStock,
+        int? minimumOrderQty,
+        String? details,
+        int? freeShipping,
+        String? createdAt,
+        String? updatedAt,
+        int? status,
+        int? featuredStatus,
+        String? metaTitle,
+        String? metaDescription,
+        String? metaImage,
+        int? requestStatus,
+        String? deniedNote,
+        double? shippingCost,
+        int? multiplyQty,
+        String? code,
+        int? reviewsCount,
+        String? averageReview,
+        List<Reviews>? reviews,
+        Seller? seller,
       }) {
     if (id != null) {
       this._id = id;
@@ -266,57 +266,57 @@ class ProductDetailsModel {
 
   }
 
-  int get id => _id;
-  String get addedBy => _addedBy;
-  int get userId => _userId;
-  String get name => _name;
-  String get slug => _slug;
-  String get productType => _productType;
-  List<CategoryIds> get categoryIds => _categoryIds;
-  int get brandId => _brandId;
-  String get unit => _unit;
-  int get minQty => _minQty;
-  int get refundable => _refundable;
-  String get digitalProductType => _digitalProductType;
-  String get digitalFileReady => _digitalFileReady;
-  List<String> get images => _images;
-  String get thumbnail => _thumbnail;
-  int get featured => _featured;
-  String get videoProvider => _videoProvider;
-  String get videoUrl => _videoUrl;
-  List<Colors> get colors => _colors;
-  int get variantProduct => _variantProduct;
-  List<int> get attributes => _attributes;
-  List<ChoiceOptions> get choiceOptions => _choiceOptions;
-  List<Variation> get variation => _variation;
-  int get published => _published;
-  double get unitPrice => _unitPrice;
-  double get purchasePrice => _purchasePrice;
-  double get tax => _tax;
-  String get taxModel => _taxModel;
-  String get taxType => _taxType;
-  double get discount => _discount;
-  String get discountType => _discountType;
-  int get currentStock => _currentStock;
-  int get minimumOrderQty => _minimumOrderQty;
-  String get details => _details;
-  int get freeShipping => _freeShipping;
-  String get createdAt => _createdAt;
-  String get updatedAt => _updatedAt;
-  int get status => _status;
-  int get featuredStatus => _featuredStatus;
-  String get metaTitle => _metaTitle;
-  String get metaDescription => _metaDescription;
-  String get metaImage => _metaImage;
-  int get requestStatus => _requestStatus;
-  String get deniedNote => _deniedNote;
-  double get shippingCost => _shippingCost;
-  int get multiplyQty => _multiplyQty;
-  String get code => _code;
-  int get reviewsCount => _reviewsCount;
-  String get averageReview => _averageReview;
-  List<Reviews> get reviews => _reviews;
-  Seller get seller => _seller;
+  int? get id => _id;
+  String? get addedBy => _addedBy;
+  int? get userId => _userId;
+  String? get name => _name;
+  String? get slug => _slug;
+  String? get productType => _productType;
+  List<CategoryIds>? get categoryIds => _categoryIds;
+  int? get brandId => _brandId;
+  String? get unit => _unit;
+  int? get minQty => _minQty;
+  int? get refundable => _refundable;
+  String? get digitalProductType => _digitalProductType;
+  String? get digitalFileReady => _digitalFileReady;
+  List<String>? get images => _images;
+  String? get thumbnail => _thumbnail;
+  int? get featured => _featured;
+  String? get videoProvider => _videoProvider;
+  String? get videoUrl => _videoUrl;
+  List<Colors>? get colors => _colors;
+  int? get variantProduct => _variantProduct;
+  List<int>? get attributes => _attributes;
+  List<ChoiceOptions>? get choiceOptions => _choiceOptions;
+  List<Variation>? get variation => _variation;
+  int? get published => _published;
+  double? get unitPrice => _unitPrice;
+  double? get purchasePrice => _purchasePrice;
+  double? get tax => _tax;
+  String? get taxModel => _taxModel;
+  String? get taxType => _taxType;
+  double? get discount => _discount;
+  String? get discountType => _discountType;
+  int? get currentStock => _currentStock;
+  int? get minimumOrderQty => _minimumOrderQty;
+  String? get details => _details;
+  int? get freeShipping => _freeShipping;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
+  int? get status => _status;
+  int? get featuredStatus => _featuredStatus;
+  String? get metaTitle => _metaTitle;
+  String? get metaDescription => _metaDescription;
+  String? get metaImage => _metaImage;
+  int? get requestStatus => _requestStatus;
+  String? get deniedNote => _deniedNote;
+  double? get shippingCost => _shippingCost;
+  int? get multiplyQty => _multiplyQty;
+  String? get code => _code;
+  int? get reviewsCount => _reviewsCount;
+  String? get averageReview => _averageReview;
+  List<Reviews>? get reviews => _reviews;
+  Seller? get seller => _seller;
 
   ProductDetailsModel.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
@@ -328,7 +328,7 @@ class ProductDetailsModel {
     if (json['category_ids'] != null) {
       _categoryIds = <CategoryIds>[];
       json['category_ids'].forEach((v) {
-        _categoryIds.add(new CategoryIds.fromJson(v));
+        _categoryIds!.add(new CategoryIds.fromJson(v));
       });
     }
     _brandId = json['brand_id'];
@@ -345,7 +345,7 @@ class ProductDetailsModel {
     if (json['colors_formatted'] != null) {
       _colors = <Colors>[];
       json['colors_formatted'].forEach((v) {
-        _colors.add(new Colors.fromJson(v));
+        _colors!.add(new Colors.fromJson(v));
       });
     }
     _variantProduct = int.parse(json['variant_product'].toString());
@@ -353,13 +353,13 @@ class ProductDetailsModel {
     if (json['choice_options'] != null) {
       _choiceOptions = <ChoiceOptions>[];
       json['choice_options'].forEach((v) {
-        _choiceOptions.add(new ChoiceOptions.fromJson(v));
+        _choiceOptions!.add(new ChoiceOptions.fromJson(v));
       });
     }
     if (json['variation'] != null) {
       _variation = <Variation>[];
       json['variation'].forEach((v) {
-        _variation.add(new Variation.fromJson(v));
+        _variation!.add(new Variation.fromJson(v));
       });
     }
     _published = json['published'];
@@ -396,7 +396,7 @@ class ProductDetailsModel {
     if (json['reviews'] != null) {
       _reviews = <Reviews>[];
       json['reviews'].forEach((v) {
-        _reviews.add(new Reviews.fromJson(v));
+        _reviews!.add(new Reviews.fromJson(v));
       });
     }
     _seller = json['seller'] != null ? new Seller.fromJson(json['seller']) : null;
@@ -411,7 +411,7 @@ class ProductDetailsModel {
     data['slug'] = this._slug;
     data['product_type'] = this._productType;
     if (this._categoryIds != null) {
-      data['category_ids'] = this._categoryIds.map((v) => v.toJson()).toList();
+      data['category_ids'] = this._categoryIds!.map((v) => v.toJson()).toList();
     }
     data['brand_id'] = this._brandId;
     data['unit'] = this._unit;
@@ -425,16 +425,16 @@ class ProductDetailsModel {
     data['video_provider'] = this._videoProvider;
     data['video_url'] = this._videoUrl;
     if (this._colors != null) {
-      data['colors_formatted'] = this._colors.map((v) => v.toJson()).toList();
+      data['colors_formatted'] = this._colors!.map((v) => v.toJson()).toList();
     }
     data['variant_product'] = this._variantProduct;
     data['attributes'] = this._attributes;
     if (this._choiceOptions != null) {
       data['choice_options'] =
-          this._choiceOptions.map((v) => v.toJson()).toList();
+          this._choiceOptions!.map((v) => v.toJson()).toList();
     }
     if (this._variation != null) {
-      data['variation'] = this._variation.map((v) => v.toJson()).toList();
+      data['variation'] = this._variation!.map((v) => v.toJson()).toList();
     }
     data['published'] = this._published;
     data['unit_price'] = this._unitPrice;
@@ -463,10 +463,10 @@ class ProductDetailsModel {
     data['reviews_count'] = this._reviewsCount;
     data['average_review'] = this._averageReview;
     if (this._reviews != null) {
-      data['reviews'] = this._reviews.map((v) => v.toJson()).toList();
+      data['reviews'] = this._reviews!.map((v) => v.toJson()).toList();
     }
     if (this._seller != null) {
-      data['seller'] = this._seller.toJson();
+      data['seller'] = this._seller!.toJson();
     }
 
     return data;
@@ -474,10 +474,10 @@ class ProductDetailsModel {
 }
 
 class CategoryIds {
-  String _id;
-  int _position;
+  String? _id;
+  int? _position;
 
-  CategoryIds({String id, int position}) {
+  CategoryIds({String? id, int? position}) {
     if (id != null) {
       this._id = id;
     }
@@ -486,8 +486,8 @@ class CategoryIds {
     }
   }
 
-  String get id => _id;
-  int get position => _position;
+  String? get id => _id;
+  int? get position => _position;
 
 
   CategoryIds.fromJson(Map<String, dynamic> json) {
@@ -504,10 +504,10 @@ class CategoryIds {
 }
 
 class Colors {
-  String _name;
-  String _code;
+  String? _name;
+  String? _code;
 
-  Colors({String name, String code}) {
+  Colors({String? name, String? code}) {
     if (name != null) {
       this._name = name;
     }
@@ -516,8 +516,8 @@ class Colors {
     }
   }
 
-  String get name => _name;
-  String get code => _code;
+  String? get name => _name;
+  String? get code => _code;
 
 
   Colors.fromJson(Map<String, dynamic> json) {
@@ -536,28 +536,28 @@ class Colors {
 
 
 class Reviews {
-  int _id;
-  int _productId;
-  int _customerId;
-  String _comment;
-  String _attachment;
-  int _rating;
-  int _status;
-  String _createdAt;
-  String _updatedAt;
-  Customer _customer;
+  int? _id;
+  int? _productId;
+  int? _customerId;
+  String? _comment;
+  String? _attachment;
+  int? _rating;
+  int? _status;
+  String? _createdAt;
+  String? _updatedAt;
+  Customer? _customer;
 
   Reviews(
-      {int id,
-        int productId,
-        int customerId,
-        String comment,
-        String attachment,
-        int rating,
-        int status,
-        String createdAt,
-        String updatedAt,
-        Customer customer}) {
+      {int? id,
+        int? productId,
+        int? customerId,
+        String? comment,
+        String? attachment,
+        int? rating,
+        int? status,
+        String? createdAt,
+        String? updatedAt,
+        Customer? customer}) {
     if (id != null) {
       this._id = id;
     }
@@ -590,16 +590,16 @@ class Reviews {
     }
   }
 
-  int get id => _id;
-  int get productId => _productId;
-  int get customerId => _customerId;
-  String get comment => _comment;
-  String get attachment => _attachment;
-  int get rating => _rating;
-  int get status => _status;
-  String get createdAt => _createdAt;
-  String get updatedAt => _updatedAt;
-  Customer get customer => _customer;
+  int? get id => _id;
+  int? get productId => _productId;
+  int? get customerId => _customerId;
+  String? get comment => _comment;
+  String? get attachment => _attachment;
+  int? get rating => _rating;
+  int? get status => _status;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
+  Customer? get customer => _customer;
 
 
   Reviews.fromJson(Map<String, dynamic> json) {
@@ -629,27 +629,27 @@ class Reviews {
     data['created_at'] = this._createdAt;
     data['updated_at'] = this._updatedAt;
     if (this._customer != null) {
-      data['customer'] = this._customer.toJson();
+      data['customer'] = this._customer!.toJson();
     }
     return data;
   }
 }
 
 class Customer {
-  int _id;
-  String _fName;
-  String _lName;
-  String _phone;
-  String _image;
-  String _email;
+  int? _id;
+  String? _fName;
+  String? _lName;
+  String? _phone;
+  String? _image;
+  String? _email;
 
   Customer(
-      {int id,
-        String fName,
-        String lName,
-        String phone,
-        String image,
-        String email,
+      {int? id,
+        String? fName,
+        String? lName,
+        String? phone,
+        String? image,
+        String? email,
       }) {
     if (id != null) {
       this._id = id;
@@ -672,12 +672,12 @@ class Customer {
 
   }
 
-  int get id => _id;
-  String get fName => _fName;
-  String get lName => _lName;
-  String get phone => _phone;
-  String get image => _image;
-  String get email => _email;
+  int? get id => _id;
+  String? get fName => _fName;
+  String? get lName => _lName;
+  String? get phone => _phone;
+  String? get image => _image;
+  String? get email => _email;
 
 
   Customer.fromJson(Map<String, dynamic> json) {

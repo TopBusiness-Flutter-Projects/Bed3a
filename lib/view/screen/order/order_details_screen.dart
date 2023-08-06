@@ -21,11 +21,11 @@ import 'package:provider/provider.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
   final bool isNotification;
-  final int orderId;
-  final String orderType;
-  final double extraDiscount;
-  final String extraDiscountType;
-  OrderDetailsScreen({@required this.orderId, @required this.orderType,
+  final int? orderId;
+  final String? orderType;
+  final double? extraDiscount;
+  final String? extraDiscountType;
+  OrderDetailsScreen({required this.orderId, required this.orderType,
     this.extraDiscount, this.extraDiscountType, this.isNotification = false});
 
   @override
@@ -67,7 +67,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                 widget.isNotification?
                 Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => DashBoardScreen())):Navigator.pop(context);
               },
-              child: Icon(Icons.keyboard_backspace)),title: Text(getTranslated('ORDER_DETAILS', context),
+              child: Icon(Icons.keyboard_backspace)),title: Text(getTranslated('ORDER_DETAILS', context)!,
               style: robotoRegular.copyWith(color: Theme.of(context).primaryColor,
                   fontSize: Dimensions.FONT_SIZE_LARGE),)),
         body: Column(
@@ -80,25 +80,25 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
 
                   double _order = 0;
                   double _discount = 0;
-                  double eeDiscount = 0;
+                  double? eeDiscount = 0;
                   double _tax = 0;
 
 
 
                   if (order.orderDetails != null) {
-                    order.orderDetails.forEach((orderDetails) {
-                      if(orderDetails.productDetails?.productType != null && orderDetails.productDetails.productType != "physical" ){
+                    order.orderDetails!.forEach((orderDetails) {
+                      if(orderDetails.productDetails?.productType != null && orderDetails.productDetails!.productType != "physical" ){
                         order.digitalOnly(false, isUpdate: false);
                       }
                     });
 
 
 
-                    order.orderDetails.forEach((orderDetails) {
+                    order.orderDetails!.forEach((orderDetails) {
                       print('---> ${orderDetails.taxModel}');
-                      _order = _order + (orderDetails.price * orderDetails.qty);
-                      _discount = _discount + orderDetails.discount;
-                        _tax = _tax + orderDetails.tax;
+                      _order = _order + (orderDetails.price! * orderDetails.qty!);
+                      _discount = _discount + orderDetails.discount!;
+                        _tax = _tax + orderDetails.tax!;
 
 
                     });
@@ -106,7 +106,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
 
                     if(widget.orderType == 'POS'){
                       if(widget.extraDiscountType == 'percent'){
-                        eeDiscount = _order * (widget.extraDiscount/100);
+                        eeDiscount = _order * (widget.extraDiscount!/100);
                       }else{
                         eeDiscount = widget.extraDiscount;
                       }
@@ -131,8 +131,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                             children: <TextSpan>[
                               TextSpan(text: getTranslated('ORDER_ID', context),
                                   style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,
-                                    color: Theme.of(context).textTheme.bodyLarge.color,)),
-                              TextSpan(text: order.trackingModel.id.toString(),
+                                    color: Theme.of(context).textTheme.bodyLarge!.color,)),
+                              TextSpan(text: order.trackingModel!.id.toString(),
                                   style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,
                                       color: ColorResources.getPrimary(context))),
                                 ],
@@ -141,7 +141,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                             Expanded(child: SizedBox()),
 
 
-                            Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(order.trackingModel.createdAt)),
+                            Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(order.trackingModel!.createdAt!)),
                                 style: titilliumRegular.copyWith(color: ColorResources.getHint(context),
                                     fontSize: Dimensions.FONT_SIZE_SMALL)),
                           ],
@@ -155,7 +155,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                         child: Column(
                           children: [
                             widget.orderType == 'POS' ?
-                            Text(getTranslated('pos_order', context)):
+                            Text(getTranslated('pos_order', context)!):
                             Row(mainAxisAlignment:MainAxisAlignment.start, crossAxisAlignment:CrossAxisAlignment.start,
                                 children: [
 
@@ -166,8 +166,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                   order.onlyDigital?
                                   Expanded(child: Padding(
                                     padding: const EdgeInsets.symmetric(vertical: 1),
-                                    child: Text(' ${order.orderModel !=null  && order.orderModel.shippingAddressData != null ?
-                                    order.orderModel.shippingAddressData.address :''}', maxLines: 3, overflow: TextOverflow.ellipsis,
+                                    child: Text(' ${order.orderModel !=null  && order.orderModel!.shippingAddressData != null ?
+                                    order.orderModel!.shippingAddressData!.address :''}', maxLines: 3, overflow: TextOverflow.ellipsis,
                                         style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL)),
                                   )):SizedBox(),
 
@@ -175,14 +175,14 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                             SizedBox(height: order.onlyDigital? Dimensions.PADDING_SIZE_LARGE:0),
 
 
-                            order.orderModel !=null && order.orderModel.billingAddressData != null?
+                            order.orderModel !=null && order.orderModel!.billingAddressData != null?
                             Row(mainAxisAlignment:MainAxisAlignment.start, crossAxisAlignment:CrossAxisAlignment.start,
                               children: [
                                 Text('${getTranslated('billing_address', context)} :',
                                     style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                                 Expanded(child: Padding(
                                   padding: const EdgeInsets.symmetric(vertical: 1),
-                                  child: Text(' ${order.orderModel.billingAddressData != null ? order.orderModel.billingAddressData.address : ''}',
+                                  child: Text(' ${order.orderModel!.billingAddressData != null ? order.orderModel!.billingAddressData!.address : ''}',
                                       maxLines: 3, overflow: TextOverflow.ellipsis, style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL)),
                                 )),
                               ],
@@ -192,7 +192,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                         ),
                       ),
 
-                      order.orderModel != null && order.orderModel.orderNote != null?
+                      order.orderModel != null && order.orderModel!.orderNote != null?
                       Padding(padding : EdgeInsets.all(Dimensions.MARGIN_SIZE_SMALL),
                         child: Text.rich(
                           TextSpan(children: [
@@ -200,7 +200,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                 style: robotoBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,
                                   color: ColorResources.getReviewRattingColor(context))),
 
-                            TextSpan(text:  '${order.orderModel.orderNote != null? order.orderModel.orderNote ?? '': ""}',
+                            TextSpan(text:  '${order.orderModel!.orderNote != null? order.orderModel!.orderNote ?? '': ""}',
                                 style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL)),
                             ],
                           ),
@@ -213,7 +213,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_DEFAULT,
                             vertical: Dimensions.PADDING_SIZE_DEFAULT),
-                        child: Text(getTranslated('ORDERED_PRODUCT', context), style: titilliumSemiBold.copyWith()),
+                        child: Text(getTranslated('ORDERED_PRODUCT', context)!, style: titilliumSemiBold.copyWith()),
                       ),
 
 
@@ -241,7 +241,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
 
                               widget.orderType == "POS"?SizedBox():
                               AmountWidget(title: getTranslated('SHIPPING_FEE', context),
-                                  amount: PriceConverter.convertPrice(context, order.trackingModel.shippingCost)),
+                                  amount: PriceConverter.convertPrice(context, order.trackingModel!.shippingCost)),
 
 
                               AmountWidget(title: getTranslated('DISCOUNT', context),
@@ -254,7 +254,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
 
 
                               AmountWidget(title: getTranslated('coupon_voucher', context),
-                                amount: PriceConverter.convertPrice(context, order.trackingModel.discountAmount),),
+                                amount: PriceConverter.convertPrice(context, order.trackingModel!.discountAmount),),
 
 
                               AmountWidget(title: getTranslated('TAX', context),
@@ -267,8 +267,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
 
                               AmountWidget(title: getTranslated('TOTAL_PAYABLE', context),
                                 amount: PriceConverter.convertPrice(context,
-                                    (_order + order.trackingModel.shippingCost - eeDiscount -
-                                        order.trackingModel.discountAmount - _discount  + _tax)),),
+                                    (_order + order.trackingModel!.shippingCost! - eeDiscount! -
+                                        order.trackingModel!.discountAmount! - _discount  + _tax)),),
                             ]),
                       ),
 
@@ -277,7 +277,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
 
                       SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
 
-                      order.trackingModel.deliveryMan != null?
+                      order.trackingModel!.deliveryMan != null?
                       Container(padding: EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
                         decoration: BoxDecoration(color: Theme.of(context).highlightColor,
                           boxShadow: [BoxShadow(color: Theme.of(context).hintColor.withOpacity(0.2), spreadRadius:2, blurRadius: 10)],
@@ -294,8 +294,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                 style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL)),
 
 
-                            Text((order.trackingModel.deliveryMan != null ) ?
-                            '${order.trackingModel.deliveryMan.fName} ${order.trackingModel.deliveryMan.lName}':'',
+                            Text((order.trackingModel!.deliveryMan != null ) ?
+                            '${order.trackingModel!.deliveryMan!.fName} ${order.trackingModel!.deliveryMan!.lName}':'',
                               style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL),),
 
 
@@ -309,7 +309,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                         ]),
                       ):
                           //third party
-                      order.trackingModel.thirdPartyServiceName != null?
+                      order.trackingModel!.thirdPartyServiceName != null?
                       ShippingInfo(order: order):SizedBox(),
 
 

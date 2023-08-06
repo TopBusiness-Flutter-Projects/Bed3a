@@ -42,7 +42,7 @@ class SearchScreen extends StatelessWidget {
                       onSubmit: (String text) {
                         if(text.trim().isEmpty) {
                           Fluttertoast.showToast(
-                              msg: getTranslated('enter_somethings', context),
+                              msg: getTranslated('enter_somethings', context)!,
                               toastLength: Toast.LENGTH_SHORT,
                               gravity: ToastGravity.BOTTOM,
                               timeInSecForIosWeb: 1,
@@ -68,7 +68,7 @@ class SearchScreen extends StatelessWidget {
             Consumer<SearchProvider>(
               builder: (context, searchProvider, child) {
                 return !searchProvider.isClear ? searchProvider.searchProductList != null ?
-                searchProvider.searchProductList.length > 0 ?
+                searchProvider.searchProductList!.length > 0 ?
                 Expanded(child: SearchProductWidget(products: searchProvider.searchProductList, isViewScrollable: true)) :
                 Expanded(child: NoInternetOrDataScreen(isNoInternet: false)) :
                 Expanded(child: ProductShimmer(isHomePage: false,
@@ -79,14 +79,14 @@ class SearchScreen extends StatelessWidget {
                       children: [
                         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(getTranslated('SEARCH_HISTORY', context), style: robotoBold),
+                            Text(getTranslated('SEARCH_HISTORY', context)!, style: robotoBold),
 
 
                             InkWell(borderRadius: BorderRadius.circular(10),
                                 onTap: () => Provider.of<SearchProvider>(context, listen: false).clearSearchAddress(),
                                 child: Container(padding: EdgeInsets.symmetric(horizontal:Dimensions.PADDING_SIZE_DEFAULT,
                                     vertical:Dimensions.PADDING_SIZE_LARGE ),
-                                    child: Text(getTranslated('REMOVE', context),
+                                    child: Text(getTranslated('REMOVE', context)!,
                                       style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL,
                                           color: Theme.of(context).primaryColor),)))
                           ],

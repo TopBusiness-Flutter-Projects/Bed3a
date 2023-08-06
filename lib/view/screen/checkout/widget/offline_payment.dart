@@ -9,10 +9,10 @@ import 'package:bed3a_ecommerce/view/basewidget/textfield/custom_textfield.dart'
 class OfflinePaymentDialog extends StatelessWidget {
   final double rotateAngle;
   final Function onTap;
-  final TextEditingController paymentBy;
-  final TextEditingController transactionId;
-  final TextEditingController paymentNote;
-  OfflinePaymentDialog({ this.rotateAngle = 0,  @required this.onTap, this.paymentBy, this.transactionId, this.paymentNote});
+  final TextEditingController? paymentBy;
+  final TextEditingController? transactionId;
+  final TextEditingController? paymentNote;
+  OfflinePaymentDialog({ this.rotateAngle = 0,  required this.onTap, this.paymentBy, this.transactionId, this.paymentNote});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class OfflinePaymentDialog extends StatelessWidget {
 
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(getTranslated('offline_payment', context), style: robotoBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),),
+                  Text(getTranslated('offline_payment', context)!, style: robotoBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),),
                   InkWell(
                     onTap: (){
                       Navigator.of(context).pop();
@@ -35,7 +35,7 @@ class OfflinePaymentDialog extends StatelessWidget {
                 ],
               ),
               SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_LARGE,),
-              Text(getTranslated('payment_by', context), style: robotoRegular,),
+              Text(getTranslated('payment_by', context)!, style: robotoRegular,),
               SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
               CustomTextField(
                 textAlign: TextAlign.start,
@@ -44,7 +44,7 @@ class OfflinePaymentDialog extends StatelessWidget {
                 textInputAction: TextInputAction.next,
               ),
               SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT,),
-              Text(getTranslated('transaction_id', context), style: robotoRegular,),
+              Text(getTranslated('transaction_id', context)!, style: robotoRegular,),
               SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
               CustomTextField(
                 textAlign: TextAlign.start,
@@ -53,7 +53,7 @@ class OfflinePaymentDialog extends StatelessWidget {
                 textInputAction: TextInputAction.next,
               ),
               SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT,),
-              Text(getTranslated('payment_note', context), style: robotoRegular,),
+              Text(getTranslated('payment_note', context)!, style: robotoRegular,),
               SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
               CustomTextField(
                 textAlign: TextAlign.start,

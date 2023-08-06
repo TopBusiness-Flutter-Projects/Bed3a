@@ -10,11 +10,11 @@ import 'package:bed3a_ecommerce/view/basewidget/textfield/custom_textfield.dart'
 class WalletPayment extends StatelessWidget {
   final double rotateAngle;
   final Function onTap;
-  final double orderAmount;
-  final double currentBalance;
+  final double? orderAmount;
+  final double? currentBalance;
 
 
-  WalletPayment({ this.rotateAngle = 0,  @required this.onTap, this.orderAmount, this.currentBalance});
+  WalletPayment({ this.rotateAngle = 0,  required this.onTap, this.orderAmount, this.currentBalance});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class WalletPayment extends StatelessWidget {
 
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(getTranslated('wallet_payment', context), style: robotoBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),),
+                  Text(getTranslated('wallet_payment', context)!, style: robotoBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),),
                   InkWell(
                       onTap: (){
                         Navigator.of(context).pop();
@@ -37,7 +37,7 @@ class WalletPayment extends StatelessWidget {
                 ],
               ),
               SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_LARGE,),
-              Text(getTranslated('your_current_balance', context), style: robotoRegular,),
+              Text(getTranslated('your_current_balance', context)!, style: robotoRegular,),
               SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
               Container(width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.all(Dimensions.FONT_SIZE_EXTRA_SMALL),
@@ -50,7 +50,7 @@ class WalletPayment extends StatelessWidget {
                 child: Text(PriceConverter.convertPrice(context, currentBalance)),
               ),
               SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT,),
-              Text(getTranslated('order_amount', context), style: robotoRegular,),
+              Text(getTranslated('order_amount', context)!, style: robotoRegular,),
               SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
               Container(width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.all(Dimensions.FONT_SIZE_EXTRA_SMALL),
@@ -62,7 +62,7 @@ class WalletPayment extends StatelessWidget {
                 child: Text(PriceConverter.convertPrice(context, orderAmount)),
               ),
               SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT,),
-              Text(getTranslated('remaining_balance', context), style: robotoRegular,),
+              Text(getTranslated('remaining_balance', context)!, style: robotoRegular,),
               SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
               Container(width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.all(Dimensions.FONT_SIZE_EXTRA_SMALL),
@@ -71,7 +71,7 @@ class WalletPayment extends StatelessWidget {
                     border: Border.all(width: .5, color: Theme.of(context).hintColor),
                     borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL)
                 ),
-                child: Text(PriceConverter.convertPrice(context, (currentBalance - orderAmount))),
+                child: Text(PriceConverter.convertPrice(context, (currentBalance! - orderAmount!))),
               ),
 
               SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_LARGE),

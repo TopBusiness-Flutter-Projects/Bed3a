@@ -10,7 +10,7 @@ import 'package:bed3a_ecommerce/view/screen/order/order_details_screen.dart';
 
 
 class OrderWidget extends StatelessWidget {
-  final OrderModel orderModel;
+  final OrderModel? orderModel;
   OrderWidget({this.orderModel});
 
   @override
@@ -20,9 +20,9 @@ class OrderWidget extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => OrderDetailsScreen(
-                orderId: orderModel.id, orderType: orderModel.orderType,
-                extraDiscount: orderModel.extraDiscount,
-                extraDiscountType: orderModel.extraDiscountType)));},
+                orderId: orderModel!.id, orderType: orderModel!.orderType,
+                extraDiscount: orderModel!.extraDiscount,
+                extraDiscountType: orderModel!.extraDiscountType)));},
 
 
       child: Container(
@@ -38,17 +38,17 @@ class OrderWidget extends StatelessWidget {
           child: Row(children: [
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Row(children: [
-                Text(getTranslated('ORDER_ID', context),
+                Text(getTranslated('ORDER_ID', context)!,
                     style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL)),
                 SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
-                Text(orderModel.id.toString(), style: titilliumSemiBold),
+                Text(orderModel!.id.toString(), style: titilliumSemiBold),
               ]),
 
 
               SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
               Row(children: [
-                Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(orderModel.createdAt)),
+                Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(orderModel!.createdAt!)),
                     style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL,
                       color: Theme.of(context).hintColor,
                 )),
@@ -61,10 +61,10 @@ class OrderWidget extends StatelessWidget {
 
             Expanded(
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text(getTranslated('total_price', context),
+                Text(getTranslated('total_price', context)!,
                     style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL)),
                 SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-                Text(PriceConverter.convertPrice(context, orderModel.orderAmount), style: titilliumSemiBold),
+                Text(PriceConverter.convertPrice(context, orderModel!.orderAmount), style: titilliumSemiBold),
               ]),
             ),
 
@@ -76,7 +76,7 @@ class OrderWidget extends StatelessWidget {
                 color: ColorResources.getLowGreen(context),
                 borderRadius: BorderRadius.circular(5),
               ),
-              child: Text(getTranslated('${orderModel.orderStatus}', context), style: titilliumSemiBold),
+              child: Text(getTranslated('${orderModel!.orderStatus}', context)!, style: titilliumSemiBold),
             ),
 
           ]),

@@ -13,8 +13,8 @@ class InboxShimmer extends StatelessWidget {
       padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
       itemBuilder: (context, index) {
         return Shimmer.fromColors(
-          baseColor: Colors.grey[300],
-          highlightColor: Colors.grey[100],
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.grey[100]!,
           enabled: true,
           child: Padding(
             padding: EdgeInsets.only(bottom: Dimensions.PADDING_SIZE_SMALL),

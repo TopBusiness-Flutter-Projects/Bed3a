@@ -6,9 +6,9 @@ import 'package:provider/provider.dart';
 
 
 class ChatTypeButton extends StatelessWidget {
-  final String text;
+  final String? text;
   final int index;
-  const ChatTypeButton({Key key, @required this.text, @required this.index}) : super(key: key);
+  const ChatTypeButton({Key? key, required this.text, required this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +27,9 @@ class ChatTypeButton extends StatelessWidget {
               Theme.of(context).primaryColor : Theme.of(context).hintColor.withOpacity(.25),
               borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_OVER_LARGE),
             ),
-            child: Text(text, style: chat.userTypeIndex == index ?
+            child: Text(text!, style: chat.userTypeIndex == index ?
             robotoRegular.copyWith(color: chat.userTypeIndex == index ?
-            Colors.white : Theme.of(context).textTheme.bodyLarge):
+            Colors.white : Theme.of(context).textTheme.bodyLarge as Color?):
             robotoRegular.copyWith(color: chat.userTypeIndex == index ?
             Theme.of(context).cardColor : Theme.of(context).cardColor)),
           ),

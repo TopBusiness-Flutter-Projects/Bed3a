@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 
 
 class CountrySearchDialog extends StatelessWidget {
-  const CountrySearchDialog({Key key}) : super(key: key);
+  const CountrySearchDialog({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class CountrySearchDialog extends StatelessWidget {
               decoration: BoxDecoration(
                   color: Theme.of(context).cardColor,
                   borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_SMALL),
-                  boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context, listen: false).darkTheme ? 800 : 400],
+                  boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context, listen: false).darkTheme ? 800 : 400]!,
                       spreadRadius: .5, blurRadius: 12, offset: Offset(3,5))]
 
               ),

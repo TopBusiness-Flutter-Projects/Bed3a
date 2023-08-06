@@ -15,8 +15,8 @@ class OrderShimmer extends StatelessWidget {
           padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
           color: Theme.of(context).highlightColor,
           child: Shimmer.fromColors(
-            baseColor: Colors.grey[300],
-            highlightColor: Colors.grey[100],
+            baseColor: Colors.grey[300]!,
+            highlightColor: Colors.grey[100]!,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

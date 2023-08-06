@@ -5,12 +5,12 @@ import 'package:bed3a_ecommerce/data/model/response/base/api_response.dart';
 import 'package:bed3a_ecommerce/utill/app_constants.dart';
 
 class FeaturedDealRepo {
-  final DioClient dioClient;
-  FeaturedDealRepo({@required this.dioClient});
+  final DioClient? dioClient;
+  FeaturedDealRepo({required this.dioClient});
 
   Future<ApiResponse> getFeaturedDeal() async {
     try {
-      final response = await dioClient.get(AppConstants.FEATURED_DEAL_URI
+      final response = await dioClient!.get(AppConstants.FEATURED_DEAL_URI
       );
       return ApiResponse.withSuccess(response);
     } catch (e) {

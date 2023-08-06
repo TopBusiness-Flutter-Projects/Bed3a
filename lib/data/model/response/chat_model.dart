@@ -1,8 +1,8 @@
 class ChatModel {
-  int totalSize;
-  String limit;
-  String offset;
-  List<Chat> chat;
+  int? totalSize;
+  String? limit;
+  String? offset;
+  List<Chat>? chat;
 
   ChatModel({this.totalSize, this.limit, this.offset, this.chat});
 
@@ -13,7 +13,7 @@ class ChatModel {
     if (json['chat'] != null) {
       chat = <Chat>[];
       json['chat'].forEach((v) {
-        chat.add(new Chat.fromJson(v));
+        chat!.add(new Chat.fromJson(v));
       });
     }
   }
@@ -24,29 +24,29 @@ class ChatModel {
     data['limit'] = this.limit;
     data['offset'] = this.offset;
     if (this.chat != null) {
-      data['chat'] = this.chat.map((v) => v.toJson()).toList();
+      data['chat'] = this.chat!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class Chat {
-  int id;
-  int userId;
-  int sellerId;
-  int adminId;
-  int deliveryManId;
-  String message;
-  int sentByCustomer;
-  int sentBySeller;
-  int sentByAdmin;
-  int sentByDeliveryMan;
-  int seenByCustomer;
-  int status;
-  String createdAt;
-  String updatedAt;
-  SellerInfo sellerInfo;
-  DeliveryMan deliveryMan;
+  int? id;
+  int? userId;
+  int? sellerId;
+  int? adminId;
+  int? deliveryManId;
+  String? message;
+  int? sentByCustomer;
+  int? sentBySeller;
+  int? sentByAdmin;
+  int? sentByDeliveryMan;
+  int? seenByCustomer;
+  int? status;
+  String? createdAt;
+  String? updatedAt;
+  SellerInfo? sellerInfo;
+  DeliveryMan? deliveryMan;
 
   Chat(
       {this.id,
@@ -107,10 +107,10 @@ class Chat {
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     if (deliveryMan != null) {
-      data['delivery_man'] = deliveryMan.toJson();
+      data['delivery_man'] = deliveryMan!.toJson();
     }
     if (sellerInfo != null) {
-      data['seller_info'] = sellerInfo.toJson();
+      data['seller_info'] = sellerInfo!.toJson();
     }
     return data;
   }
@@ -118,7 +118,7 @@ class Chat {
 
 
 class SellerInfo {
-  List<Shops> shops;
+  List<Shops>? shops;
 
   SellerInfo(
       {this.shops});
@@ -127,7 +127,7 @@ class SellerInfo {
     if (json['shops'] != null) {
       shops = <Shops>[];
       json['shops'].forEach((v) {
-        shops.add(Shops.fromJson(v));
+        shops!.add(Shops.fromJson(v));
       });
     }
   }
@@ -135,17 +135,17 @@ class SellerInfo {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     if (shops != null) {
-      data['shops'] = shops.map((v) => v.toJson()).toList();
+      data['shops'] = shops!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class Shops {
-  int id;
-  int sellerId;
-  String name;
-  String image;
+  int? id;
+  int? sellerId;
+  String? name;
+  String? image;
 
 
   Shops(
@@ -177,10 +177,10 @@ class Shops {
 }
 
 class DeliveryMan {
-  int id;
-  String fName;
-  String lName;
-  String image;
+  int? id;
+  String? fName;
+  String? lName;
+  String? image;
 
 
   DeliveryMan({this.id,

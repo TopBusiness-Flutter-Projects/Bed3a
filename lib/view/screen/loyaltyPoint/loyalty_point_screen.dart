@@ -13,7 +13,7 @@ import 'package:bed3a_ecommerce/view/screen/loyaltyPoint/widget/loyalty_point_li
 import 'package:provider/provider.dart';
 class LoyaltyPointScreen extends StatefulWidget {
 
-  const LoyaltyPointScreen({Key key}) : super(key: key);
+  const LoyaltyPointScreen({Key? key}) : super(key: key);
 
   @override
   State<LoyaltyPointScreen> createState() => _LoyaltyPointScreenState();
@@ -41,7 +41,7 @@ class _LoyaltyPointScreenState extends State<LoyaltyPointScreen> {
         backgroundColor: Theme.of(context).primaryColor,
         onRefresh: () async {
           Provider.of<WalletTransactionProvider>(context, listen: false).getTransactionList(context,1,reload: true);
-          return false;
+         // return false;
         },
         child: CustomScrollView(
           controller: _scrollController,
@@ -50,7 +50,7 @@ class _LoyaltyPointScreenState extends State<LoyaltyPointScreen> {
               pinned: true,
               iconTheme:  IconThemeData(color: ColorResources.getTextTitle(context)),
               backgroundColor: Theme.of(context).cardColor,
-              title: Text(getTranslated('loyalty_point', context),style: TextStyle(color: ColorResources.getTextTitle(context)),),),
+              title: Text(getTranslated('loyalty_point', context)!,style: TextStyle(color: ColorResources.getTextTitle(context)),),),
             SliverToBoxAdapter(
               child: Column(
                 children: [
@@ -87,8 +87,8 @@ class _LoyaltyPointScreenState extends State<LoyaltyPointScreen> {
                                               crossAxisAlignment: CrossAxisAlignment.center,
                                               children: [
 
-                                                Text('${(profile.userInfoModel != null && profile.userInfoModel.loyaltyPoint != null) ?
-                                                profile.userInfoModel.loyaltyPoint ?? 0 : 0}',
+                                                Text('${(profile.userInfoModel != null && profile.userInfoModel!.loyaltyPoint != null) ?
+                                                profile.userInfoModel!.loyaltyPoint ?? 0 : 0}',
                                                     style: robotoBold.copyWith(color: ColorResources.getTextTitle(context),
                                                         fontSize: Dimensions.FONT_SIZE_OVER_LARGE)),
                                                 SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_EXTRA_SMALL),
@@ -114,7 +114,7 @@ class _LoyaltyPointScreenState extends State<LoyaltyPointScreen> {
                                             context: context,
                                             isScrollControlled: true,
                                             backgroundColor: Colors.transparent,
-                                            builder: (con) => LoyaltyPointConverterBottomSheet(myPoint:  profile.userInfoModel.loyaltyPoint ?? 0)
+                                            builder: (con) => LoyaltyPointConverterBottomSheet(myPoint:  profile.userInfoModel!.loyaltyPoint ?? 0)
                                         );
                                       },
                                       child: Container(child: Row(

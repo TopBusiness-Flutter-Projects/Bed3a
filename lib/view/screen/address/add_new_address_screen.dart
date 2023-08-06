@@ -26,8 +26,8 @@ import 'package:provider/provider.dart';
 class AddNewAddressScreen extends StatefulWidget {
   final bool isEnableUpdate;
   final bool fromCheckout;
-  final AddressModel address;
-  final bool isBilling;
+  final AddressModel? address;
+  final bool? isBilling;
   AddNewAddressScreen({this.isEnableUpdate = false, this.address, this.fromCheckout = false, this.isBilling});
 
   @override
@@ -45,17 +45,17 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
   final FocusNode _numberNode = FocusNode();
   final FocusNode _cityNode = FocusNode();
   final FocusNode _zipNode = FocusNode();
-  GoogleMapController _controller;
-  CameraPosition _cameraPosition;
+  GoogleMapController? _controller;
+  CameraPosition? _cameraPosition;
   bool _updateAddress = true;
-  Address _address;
+  Address? _address;
 
   String zip = '',  country = '';
 
   @override
   void initState() {
     super.initState();
-    if(widget.isBilling){
+    if(widget.isBilling!){
       _address = Address.billing;
     }else{
       _address = Address.shipping;
@@ -74,21 +74,21 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
     _checkPermission(() => Provider.of<LocationProvider>(context, listen: false).getCurrentLocation(context, true, mapController: _controller),context);
     if (widget.isEnableUpdate && widget.address != null) {
       _updateAddress = false;
-      Provider.of<LocationProvider>(context, listen: false).updatePosition(CameraPosition(target: LatLng(double.parse(widget.address.latitude), double.parse(widget.address.longitude))), true, widget.address.address, context);
-      _contactPersonNameController.text = '${widget.address.contactPersonName}';
-      _contactPersonNumberController.text = '${widget.address.phone}';
-      if (widget.address.addressType == 'Home') {
+      Provider.of<LocationProvider>(context, listen: false).updatePosition(CameraPosition(target: LatLng(double.parse(widget.address!.latitude!), double.parse(widget.address!.longitude!))), true, widget.address!.address, context);
+      _contactPersonNameController.text = '${widget.address!.contactPersonName}';
+      _contactPersonNumberController.text = '${widget.address!.phone}';
+      if (widget.address!.addressType == 'Home') {
         Provider.of<LocationProvider>(context, listen: false).updateAddressIndex(0, false);
-      } else if (widget.address.addressType == 'Workplace') {
+      } else if (widget.address!.addressType == 'Workplace') {
         Provider.of<LocationProvider>(context, listen: false).updateAddressIndex(1, false);
       } else {
         Provider.of<LocationProvider>(context, listen: false).updateAddressIndex(2, false);
       }
     }else {
       if(Provider.of<ProfileProvider>(context, listen: false).userInfoModel!=null){
-        _contactPersonNameController.text = '${Provider.of<ProfileProvider>(context, listen: false).userInfoModel.fName ?? ''}'
-            ' ${Provider.of<ProfileProvider>(context, listen: false).userInfoModel.lName ?? ''}';
-        _contactPersonNumberController.text = Provider.of<ProfileProvider>(context, listen: false).userInfoModel.phone ?? '';
+        _contactPersonNameController.text = '${Provider.of<ProfileProvider>(context, listen: false).userInfoModel!.fName ?? ''}'
+            ' ${Provider.of<ProfileProvider>(context, listen: false).userInfoModel!.lName ?? ''}';
+        _contactPersonNumberController.text = Provider.of<ProfileProvider>(context, listen: false).userInfoModel!.phone ?? '';
       }
 
     }
@@ -129,7 +129,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                         mapType: MapType.normal,
                                         initialCameraPosition: CameraPosition(
                                           target: widget.isEnableUpdate
-                                              ? LatLng(double.parse(widget.address.latitude) ?? 0.0, double.parse(widget.address.longitude) ?? 0.0)
+                                              ? LatLng(double.parse(widget.address!.latitude!) ?? 0.0, double.parse(widget.address!.longitude!) ?? 0.0)
                                               : LatLng(locationProvider.position.latitude ?? 0.0, locationProvider.position.longitude ?? 0.0),
                                           zoom: 17,
                                         ),
@@ -222,8 +222,8 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                   padding: const EdgeInsets.only(top: 10),
                                   child: Center(
                                       child: Text(
-                                        getTranslated('add_the_location_correctly', context),
-                                        style: Theme.of(context).textTheme.displayMedium.copyWith(color: ColorResources.getTextTitle(context), fontSize: Dimensions.FONT_SIZE_SMALL),
+                                        getTranslated('add_the_location_correctly', context)!,
+                                        style: Theme.of(context).textTheme.displayMedium!.copyWith(color: ColorResources.getTextTitle(context), fontSize: Dimensions.FONT_SIZE_SMALL),
                                       )),
                                 ),
 
@@ -232,9 +232,9 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                 Padding(
                                   padding: const EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_EXTRA_EXTRA_SMALL),
                                   child: Text(
-                                    getTranslated('label_us', context),
+                                    getTranslated('label_us', context)!,
                                     style:
-                                    Theme.of(context).textTheme.displaySmall.copyWith(color: ColorResources.getHint(context), fontSize: Dimensions.FONT_SIZE_LARGE),
+                                    Theme.of(context).textTheme.displaySmall!.copyWith(color: ColorResources.getHint(context), fontSize: Dimensions.FONT_SIZE_LARGE),
                                   ),
                                 ),
 
@@ -262,7 +262,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                             color: locationProvider.selectAddressIndex == index
                                                 ? Theme.of(context).primaryColor : ColorResources.getChatIcon(context)),
                                         child: Text(
-                                          getTranslated(locationProvider.getAllAddressType[index].toLowerCase(), context),
+                                          getTranslated(locationProvider.getAllAddressType[index].toLowerCase(), context)!,
                                           style: robotoRegular.copyWith(
                                               color: locationProvider.selectAddressIndex == index
                                                   ? Theme.of(context).cardColor : ColorResources.getHint(context)),
@@ -280,13 +280,13 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                         Radio<Address>(
                                           value: Address.shipping,
                                           groupValue: _address,
-                                          onChanged: (Address value) {
+                                          onChanged: (Address? value) {
                                             setState(() {
                                               _address = value;
                                             });
                                           },
                                         ),
-                                        Text(getTranslated('shipping_address', context)),
+                                        Text(getTranslated('shipping_address', context)!),
 
                                       ],
                                   ),
@@ -295,13 +295,13 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                         Radio<Address>(
                                           value: Address.billing,
                                           groupValue: _address,
-                                          onChanged: (Address value) {
+                                          onChanged: (Address? value) {
                                             setState(() {
                                               _address = value;
                                             });
                                           },
                                         ),
-                                        Text(getTranslated('billing_address', context)),
+                                        Text(getTranslated('billing_address', context)!),
 
 
                                       ],
@@ -313,8 +313,8 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                 Padding(
                                   padding: const EdgeInsets.only(top: 5,),
                                   child: Text(
-                                    getTranslated('delivery_address', context),
-                                    style: Theme.of(context).textTheme.displaySmall.copyWith(color: ColorResources.getHint(context), fontSize: Dimensions.FONT_SIZE_LARGE),
+                                    getTranslated('delivery_address', context)!,
+                                    style: Theme.of(context).textTheme.displaySmall!.copyWith(color: ColorResources.getHint(context), fontSize: Dimensions.FONT_SIZE_LARGE),
                                   ),
                                 ),
 
@@ -330,7 +330,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                 ),
                                 SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT_ADDRESS),
                                 Text(
-                                  getTranslated('city', context),
+                                  getTranslated('city', context)!,
                                   style: robotoRegular.copyWith(color: ColorResources.getHint(context)),
                                 ),
                                 SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
@@ -344,13 +344,13 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                 ),
                                 SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT_ADDRESS),
                                 Text(
-                                  getTranslated('zip', context),
+                                  getTranslated('zip', context)!,
                                   style: robotoRegular.copyWith(color: ColorResources.getHint(context)),
                                 ),
                                 SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
                                 Column(children: [
-                                  Provider.of<SplashProvider>(context, listen: false).configModel.deliveryZipCodeAreaRestriction == 0?
+                                  Provider.of<SplashProvider>(context, listen: false).configModel!.deliveryZipCodeAreaRestriction == 0?
                                   CustomTextField(
                                     hintText: getTranslated('zip', context),
                                     textInputAction: TextInputAction.next,
@@ -360,9 +360,9 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                   ):
                                   DropdownSearch<RestrictedZipModel>(
                                     items: locationProvider.restrictedZipList,
-                                    itemAsString: (RestrictedZipModel u) => u.zipcode,
+                                    itemAsString: (RestrictedZipModel u) => u.zipcode!,
                                     onChanged: (value){
-                                      _zipCodeController.text = value.zipcode;
+                                      _zipCodeController.text = value!.zipcode!;
                                     },
                                     dropdownDecoratorProps: DropDownDecoratorProps(
                                       dropdownSearchDecoration: InputDecoration(labelText: "zip"),
@@ -377,14 +377,14 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
 
                                 Padding(
                                   padding: const EdgeInsets.only(bottom : 8.0),
-                                  child: Text(getTranslated('country', context),
+                                  child: Text(getTranslated('country', context)!,
                                     style: robotoRegular.copyWith(color: ColorResources.getHint(context)),
                                   ),
                                 ),
                                 Consumer<LocationProvider>(
                                   builder: (context, locationProvider, _) {
                                     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                                      Provider.of<SplashProvider>(context, listen: false).configModel.deliveryCountryRestriction == 1?
+                                      Provider.of<SplashProvider>(context, listen: false).configModel!.deliveryCountryRestriction == 1?
 
                                       DropdownSearch<String>(
                                         popupProps: PopupProps.menu(
@@ -398,7 +398,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                           ),
                                         ),
                                         onChanged: (value){
-                                          _countryCodeController.text = value;
+                                          _countryCodeController.text = value!;
                                           print('value===>$value');
                                         },
 
@@ -413,9 +413,9 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                         child: CountryPickerDropdown(
                                           initialValue: country,
                                           itemBuilder: _buildDropdownItemForCountry,
-                                          onValuePicked: (Country country) {
-                                            print("${country.name}");
-                                            _countryCodeController.text = country.name;
+                                          onValuePicked: (Country? country) {
+                                            print("${country!.name}");
+                                            _countryCodeController.text = country.name!;
                                             //locationProvider.searchCountryController.text = country.name;
                                           },
                                         ),
@@ -429,7 +429,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
 
                                 // for Contact Person Name
                                 Text(
-                                  getTranslated('contact_person_name', context),
+                                  getTranslated('contact_person_name', context)!,
                                   style: robotoRegular.copyWith(color: ColorResources.getHint(context)),
                                 ),
                                 SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
@@ -446,7 +446,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
 
                                 // for Contact Person Number
                                 Text(
-                                  getTranslated('contact_person_number', context),
+                                  getTranslated('contact_person_number', context)!,
                                   style: robotoRegular.copyWith(color: ColorResources.getHint(context)),),
                                 SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                                 CustomTextField(
@@ -473,12 +473,12 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                       country:  _countryCodeController.text,
                                       isBilling: _address == Address.billing ? 1:0,
                                       address: locationProvider.locationController.text ?? '',
-                                      latitude: widget.isEnableUpdate ? locationProvider.position.latitude.toString() ?? widget.address.latitude : locationProvider.position.latitude.toString() ?? '',
-                                      longitude: widget.isEnableUpdate ? locationProvider.position.longitude.toString() ?? widget.address.longitude
+                                      latitude: widget.isEnableUpdate ? locationProvider.position.latitude.toString() ?? widget.address!.latitude : locationProvider.position.latitude.toString() ?? '',
+                                      longitude: widget.isEnableUpdate ? locationProvider.position.longitude.toString() ?? widget.address!.longitude
                                           : locationProvider.position.longitude.toString() ?? '',
                                     );
                                     if (widget.isEnableUpdate) {
-                                      addressModel.id = widget.address.id;
+                                      addressModel.id = widget.address!.id;
                                       // addressModel.method = 'put';
                                       locationProvider.updateAddress(context, addressModel: addressModel, addressId: addressModel.id).then((value) {});
                                     } else {
@@ -490,10 +490,10 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                             Provider.of<ProfileProvider>(context, listen: false).initAddressList(context);
                                             Provider.of<OrderProvider>(context, listen: false).setAddressIndex(-1);
                                           } else {
-                                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value.message), duration: Duration(milliseconds: 600), backgroundColor: Colors.green));
+                                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value.message!), duration: Duration(milliseconds: 600), backgroundColor: Colors.green));
                                           }
                                         } else {
-                                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value.message), duration: Duration(milliseconds: 600), backgroundColor: Colors.red));
+                                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value.message!), duration: Duration(milliseconds: 600), backgroundColor: Colors.red));
                                         }
                                       });
                                     }

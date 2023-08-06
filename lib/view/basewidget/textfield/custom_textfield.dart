@@ -11,20 +11,20 @@ extension EmailValidator on String {
 }
 
 class CustomTextField extends StatelessWidget {
-  final TextEditingController controller;
-  final String hintText;
-  final TextInputType textInputType;
-  final int maxLine;
-  final FocusNode focusNode;
-  final FocusNode nextNode;
-  final TextInputAction textInputAction;
+  final TextEditingController? controller;
+  final String? hintText;
+  final TextInputType? textInputType;
+  final int? maxLine;
+  final FocusNode? focusNode;
+  final FocusNode? nextNode;
+  final TextInputAction? textInputAction;
   final bool isPhoneNumber;
   final bool isValidator;
-  final String validatorMessage;
-  final Color fillColor;
+  final String? validatorMessage;
+  final Color? fillColor;
   final TextCapitalization capitalization;
   final bool isBorder;
-  final TextAlign textAlign;
+  final TextAlign? textAlign;
 
   CustomTextField(
       {this.controller,
@@ -55,7 +55,7 @@ class CustomTextField extends StatelessWidget {
         ],
       ),
       child: TextFormField(
-        textAlign: textAlign != null? textAlign : isBorder? TextAlign.center:TextAlign.start,
+        textAlign: textAlign != null? textAlign! : isBorder? TextAlign.center:TextAlign.start,
         controller: controller,
         maxLines: maxLine ?? 1,
         textCapitalization: capitalization,
@@ -71,7 +71,7 @@ class CustomTextField extends StatelessWidget {
         //autovalidate: true,
         inputFormatters: [isPhoneNumber ? FilteringTextInputFormatter.digitsOnly : FilteringTextInputFormatter.singleLineFormatter],
         validator: (input){
-          if(input.isEmpty){
+          if(input!.isEmpty){
             if(isValidator){
               return validatorMessage??"";
             }

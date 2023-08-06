@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
 
 class SellerView extends StatelessWidget {
   final String sellerId;
-  SellerView({@required this.sellerId});
+  SellerView({required this.sellerId});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class SellerView extends StatelessWidget {
                   child: FadeInImage.assetNetwork(fit: BoxFit.cover,
                     placeholder: Images.placeholder, height: MediaQuery.of(context).size.width,
                     width: MediaQuery.of(context).size.width,
-                    image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls.shopImageUrl}/${seller.sellerModel.seller.shop.image}',
+                    image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.shopImageUrl}/${seller.sellerModel!.seller!.shop!.image}',
                     imageErrorBuilder: (c, o, s) => Image.asset(
                       Images.placeholder, height: MediaQuery.of(context).size.width,
                       width: MediaQuery.of(context).size.width,fit: BoxFit.cover,
@@ -62,12 +62,12 @@ class SellerView extends StatelessWidget {
                         child: Column(mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(seller.sellerModel != null ? '${seller.sellerModel.seller.shop.name ?? ''}'  : '',
+                            Text(seller.sellerModel != null ? '${seller.sellerModel!.seller!.shop!.name ?? ''}'  : '',
                               style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),
                             ),
 
                             Text(seller.sellerModel != null ?
-                            '${seller.sellerModel.seller.fName ?? ''}'+' '+'${seller.sellerModel.seller.lName ?? ''}'  : '',
+                            '${seller.sellerModel!.seller!.fName ?? ''}'+' '+'${seller.sellerModel!.seller!.lName ?? ''}'  : '',
                               style: titleRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL,color: Theme.of(context).hintColor),
                             ),
                           ],
@@ -82,8 +82,8 @@ class SellerView extends StatelessWidget {
                           showAnimatedDialog(context, GuestDialog(), isFlip: true);
                         }else if(seller.sellerModel != null) {
                           Navigator.push(context, MaterialPageRoute(builder: (_) => ChatScreen(
-                              id: seller.sellerModel.seller.id,
-                              name: seller.sellerModel.seller.shop.name,
+                              id: seller.sellerModel!.seller!.id,
+                              name: seller.sellerModel!.seller!.shop!.name,
                           )));
                         }
                       },
@@ -96,18 +96,18 @@ class SellerView extends StatelessWidget {
                   seller.sellerModel != null?
                   Row(children: [
                     Column(children: [
-                      Text('${seller.sellerModel.totalReview.toString()}',
+                      Text('${seller.sellerModel!.totalReview.toString()}',
                         style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE),),
-                      Text(getTranslated('reviews', context),
+                      Text(getTranslated('reviews', context)!,
                         style: titleRegular.copyWith(color: Theme.of(context).hintColor),),
                     ],),
                     SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_LARGE),
 
 
                     Column(children: [
-                      Text('${seller.sellerModel.totalProduct.toString()}',
+                      Text('${seller.sellerModel!.totalProduct.toString()}',
                         style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE),),
-                      Text(getTranslated('products', context),
+                      Text(getTranslated('products', context)!,
                         style: titleRegular.copyWith(color: Theme.of(context).hintColor),),
 
                     ],),
@@ -122,7 +122,7 @@ class SellerView extends StatelessWidget {
                          color: ColorResources.visitShop(context),
                          borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_LARGE)
                        ),
-                       child: Center(child: Text(getTranslated('visit_store', context),
+                       child: Center(child: Text(getTranslated('visit_store', context)!,
                          style: titleRegular.copyWith(color: Theme.of(context).primaryColor),)),
                      ),
                    )

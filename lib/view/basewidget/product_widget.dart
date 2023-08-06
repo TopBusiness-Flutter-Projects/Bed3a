@@ -12,11 +12,11 @@ import 'package:provider/provider.dart';
 
 class ProductWidget extends StatelessWidget {
   final Product productModel;
-  ProductWidget({@required this.productModel});
+  ProductWidget({required this.productModel});
 
   @override
   Widget build(BuildContext context) {
-    String ratting = productModel.rating != null && productModel.rating.length != 0? productModel.rating[0].average : "0";
+    String ratting = productModel.rating != null && productModel.rating!.length != 0? productModel.rating![0].average! : "0";
 
     return InkWell(
       onTap: () {
@@ -47,7 +47,7 @@ class ProductWidget extends StatelessWidget {
                 child: FadeInImage.assetNetwork(
                   placeholder: Images.placeholder, fit: BoxFit.cover,
                   height: MediaQuery.of(context).size.width/2.45,
-                  image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls.productThumbnailUrl}/${productModel.thumbnail}',
+                  image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.productThumbnailUrl}/${productModel.thumbnail}',
                   imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder_1x1,
                       fit: BoxFit.cover,height: MediaQuery.of(context).size.width/2.45),
                 ),
@@ -87,7 +87,7 @@ class ProductWidget extends StatelessWidget {
                       SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
 
 
-                        productModel.discount!= null && productModel.discount > 0 ?
+                        productModel.discount!= null && productModel.discount! > 0 ?
                         Text(PriceConverter.convertPrice(context, productModel.unitPrice),
                         style: titleRegular.copyWith(
                           color: ColorResources.getRed(context),
@@ -116,7 +116,7 @@ class ProductWidget extends StatelessWidget {
 
           // Off
 
-          productModel.discount > 0 ?
+          productModel.discount! > 0 ?
           Positioned(top: 0, left: 0, child: Container(
               height: 20,
               padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),

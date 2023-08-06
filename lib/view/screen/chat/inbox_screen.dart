@@ -24,7 +24,7 @@ class InboxScreen extends StatefulWidget {
 class _InboxScreenState extends State<InboxScreen> {
 
 
-  bool isGuestMode;
+  late bool isGuestMode;
   @override
   void initState() {
     bool isFirstTime = true;
@@ -69,12 +69,12 @@ class _InboxScreenState extends State<InboxScreen> {
               },
               child: Consumer<ChatProvider>(
                 builder: (context, chatProvider, child) {
-                  return !chatProvider.isLoading? chatProvider.chatList.length != 0 ?
+                  return !chatProvider.isLoading? chatProvider.chatList!.length != 0 ?
                   ListView.builder(
-                    itemCount: chatProvider.chatList.length,
+                    itemCount: chatProvider.chatList!.length,
                     padding: EdgeInsets.all(0),
                     itemBuilder: (context, index) {
-                      return ChatItemWidget(chat: chatProvider.chatList[index]);
+                      return ChatItemWidget(chat: chatProvider.chatList![index]);
                     },
                   ) : NoInternetOrDataScreen(isNoInternet: false): InboxShimmer();
                 },

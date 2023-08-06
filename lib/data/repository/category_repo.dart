@@ -5,12 +5,12 @@ import 'package:bed3a_ecommerce/data/model/response/base/api_response.dart';
 import 'package:bed3a_ecommerce/utill/app_constants.dart';
 
 class CategoryRepo {
-  final DioClient dioClient;
-  CategoryRepo({@required this.dioClient});
+  final DioClient? dioClient;
+  CategoryRepo({required this.dioClient});
 
   Future<ApiResponse> getCategoryList() async {
     try {
-      final response = await dioClient.get(
+      final response = await dioClient!.get(
         AppConstants.CATEGORIES_URI);
       return ApiResponse.withSuccess(response);
     } catch (e) {

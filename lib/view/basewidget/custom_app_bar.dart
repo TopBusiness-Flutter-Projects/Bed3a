@@ -6,13 +6,13 @@ import 'package:bed3a_ecommerce/utill/images.dart';
 import 'package:provider/provider.dart';
 
 class CustomAppBar extends StatelessWidget {
-  final String title;
+  final String? title;
   final isBackButtonExist;
-  final IconData icon;
-  final Function onActionPressed;
-  final Function onBackPressed;
+  final IconData? icon;
+  final Function? onActionPressed;
+  final Function? onBackPressed;
 
-  CustomAppBar({@required this.title, this.isBackButtonExist = true, this.icon, this.onActionPressed, this.onBackPressed});
+  CustomAppBar({required this.title, this.isBackButtonExist = true, this.icon, this.onActionPressed, this.onBackPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -34,13 +34,13 @@ class CustomAppBar extends StatelessWidget {
           isBackButtonExist ? IconButton(
             icon: Icon(Icons.arrow_back_ios, size: 20,
                 color: Provider.of<ThemeProvider>(context).darkTheme ? Colors.white : Colors.black),
-            onPressed: () => onBackPressed != null ? onBackPressed() : Navigator.of(context).pop(),
+            onPressed: () => onBackPressed != null ? onBackPressed!() : Navigator.of(context).pop(),
           ) : SizedBox.shrink(),
           SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
 
           Expanded(
             child: Text(
-              title, style: titilliumRegular.copyWith(fontSize: 20,
+              title!, style: titilliumRegular.copyWith(fontSize: 20,
               color: Provider.of<ThemeProvider>(context).darkTheme ? Colors.white : Colors.black,),
               maxLines: 1, overflow: TextOverflow.ellipsis,
             ),
@@ -48,7 +48,7 @@ class CustomAppBar extends StatelessWidget {
 
           icon != null ? IconButton(
             icon: Icon(icon, size: Dimensions.ICON_SIZE_LARGE, color: Colors.white),
-            onPressed: onActionPressed,
+            onPressed: onActionPressed as void Function()?,
           ) : SizedBox.shrink(),
 
         ]),

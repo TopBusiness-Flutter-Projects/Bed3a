@@ -10,17 +10,17 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
 class SelectLocationScreen extends StatefulWidget {
-  final GoogleMapController googleMapController;
-  SelectLocationScreen({@required this.googleMapController});
+  final GoogleMapController? googleMapController;
+  SelectLocationScreen({required this.googleMapController});
 
   @override
   _SelectLocationScreenState createState() => _SelectLocationScreenState();
 }
 
 class _SelectLocationScreenState extends State<SelectLocationScreen> {
-  GoogleMapController _controller;
+  GoogleMapController? _controller;
   TextEditingController _locationController = TextEditingController();
-  CameraPosition _cameraPosition;
+  CameraPosition? _cameraPosition;
 
   @override
   void initState() {
@@ -32,10 +32,10 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
   @override
   void dispose() {
     super.dispose();
-    _controller.dispose();
+    _controller!.dispose();
   }
 
-  void _openSearchDialog(BuildContext context, GoogleMapController mapController) async {
+  void _openSearchDialog(BuildContext context, GoogleMapController? mapController) async {
     showDialog(context: context, builder: (context) => LocationSearchDialog(mapController: mapController));
   }
 
@@ -130,7 +130,7 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
                                     buttonText: getTranslated('select_location', context),
                                     onTap: () {
                                       if(widget.googleMapController != null) {
-                                        widget.googleMapController.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(
+                                        widget.googleMapController!.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(
                                           locationProvider.pickPosition.latitude, locationProvider.pickPosition.longitude,
                                         ), zoom: 15)));
                                         locationProvider.setAddAddressData();

@@ -10,8 +10,8 @@ import 'package:bed3a_ecommerce/view/screen/payment/payment_screen.dart';
 import 'package:provider/provider.dart';
 
 class PaymentInfo extends StatelessWidget {
-  final OrderProvider order;
-  const PaymentInfo({Key key, this.order}) : super(key: key);
+  final OrderProvider? order;
+  const PaymentInfo({Key? key, this.order}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,17 +20,17 @@ class PaymentInfo extends StatelessWidget {
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(getTranslated('PAYMENT', context), style: robotoBold),
+            Text(getTranslated('PAYMENT', context)!, style: robotoBold),
 
             Padding(
               padding: const EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_SMALL),
               child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(getTranslated('PAYMENT_STATUS', context),
+                    Text(getTranslated('PAYMENT_STATUS', context)!,
                         style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL)),
 
-                    Text((order.trackingModel.paymentStatus != null && order.trackingModel.paymentStatus.isNotEmpty) ?
-                    order.trackingModel.paymentStatus : 'Digital Payment',
+                    Text((order!.trackingModel!.paymentStatus != null && order!.trackingModel!.paymentStatus!.isNotEmpty) ?
+                    order!.trackingModel!.paymentStatus! : 'Digital Payment',
                       style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL),
                     ),
                   ]),
@@ -38,10 +38,10 @@ class PaymentInfo extends StatelessWidget {
 
 
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Text(getTranslated('PAYMENT_PLATFORM', context),
+              Text(getTranslated('PAYMENT_PLATFORM', context)!,
                   style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL)),
 
-              Text(order.trackingModel.paymentMethod != null ? getTranslated( order.trackingModel.paymentMethod, context): '',
+              Text(order!.trackingModel!.paymentMethod != null ? getTranslated( order!.trackingModel!.paymentMethod, context)!: '',
                   style: titilliumBold.copyWith(color: Theme.of(context).primaryColor,
                   )),
             ]),

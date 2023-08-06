@@ -5,8 +5,8 @@ import 'package:bed3a_ecommerce/utill/custom_themes.dart';
 import 'package:bed3a_ecommerce/utill/dimensions.dart';
 
 class ShippingInfo extends StatelessWidget {
-  final OrderProvider order;
-  const ShippingInfo({Key key, this.order}) : super(key: key);
+  final OrderProvider? order;
+  const ShippingInfo({Key? key, this.order}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +23,9 @@ class ShippingInfo extends StatelessWidget {
                   Text('${getTranslated('delivery_service_name', context)} : ',
                       style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL)),
 
-                  Text((order.trackingModel.thirdPartyServiceName != null &&
-                      order.trackingModel.thirdPartyServiceName.isNotEmpty) ?
-                  order.trackingModel.thirdPartyServiceName:'',
+                  Text((order!.trackingModel!.thirdPartyServiceName != null &&
+                      order!.trackingModel!.thirdPartyServiceName!.isNotEmpty) ?
+                  order!.trackingModel!.thirdPartyServiceName!:'',
                     style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL),
                   ),
                 ]),
@@ -37,8 +37,8 @@ class ShippingInfo extends StatelessWidget {
                   Text('${getTranslated('tracking_id', context)} : ',
                       style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL)),
 
-                  Text(order.trackingModel.thirdPartyTrackingId != null
-                      ? order.trackingModel.thirdPartyTrackingId : '',
+                  Text(order!.trackingModel!.thirdPartyTrackingId != null
+                      ? order!.trackingModel!.thirdPartyTrackingId! : '',
                       style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL,
                       )),
                 ]),

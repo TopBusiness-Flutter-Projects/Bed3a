@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:bed3a_ecommerce/utill/color_resources.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-void showCustomSnackBar(String message, BuildContext context, {bool isError = true, bool isToaster = false}) {
+void showCustomSnackBar(String? message, BuildContext context, {bool isError = true, bool isToaster = false}) {
   if(isToaster){
     Fluttertoast.showToast(
-        msg: message,
+        msg: message!,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
@@ -16,7 +16,7 @@ void showCustomSnackBar(String message, BuildContext context, {bool isError = tr
   }else{
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       backgroundColor: isError ? ColorResources.getRed(context) : Colors.green,
-      content: Text(message),
+      content: Text(message!),
     ));
   }
 

@@ -97,7 +97,7 @@ class OnBoardingScreen extends StatelessWidget {
                           width: double.infinity,
                           alignment: Alignment.center,
                           child: Text(onBoardingList.selectedIndex == onBoardingList.onBoardingList.length - 1
-                              ? getTranslated('GET_STARTED', context) : getTranslated('NEXT', context),
+                              ? getTranslated('GET_STARTED', context)! : getTranslated('NEXT', context)!,
                               style: titilliumSemiBold.copyWith(color: Colors.white, fontSize: Dimensions.FONT_SIZE_LARGE)),
                         ),
                       ),

@@ -9,8 +9,8 @@ import 'package:bed3a_ecommerce/utill/images.dart';
 import 'package:bed3a_ecommerce/view/screen/topSeller/top_seller_product_screen.dart';
 import 'package:provider/provider.dart';
 class SellerCard extends StatefulWidget {
-  final TopSellerModel sellerModel;
-  const SellerCard({Key key, this.sellerModel}) : super(key: key);
+  final TopSellerModel? sellerModel;
+  const SellerCard({Key? key, this.sellerModel}) : super(key: key);
 
   @override
   State<SellerCard> createState() => _SellerCardState();
@@ -21,21 +21,21 @@ class _SellerCardState extends State<SellerCard> {
   @override
   Widget build(BuildContext context) {
 
-    if(widget.sellerModel.vacationEndDate != null){
-      DateTime vacationDate = DateTime.parse(widget.sellerModel.vacationEndDate);
-      DateTime vacationStartDate = DateTime.parse(widget.sellerModel.vacationStartDate);
+    if(widget.sellerModel!.vacationEndDate != null){
+      DateTime vacationDate = DateTime.parse(widget.sellerModel!.vacationEndDate!);
+      DateTime vacationStartDate = DateTime.parse(widget.sellerModel!.vacationStartDate!);
       final today = DateTime.now();
       final difference = vacationDate.difference(today).inDays;
       final startDate = vacationStartDate.difference(today).inDays;
 
-      if(difference >= 0 && widget.sellerModel.vacationStatus == 1 && startDate <= 0){
+      if(difference >= 0 && widget.sellerModel!.vacationStatus == 1 && startDate <= 0){
         vacationIsOn = true;
       }
 
       else{
         vacationIsOn = false;
       }
-      print('------=>${widget.sellerModel.name}${widget.sellerModel.vacationEndDate}/${widget.sellerModel.vacationStartDate}${vacationIsOn.toString()}/${difference.toString()}/${startDate.toString()}');
+      print('------=>${widget.sellerModel!.name}${widget.sellerModel!.vacationEndDate}/${widget.sellerModel!.vacationStartDate}${vacationIsOn.toString()}/${difference.toString()}/${startDate.toString()}');
 
     }
 
@@ -61,7 +61,7 @@ class _SellerCardState extends State<SellerCard> {
                     child: FadeInImage.assetNetwork(
                       fit: BoxFit.cover,
                       placeholder: Images.placeholder,
-                      image: Provider.of<SplashProvider>(context,listen: false).baseUrls.shopImageUrl+'/'+widget.sellerModel.image,
+                      image: Provider.of<SplashProvider>(context,listen: false).baseUrls!.shopImageUrl!+'/'+widget.sellerModel!.image!,
                       imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder_1x1, fit: BoxFit.cover,),
                     ),
                   ),
@@ -69,7 +69,7 @@ class _SellerCardState extends State<SellerCard> {
               ),
             ],
           ),
-          if(widget.sellerModel.temporaryClose == 1  || vacationIsOn)
+          if(widget.sellerModel!.temporaryClose == 1  || vacationIsOn)
             Container(
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(.5),
@@ -77,11 +77,11 @@ class _SellerCardState extends State<SellerCard> {
               ),
             ),
 
-          widget.sellerModel.temporaryClose ==1?
-            Center(child: Text(getTranslated('temporary_closed', context), textAlign: TextAlign.center,
+          widget.sellerModel!.temporaryClose ==1?
+            Center(child: Text(getTranslated('temporary_closed', context)!, textAlign: TextAlign.center,
               style: robotoRegular.copyWith(color: Colors.white, fontSize: Dimensions.FONT_SIZE_LARGE),)):
           vacationIsOn?
-          Center(child: Text(getTranslated('close_for_now', context), textAlign: TextAlign.center,
+          Center(child: Text(getTranslated('close_for_now', context)!, textAlign: TextAlign.center,
             style: robotoRegular.copyWith(color: Colors.white, fontSize: Dimensions.FONT_SIZE_LARGE),)):
           SizedBox()
         ],

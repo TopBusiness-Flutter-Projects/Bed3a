@@ -11,8 +11,8 @@ import 'package:provider/provider.dart';
 
 class SignOutConfirmationDialog extends StatelessWidget {
   final bool isDelete;
-  final int customerId;
-  const SignOutConfirmationDialog({Key key, this.isDelete = false, this.customerId}) : super(key: key);
+  final int? customerId;
+  const SignOutConfirmationDialog({Key? key, this.isDelete = false, this.customerId}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -26,7 +26,7 @@ class SignOutConfirmationDialog extends StatelessWidget {
 
         Padding(
           padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_LARGE, vertical: 50),
-          child: Text(isDelete? getTranslated('want_to_delete_account', context): getTranslated('want_to_sign_out', context), style: robotoRegular, textAlign: TextAlign.center),
+          child: Text(isDelete? getTranslated('want_to_delete_account', context)!: getTranslated('want_to_sign_out', context)!, style: robotoRegular, textAlign: TextAlign.center),
         ),
 
         Divider(height: 0, color: ColorResources.HINT_TEXT_COLOR),
@@ -42,7 +42,7 @@ class SignOutConfirmationDialog extends StatelessWidget {
                 onTap: () {
                   if(isDelete){
                     Provider.of<ProfileProvider>(context, listen: false).deleteCustomerAccount(context, customerId).then((condition) {
-                      if(condition.response.statusCode == 200){
+                      if(condition.response!.statusCode == 200){
                         Navigator.pop(context);
                         Provider.of<AuthProvider>(context,listen: false).clearSharedData();
                         Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => AuthScreen()), (route) => false);
@@ -64,7 +64,7 @@ class SignOutConfirmationDialog extends StatelessWidget {
                   padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10))),
-                  child: Text(getTranslated('YES', context), style: titilliumBold.copyWith(color: Theme.of(context).primaryColor)),
+                  child: Text(getTranslated('YES', context)!, style: titilliumBold.copyWith(color: Theme.of(context).primaryColor)),
                 ),
               )),
 
@@ -74,7 +74,7 @@ class SignOutConfirmationDialog extends StatelessWidget {
                   padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(color: ColorResources.RED, borderRadius: BorderRadius.only(bottomRight: Radius.circular(10))),
-                  child: Text(getTranslated('NO', context), style: titilliumBold.copyWith(color: ColorResources.WHITE)),
+                  child: Text(getTranslated('NO', context)!, style: titilliumBold.copyWith(color: ColorResources.WHITE)),
                 ),
               )),
 

@@ -15,10 +15,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_maps_webservice/places.dart';
 
 class LocationProvider with ChangeNotifier {
-  final SharedPreferences sharedPreferences;
-  final LocationRepo locationRepo;
+  final SharedPreferences? sharedPreferences;
+  final LocationRepo? locationRepo;
 
-  LocationProvider({@required this.sharedPreferences, this.locationRepo});
+  LocationProvider({required this.sharedPreferences, this.locationRepo});
 
   Position _position = Position(longitude: 0, latitude: 0, timestamp: DateTime.now(), accuracy: 1, altitude: 1, heading: 1, speed: 1, speedAccuracy: 1);
   Position _pickPosition = Position(longitude: 0, latitude: 0, timestamp: DateTime.now(), accuracy: 1, altitude: 1, heading: 1, speed: 1, speedAccuracy: 1);
@@ -42,12 +42,12 @@ class LocationProvider with ChangeNotifier {
 
   bool _buttonDisabled = true;
   bool _changeAddress = true;
-  GoogleMapController _mapController;
+  GoogleMapController? _mapController;
   List<Prediction> _predictionList = [];
   bool _updateAddAddressData = true;
 
   bool get buttonDisabled => _buttonDisabled;
-  GoogleMapController get mapController => _mapController;
+  GoogleMapController? get mapController => _mapController;
 
 
   List<String> _restrictedCountryList = [];
@@ -70,7 +70,7 @@ class LocationProvider with ChangeNotifier {
 
 
   // for get current location
-  void getCurrentLocation(BuildContext context, bool fromAddress, {GoogleMapController mapController}) async {
+  void getCurrentLocation(BuildContext context, bool fromAddress, {GoogleMapController? mapController}) async {
     _loading = true;
     notifyListeners();
     Position _myPosition;
@@ -111,19 +111,19 @@ class LocationProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void updatePosition(CameraPosition position, bool fromAddress, String address, BuildContext context) async {
+  void updatePosition(CameraPosition? position, bool fromAddress, String? address, BuildContext context) async {
     if(_updateAddAddressData) {
       _loading = true;
       notifyListeners();
       try {
         if (fromAddress) {
           _position = Position(
-            latitude: position.target.latitude, longitude: position.target.longitude, timestamp: DateTime.now(),
+            latitude: position!.target.latitude, longitude: position.target.longitude, timestamp: DateTime.now(),
             heading: 1, accuracy: 1, altitude: 1, speedAccuracy: 1, speed: 1,
           );
         } else {
           _pickPosition = Position(
-            latitude: position.target.latitude, longitude: position.target.longitude, timestamp: DateTime.now(),
+            latitude: position!.target.latitude, longitude: position.target.longitude, timestamp: DateTime.now(),
             heading: 1, accuracy: 1, altitude: 1, speedAccuracy: 1, speed: 1,
           );
         }
@@ -157,21 +157,21 @@ class LocationProvider with ChangeNotifier {
   }
 
 
-  void deleteUserAddressByID(int id, int index, Function callback) async {
-    ApiResponse apiResponse = await locationRepo.removeAddressByID(id);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
-      _addressList.removeAt(index);
+  void deleteUserAddressByID(int? id, int index, Function callback) async {
+    ApiResponse apiResponse = await locationRepo!.removeAddressByID(id);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      _addressList!.removeAt(index);
       callback(true, 'Deleted address successfully');
       notifyListeners();
     } else {
-      String errorMessage;
+      String? errorMessage;
       if (apiResponse.error is String) {
         print(apiResponse.error.toString());
         errorMessage = apiResponse.error.toString();
       } else {
         ErrorResponse errorResponse = apiResponse.error;
-        print(errorResponse.errors[0].message);
-        errorMessage = errorResponse.errors[0].message;
+        print(errorResponse.errors![0].message);
+        errorMessage = errorResponse.errors![0].message;
       }
       callback(false, errorMessage);
     }
@@ -179,15 +179,15 @@ class LocationProvider with ChangeNotifier {
 
   bool _isAvaibleLocation = false;
   bool get isAvaibleLocation => _isAvaibleLocation;
-  List<AddressModel> _addressList;
-  List<AddressModel> get addressList => _addressList;
+  List<AddressModel>? _addressList;
+  List<AddressModel>? get addressList => _addressList;
 
-  Future<ResponseModel> initAddressList(BuildContext context) async {
-    ResponseModel _responseModel;
-    ApiResponse apiResponse = await locationRepo.getAllAddress();
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+  Future<ResponseModel?> initAddressList(BuildContext context) async {
+    ResponseModel? _responseModel;
+    ApiResponse apiResponse = await locationRepo!.getAllAddress();
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _addressList = [];
-      apiResponse.response.data.forEach((address) => _addressList.add(AddressModel.fromJson(address)));
+      apiResponse.response!.data.forEach((address) => _addressList!.add(AddressModel.fromJson(address)));
       _responseModel = ResponseModel('successful', true);
     } else {
       ApiChecker.checkApi(context, apiResponse);
@@ -198,12 +198,12 @@ class LocationProvider with ChangeNotifier {
 
 
 
-  Future<ResponseModel> getRestrictedDeliveryCountryList(BuildContext context) async {
-    ResponseModel _responseModel;
-    ApiResponse apiResponse = await locationRepo.getDeliveryRestrictedCountryList();
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+  Future<ResponseModel?> getRestrictedDeliveryCountryList(BuildContext context) async {
+    ResponseModel? _responseModel;
+    ApiResponse apiResponse = await locationRepo!.getDeliveryRestrictedCountryList();
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _restrictedCountryList = [];
-      apiResponse.response.data.forEach((address) => _restrictedCountryList.add(address));
+      apiResponse.response!.data.forEach((address) => _restrictedCountryList.add(address));
       _responseModel = ResponseModel('successful', true);
     } else {
       ApiChecker.checkApi(context, apiResponse);
@@ -214,12 +214,12 @@ class LocationProvider with ChangeNotifier {
 
 
 
-  Future<ResponseModel> getRestrictedDeliveryZipList(BuildContext context) async {
-    ResponseModel _responseModel;
-    ApiResponse apiResponse = await locationRepo.getDeliveryRestrictedZipList();
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+  Future<ResponseModel?> getRestrictedDeliveryZipList(BuildContext context) async {
+    ResponseModel? _responseModel;
+    ApiResponse apiResponse = await locationRepo!.getDeliveryRestrictedZipList();
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _restrictedZipList = [];
-      apiResponse.response.data.forEach((address) => _restrictedZipList.add(RestrictedZipModel.fromJson(address)));
+      apiResponse.response!.data.forEach((address) => _restrictedZipList.add(RestrictedZipModel.fromJson(address)));
       _responseModel = ResponseModel('successful', true);
     } else {
       ApiChecker.checkApi(context, apiResponse);
@@ -231,10 +231,10 @@ class LocationProvider with ChangeNotifier {
 
   Future<void> getDeliveryRestrictedZipBySearch(BuildContext context, String searchName) async {
     _restrictedZipList = [];
-    ApiResponse response = await locationRepo.getDeliveryRestrictedZipBySearch(searchName);
-    if(response.response.statusCode == 200) {
+    ApiResponse response = await locationRepo!.getDeliveryRestrictedZipBySearch(searchName);
+    if(response.response!.statusCode == 200) {
       _restrictedZipList = [];
-      response.response.data.forEach((address) {
+      response.response!.data.forEach((address) {
         _restrictedZipList.add(RestrictedZipModel.fromJson(address));
 
 
@@ -248,10 +248,10 @@ class LocationProvider with ChangeNotifier {
 
   Future<void> getDeliveryRestrictedCountryBySearch(BuildContext context, String searchName) async {
     _restrictedCountryList = [];
-    ApiResponse response = await locationRepo.getDeliveryRestrictedCountryBySearch(searchName);
-    if(response.response.statusCode == 200) {
+    ApiResponse response = await locationRepo!.getDeliveryRestrictedCountryBySearch(searchName);
+    if(response.response!.statusCode == 200) {
       _restrictedCountryList = [];
-      response.response.data.forEach((address) => _restrictedCountryList.add(address));
+      response.response!.data.forEach((address) => _restrictedCountryList.add(address));
     }else {
       ApiChecker.checkApi(context,response);
     }
@@ -261,14 +261,14 @@ class LocationProvider with ChangeNotifier {
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
-  String _errorMessage = '';
-  String get errorMessage => _errorMessage;
-  String _addressStatusMessage = '';
-  String get addressStatusMessage => _addressStatusMessage;
-  updateAddressStatusMessae({String message}){
+  String? _errorMessage = '';
+  String? get errorMessage => _errorMessage;
+  String? _addressStatusMessage = '';
+  String? get addressStatusMessage => _addressStatusMessage;
+  updateAddressStatusMessae({String? message}){
     _addressStatusMessage = message;
   }
-  updateErrorMessage({String message}){
+  updateErrorMessage({String? message}){
     _errorMessage = message;
   }
 
@@ -277,24 +277,24 @@ class LocationProvider with ChangeNotifier {
     notifyListeners();
     _errorMessage = '';
     _addressStatusMessage = null;
-    ApiResponse apiResponse = await locationRepo.addAddress(addressModel);
+    ApiResponse apiResponse = await locationRepo!.addAddress(addressModel);
     _isLoading = false;
     ResponseModel responseModel;
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
-      Map map = apiResponse.response.data;
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      Map map = apiResponse.response!.data;
       initAddressList(context);
-      String message = map["message"];
+      String? message = map["message"];
       responseModel = ResponseModel(message, true);
       _addressStatusMessage = message;
     } else {
-      String errorMessage = apiResponse.error.toString();
+      String? errorMessage = apiResponse.error.toString();
       if (apiResponse.error is String) {
         print(apiResponse.error.toString());
         errorMessage = apiResponse.error.toString();
       } else {
         ErrorResponse errorResponse = apiResponse.error;
-        print(errorResponse.errors[0].message);
-        errorMessage = errorResponse.errors[0].message;
+        print(errorResponse.errors![0].message);
+        errorMessage = errorResponse.errors![0].message;
       }
       responseModel = ResponseModel(errorMessage, false);
       _errorMessage = errorMessage;
@@ -304,29 +304,29 @@ class LocationProvider with ChangeNotifier {
   }
 
 
-  Future<ResponseModel> updateAddress(BuildContext context, {AddressModel addressModel, int addressId}) async {
+  Future<ResponseModel> updateAddress(BuildContext context, {required AddressModel addressModel, int? addressId}) async {
     _isLoading = true;
     notifyListeners();
     _errorMessage = '';
     _addressStatusMessage = null;
-    ApiResponse apiResponse = await locationRepo.updateAddress(addressModel, addressId);
+    ApiResponse apiResponse = await locationRepo!.updateAddress(addressModel, addressId);
     _isLoading = false;
     ResponseModel responseModel;
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
-      Map map = apiResponse.response.data;
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      Map map = apiResponse.response!.data;
       initAddressList(context);
-      String message = map["message"];
+      String? message = map["message"];
       responseModel = ResponseModel( message, true);
       _addressStatusMessage = message;
     } else {
-      String errorMessage = apiResponse.error.toString();
+      String? errorMessage = apiResponse.error.toString();
       if (apiResponse.error is String) {
         print(apiResponse.error.toString());
         errorMessage = apiResponse.error.toString();
       } else {
         ErrorResponse errorResponse = apiResponse.error;
-        print(errorResponse.errors[0].message);
-        errorMessage = errorResponse.errors[0].message;
+        print(errorResponse.errors![0].message);
+        errorMessage = errorResponse.errors![0].message;
       }
       responseModel = ResponseModel(errorMessage, false);
       _errorMessage = errorMessage;
@@ -344,17 +344,17 @@ class LocationProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> saveUserAddress({Placemark address}) async {
+  Future<void> saveUserAddress({Placemark? address}) async {
     String userAddress = jsonEncode(address);
     try {
-      await sharedPreferences.setString(AppConstants.USER_ADDRESS, userAddress);
+      await sharedPreferences!.setString(AppConstants.USER_ADDRESS, userAddress);
     } catch (e) {
       throw e;
     }
   }
 
   String getUserAddress() {
-    return sharedPreferences.getString(AppConstants.USER_ADDRESS) ?? "";
+    return sharedPreferences!.getString(AppConstants.USER_ADDRESS) ?? "";
   }
 
 
@@ -372,22 +372,22 @@ class LocationProvider with ChangeNotifier {
     }
   }
 
-  initializeAllAddressType({BuildContext context}) {
+  initializeAllAddressType({BuildContext? context}) {
     if (_getAllAddressType.length == 0) {
       _getAllAddressType = [];
-      _getAllAddressType = locationRepo.getAllAddressType(context: context);
+      _getAllAddressType = locationRepo!.getAllAddressType(context: context);
     }
   }
 
-  void setLocation(String placeID, String address, GoogleMapController mapController) async {
+  void setLocation(String? placeID, String? address, GoogleMapController? mapController) async {
     _loading = true;
     notifyListeners();
     PlacesDetailsResponse detail;
-    ApiResponse response = await locationRepo.getPlaceDetails(placeID);
-    detail = PlacesDetailsResponse.fromJson(response.response.data);
+    ApiResponse response = await locationRepo!.getPlaceDetails(placeID);
+    detail = PlacesDetailsResponse.fromJson(response.response!.data);
 
     _pickPosition = Position(
-      longitude: detail.result.geometry.location.lat, latitude: detail.result.geometry.location.lng,
+      longitude: detail.result.geometry!.location.lat, latitude: detail.result.geometry!.location.lng,
       timestamp: DateTime.now(), accuracy: 1, altitude: 1, heading: 1, speed: 1, speedAccuracy: 1,
     );
 
@@ -396,7 +396,7 @@ class LocationProvider with ChangeNotifier {
 
     if(mapController != null) {
       mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(
-        detail.result.geometry.location.lat, detail.result.geometry.location.lng,
+        detail.result.geometry!.location.lat, detail.result.geometry!.location.lng,
       ), zoom: 17)));
     }
     _loading = false;
@@ -427,10 +427,10 @@ class LocationProvider with ChangeNotifier {
   }
 
   Future<String> getAddressFromGeocode(LatLng latLng, BuildContext context) async {
-    ApiResponse response = await locationRepo.getAddressFromGeocode(latLng);
+    ApiResponse response = await locationRepo!.getAddressFromGeocode(latLng);
     String _address = '';
-    if(response.response.statusCode == 200 && response.response.data['status'] == 'OK') {
-      _address = response.response.data['results'][0]['formatted_address'].toString();
+    if(response.response!.statusCode == 200 && response.response!.data['status'] == 'OK') {
+      _address = response.response!.data['results'][0]['formatted_address'].toString();
     }else {
       //ApiChecker.checkApi(context, response);
     }
@@ -439,10 +439,10 @@ class LocationProvider with ChangeNotifier {
 
   Future<List<Prediction>> searchLocation(BuildContext context, String text) async {
     if(text != null && text.isNotEmpty) {
-      ApiResponse response = await locationRepo.searchLocation(text);
-      if (response.response.statusCode == 200 && response.response.data['status'] == 'OK') {
+      ApiResponse response = await locationRepo!.searchLocation(text);
+      if (response.response!.statusCode == 200 && response.response!.data['status'] == 'OK') {
         _predictionList = [];
-        response.response.data['predictions'].forEach((prediction) => _predictionList.add(Prediction.fromJson(prediction)));
+        response.response!.data['predictions'].forEach((prediction) => _predictionList.add(Prediction.fromJson(prediction)));
       } else {
         ApiChecker.checkApi(context, response);
       }

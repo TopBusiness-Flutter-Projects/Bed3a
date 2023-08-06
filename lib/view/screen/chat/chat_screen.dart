@@ -12,9 +12,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class ChatScreen extends StatelessWidget {
-  final int id;
-  final String name;
-  ChatScreen({ this.id, @required this.name});
+  final int? id;
+  final String? name;
+  ChatScreen({ this.id, required this.name});
 
   final ImagePicker picker = ImagePicker();
   final TextEditingController _controller = TextEditingController();
@@ -30,14 +30,14 @@ class ChatScreen extends StatelessWidget {
           builder: (context, chatProvider,child) {
           return Column(children: [
             CustomAppBar(title: name),
-            Expanded(child: chatProvider.messageList != null ? chatProvider.messageList.length != 0 ?
+            Expanded(child: chatProvider.messageList != null ? chatProvider.messageList!.length != 0 ?
              ListView.builder(
               physics: BouncingScrollPhysics(),
               padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
-              itemCount: chatProvider.messageList.length,
+              itemCount: chatProvider.messageList!.length,
               reverse: true,
               itemBuilder: (context, index) {
-                List<Message> messages = chatProvider.messageList.reversed.toList();
+                List<Message> messages = chatProvider.messageList!.reversed.toList();
                 return MessageBubble(message: messages[index]);
               },
             ) : SizedBox.shrink() : ChatShimmer()),

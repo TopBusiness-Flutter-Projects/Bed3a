@@ -7,22 +7,22 @@ import 'package:bed3a_ecommerce/helper/api_checker.dart';
 import 'package:bed3a_ecommerce/localization/language_constrants.dart';
 
 class WalletTransactionProvider extends ChangeNotifier {
-  final WalletTransactionRepo transactionRepo;
+  final WalletTransactionRepo? transactionRepo;
   bool _isLoading = false;
   bool _firstLoading = false;
   bool _isConvert = false;
   bool get isConvert => _isConvert;
   bool get isLoading => _isLoading;
   bool get firstLoading => _firstLoading;
-  int _transactionPageSize;
-  int get transactionPageSize=> _transactionPageSize;
-  TransactionModel _walletBalance;
-  TransactionModel get walletBalance => _walletBalance;
+  int? _transactionPageSize;
+  int? get transactionPageSize=> _transactionPageSize;
+  TransactionModel? _walletBalance;
+  TransactionModel? get walletBalance => _walletBalance;
 
-  int _loyaltyPointPageSize;
-  int get loyaltyPointPageSize=> _loyaltyPointPageSize;
+  int? _loyaltyPointPageSize;
+  int? get loyaltyPointPageSize=> _loyaltyPointPageSize;
 
-  WalletTransactionProvider({@required this.transactionRepo});
+  WalletTransactionProvider({required this.transactionRepo});
 
   List<WalletTransactioList> _transactionList = [];
   List<WalletTransactioList> get transactionList => _transactionList;
@@ -35,11 +35,11 @@ class WalletTransactionProvider extends ChangeNotifier {
       _transactionList = [];
     }
     _isLoading = true;
-    ApiResponse apiResponse = await transactionRepo.getWalletTransactionList(offset);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
-      _walletBalance = TransactionModel.fromJson(apiResponse.response.data);
-      _transactionList.addAll(TransactionModel.fromJson(apiResponse.response.data).walletTransactioList);
-      _transactionPageSize = TransactionModel.fromJson(apiResponse.response.data).totalWalletTransactio;
+    ApiResponse apiResponse = await transactionRepo!.getWalletTransactionList(offset);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      _walletBalance = TransactionModel.fromJson(apiResponse.response!.data);
+      _transactionList.addAll(TransactionModel.fromJson(apiResponse.response!.data).walletTransactioList!);
+      _transactionPageSize = TransactionModel.fromJson(apiResponse.response!.data).totalWalletTransactio;
       _isLoading = false;
     } else {
       _isLoading = false;
@@ -54,10 +54,10 @@ class WalletTransactionProvider extends ChangeNotifier {
       _loyaltyPointList = [];
     }
     _isLoading = true;
-    ApiResponse apiResponse = await transactionRepo.getLoyaltyPointList(offset);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
-      _loyaltyPointList.addAll(LoyaltyPointModel.fromJson(apiResponse.response.data).loyaltyPointList);
-      _loyaltyPointPageSize = LoyaltyPointModel.fromJson(apiResponse.response.data).totalLoyaltyPoint;
+    ApiResponse apiResponse = await transactionRepo!.getLoyaltyPointList(offset);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      _loyaltyPointList.addAll(LoyaltyPointModel.fromJson(apiResponse.response!.data).loyaltyPointList!);
+      _loyaltyPointPageSize = LoyaltyPointModel.fromJson(apiResponse.response!.data).totalLoyaltyPoint;
       _isLoading = false;
     } else {
       _isLoading = false;
@@ -70,8 +70,8 @@ class WalletTransactionProvider extends ChangeNotifier {
   Future convertPointToCurrency(BuildContext context, int point) async {
     _isConvert = true;
     notifyListeners();
-    ApiResponse apiResponse = await transactionRepo.convertPointToCurrency(point);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    ApiResponse apiResponse = await transactionRepo!.convertPointToCurrency(point);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _isConvert = false;
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         backgroundColor:Colors.green,

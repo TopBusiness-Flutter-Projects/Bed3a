@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 class BannersView extends StatelessWidget {
 
-  _clickBannerRedirect(BuildContext context, int id, Product product,  String type){
+  _clickBannerRedirect(BuildContext context, int? id, Product? product,  String? type){
 
     final cIndex =  Provider.of<CategoryProvider>(context, listen: false).categoryList.indexWhere((element) => element.id == id);
     final bIndex =  Provider.of<BrandProvider>(context, listen: false).brandList.indexWhere((element) => element.id == id);
@@ -69,7 +69,7 @@ class BannersView extends StatelessWidget {
             return Container(
               width: _width,
               height: _width * 0.4,
-              child: bannerProvider.mainBannerList != null ? bannerProvider.mainBannerList.length != 0 ? Stack(
+              child: bannerProvider.mainBannerList != null ? bannerProvider.mainBannerList!.length != 0 ? Stack(
                 fit: StackFit.expand,
                 children: [
                   CarouselSlider.builder(
@@ -82,16 +82,16 @@ class BannersView extends StatelessWidget {
                         Provider.of<BannerProvider>(context, listen: false).setCurrentIndex(index);
                       },
                     ),
-                    itemCount: bannerProvider.mainBannerList.length == 0 ? 1 : bannerProvider.mainBannerList.length,
+                    itemCount: bannerProvider.mainBannerList!.length == 0 ? 1 : bannerProvider.mainBannerList!.length,
                     itemBuilder: (context, index, _) {
 
                       return InkWell(
                         onTap: () {
                           _clickBannerRedirect(context,
-                              bannerProvider.mainBannerList[index].resourceId,
-                              bannerProvider.mainBannerList[index].resourceType =='product'?
-                              bannerProvider.mainBannerList[index].product : null,
-                              bannerProvider.mainBannerList[index].resourceType);
+                              bannerProvider.mainBannerList![index].resourceId,
+                              bannerProvider.mainBannerList![index].resourceType =='product'?
+                              bannerProvider.mainBannerList![index].product : null,
+                              bannerProvider.mainBannerList![index].resourceType);
                         },
                         child: Container(
                           decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
@@ -99,8 +99,8 @@ class BannersView extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                             child: FadeInImage.assetNetwork(
                               placeholder: Images.placeholder, fit: BoxFit.cover,
-                              image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls.bannerImageUrl}'
-                                  '/${bannerProvider.mainBannerList[index].photo}',
+                              image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.bannerImageUrl}'
+                                  '/${bannerProvider.mainBannerList![index].photo}',
                               imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder_3x1, fit: BoxFit.cover),
                             ),
                           ),
@@ -115,8 +115,8 @@ class BannersView extends StatelessWidget {
                     right: 0,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: bannerProvider.mainBannerList.map((banner) {
-                        int index = bannerProvider.mainBannerList.indexOf(banner);
+                      children: bannerProvider.mainBannerList!.map((banner) {
+                        int index = bannerProvider.mainBannerList!.indexOf(banner);
                         return TabPageSelectorIndicator(
                           backgroundColor: index == bannerProvider.currentIndex ? Theme.of(context).primaryColor : Colors.grey,
                           borderColor: index == bannerProvider.currentIndex ? Theme.of(context).primaryColor : Colors.grey,
@@ -127,8 +127,8 @@ class BannersView extends StatelessWidget {
                   ),
                 ],
               ) : Center(child: Text('No banner available')) : Shimmer.fromColors(
-                baseColor: Colors.grey[300],
-                highlightColor: Colors.grey[100],
+                baseColor: Colors.grey[300]!,
+                highlightColor: Colors.grey[100]!,
                 enabled: bannerProvider.mainBannerList == null,
                 child: Container(margin: EdgeInsets.symmetric(horizontal: 10), decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),

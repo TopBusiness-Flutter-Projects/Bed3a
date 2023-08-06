@@ -10,8 +10,8 @@ import 'package:bed3a_ecommerce/view/basewidget/show_custom_snakbar.dart';
 import 'package:provider/provider.dart';
 
 class SellerSection extends StatelessWidget {
-  final OrderProvider order;
-  const SellerSection({Key key, this.order}) : super(key: key);
+  final OrderProvider? order;
+  const SellerSection({Key? key, this.order}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +23,10 @@ class SellerSection extends StatelessWidget {
             InkWell(
               onTap: (){
                 Provider.of<ChatProvider>(context, listen: false).setUserTypeIndex(context, 0);
-                if(order.orderDetails[0].seller != null){
+                if(order!.orderDetails![0].seller != null){
                   Navigator.push(context, MaterialPageRoute(builder: (_) => ChatScreen(
-                      id: order.orderDetails[0].seller.id,
-                    name: order.orderDetails[0].seller.shop.name,
+                      id: order!.orderDetails![0].seller!.id,
+                    name: order!.orderDetails![0].seller!.shop!.name,
                   )));
                 }else{
                   showCustomSnackBar(getTranslated('seller_not_available', context), context,isToaster: true);
@@ -37,9 +37,9 @@ class SellerSection extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_SMALL),
                 child: Row(children: [
-                  Expanded(child: Text(getTranslated('seller', context), style: robotoBold)),
-                  Text(order.orderDetails[0].seller == null ? 'Admin' :
-                  '${order.orderDetails[0].seller?.shop?.name??'${getTranslated('seller_not_available', context)}'} ',
+                  Expanded(child: Text(getTranslated('seller', context)!, style: robotoBold)),
+                  Text(order!.orderDetails![0].seller == null ? 'Admin' :
+                  '${order!.orderDetails![0].seller?.shop?.name??'${getTranslated('seller_not_available', context)}'} ',
                     style: titilliumRegular.copyWith(color: ColorResources.HINT_TEXT_COLOR),
                   ),
                   SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),

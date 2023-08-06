@@ -6,12 +6,12 @@ import 'package:bed3a_ecommerce/data/model/response/base/api_response.dart';
 import 'package:bed3a_ecommerce/utill/app_constants.dart';
 
 class NotificationRepo {
-  final DioClient dioClient;
-  NotificationRepo({@required this.dioClient});
+  final DioClient? dioClient;
+  NotificationRepo({required this.dioClient});
 
   Future<ApiResponse> getNotificationList() async {
     try {
-      Response response = await dioClient.get(AppConstants.NOTIFICATION_URI);
+      Response response = await dioClient!.get(AppConstants.NOTIFICATION_URI);
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));

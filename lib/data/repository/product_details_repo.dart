@@ -8,12 +8,12 @@ import 'package:bed3a_ecommerce/utill/app_constants.dart';
 import 'package:http/http.dart' as http;
 
 class ProductDetailsRepo {
-  final DioClient dioClient;
-  ProductDetailsRepo({@required this.dioClient});
+  final DioClient? dioClient;
+  ProductDetailsRepo({required this.dioClient});
 
   Future<ApiResponse> getProduct(String productID) async {
     try {
-      final response = await dioClient.get(AppConstants.PRODUCT_DETAILS_URI+productID);
+      final response = await dioClient!.get(AppConstants.PRODUCT_DETAILS_URI+productID);
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -23,7 +23,7 @@ class ProductDetailsRepo {
 
   Future<ApiResponse> getReviews(String productID) async {
     try {
-      final response = await dioClient.get(AppConstants.PRODUCT_REVIEW_URI+productID);
+      final response = await dioClient!.get(AppConstants.PRODUCT_REVIEW_URI+productID);
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -32,7 +32,7 @@ class ProductDetailsRepo {
 
   Future<ApiResponse> getCount(String productID) async {
     try {
-      final response = await dioClient.get(AppConstants.COUNTER_URI+productID);
+      final response = await dioClient!.get(AppConstants.COUNTER_URI+productID);
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -41,7 +41,7 @@ class ProductDetailsRepo {
 
   Future<ApiResponse> getSharableLink(String productID) async {
     try {
-      final response = await dioClient.get(AppConstants.SOCIAL_LINK_URI+productID);
+      final response = await dioClient!.get(AppConstants.SOCIAL_LINK_URI+productID);
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -61,7 +61,7 @@ class ProductDetailsRepo {
         ));
       }
     }
-    request.fields.addAll(<String, String>{'product_id': reviewBody.productId, 'comment': reviewBody.comment, 'rating': reviewBody.rating});
+    request.fields.addAll(<String, String>{'product_id': reviewBody.productId!, 'comment': reviewBody.comment!, 'rating': reviewBody.rating!});
     http.StreamedResponse response = await request.send();
     print(response.reasonPhrase);
     return response;

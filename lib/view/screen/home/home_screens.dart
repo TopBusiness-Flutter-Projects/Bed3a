@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
-    singleVendor = Provider.of<SplashProvider>(context, listen: false).configModel.businessMode == "single";
+    singleVendor = Provider.of<SplashProvider>(context, listen: false).configModel!.businessMode == "single";
     Provider.of<FlashDealProvider>(context, listen: false).getMegaDealList(true, context, true);
 
     _loadData(context, false);
@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
 
 
-   List<String> types =[getTranslated('new_arrival', context),getTranslated('top_product', context), getTranslated('best_selling', context),  getTranslated('discounted_product', context)];
+   List<String?> types =[getTranslated('new_arrival', context),getTranslated('top_product', context), getTranslated('best_selling', context),  getTranslated('discounted_product', context)];
     return Scaffold(
       backgroundColor: ColorResources.getHomeBg(context),
       resizeToAvoidBottomInset: false,
@@ -106,7 +106,7 @@ class _HomePageState extends State<HomePage> {
             await _loadData(context, true);
             await Provider.of<FlashDealProvider>(context, listen: false).getMegaDealList(true, context, false);
 
-            return true;
+           // return true;
           },
           child: Stack(
             children: [
@@ -168,11 +168,11 @@ class _HomePageState extends State<HomePage> {
                                 height: 60, alignment: Alignment.centerLeft,
                                 decoration: BoxDecoration(color: Theme.of(context).cardColor,
                                   boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ?
-                                  900 : 200], spreadRadius: 1, blurRadius: 1)],
+                                  900 : 200]!, spreadRadius: 1, blurRadius: 1)],
                                   borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL),),
                                 child: Row(mainAxisAlignment : MainAxisAlignment.spaceBetween, children: [
 
-                                  Text(getTranslated('SEARCH_HINT', context),
+                                  Text(getTranslated('SEARCH_HINT', context)!,
                                       style: robotoRegular.copyWith(color: Theme.of(context).hintColor)),
 
                                   Container(
@@ -241,15 +241,15 @@ class _HomePageState extends State<HomePage> {
 
 
                           // Brand
-                          Provider.of<SplashProvider>(context, listen: false).configModel.brandSetting == "1"?
+                          Provider.of<SplashProvider>(context, listen: false).configModel!.brandSetting == "1"?
                           Padding(
                             padding: const EdgeInsets.only(left: Dimensions.PADDING_SIZE_EXTRA_SMALL, right: Dimensions.PADDING_SIZE_EXTRA_SMALL,
                             bottom: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                             child: TitleRow(title: getTranslated('brand', context),
                                 onTap: () {Navigator.push(context, MaterialPageRoute(builder: (_) => AllBrandScreen()));}),
                           ):SizedBox(),
-                          SizedBox(height: Provider.of<SplashProvider>(context, listen: false).configModel.brandSetting == "1"?Dimensions.PADDING_SIZE_SMALL: 0),
-                          Provider.of<SplashProvider>(context, listen: false).configModel.brandSetting == "1"?
+                          SizedBox(height: Provider.of<SplashProvider>(context, listen: false).configModel!.brandSetting == "1"?Dimensions.PADDING_SIZE_SMALL: 0),
+                          Provider.of<SplashProvider>(context, listen: false).configModel!.brandSetting == "1"?
                           BrandView(isHomePage: true) : SizedBox(),
 
 
@@ -271,7 +271,7 @@ class _HomePageState extends State<HomePage> {
 
                           //footer banner
                           Consumer<BannerProvider>(builder: (context, footerBannerProvider, child){
-                            return footerBannerProvider.footerBannerList != null && footerBannerProvider.footerBannerList.length > 0?
+                            return footerBannerProvider.footerBannerList != null && footerBannerProvider.footerBannerList!.length > 0?
                             Padding(
                               padding: const EdgeInsets.only(bottom: Dimensions.HOME_PAGE_PADDING),
                               child: FooterBannersView(index: 0,),
@@ -340,7 +340,7 @@ class _HomePageState extends State<HomePage> {
                           //footer banner
                           Consumer<BannerProvider>(builder: (context, footerBannerProvider, child){
                             return footerBannerProvider.mainSectionBannerList != null &&
-                                footerBannerProvider.mainSectionBannerList.length > 0?
+                                footerBannerProvider.mainSectionBannerList!.length > 0?
                             Padding(
                               padding: const EdgeInsets.only(bottom: Dimensions.HOME_PAGE_PADDING),
                               child: MainSectionBannersView(index: 0,),
@@ -371,7 +371,7 @@ class _HomePageState extends State<HomePage> {
 
                           //footer banner
                           Consumer<BannerProvider>(builder: (context, footerBannerProvider, child){
-                            return footerBannerProvider.footerBannerList != null && footerBannerProvider.footerBannerList.length>1?
+                            return footerBannerProvider.footerBannerList != null && footerBannerProvider.footerBannerList!.length>1?
                             FooterBannersView(index: 1):SizedBox();
                           }),
                           SizedBox(height: Dimensions.HOME_PAGE_PADDING),
@@ -383,20 +383,20 @@ class _HomePageState extends State<HomePage> {
                             return Padding(
                               padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL,vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                               child: Row(children: [
-                                Expanded(child: Text(prodProvider.title == 'xyz' ? getTranslated('new_arrival',context):prodProvider.title, style: titleHeader)),
+                                Expanded(child: Text(prodProvider.title == 'xyz' ? getTranslated('new_arrival',context)!:prodProvider.title!, style: titleHeader)),
                                 prodProvider.latestProductList != null ? PopupMenuButton(
                                   itemBuilder: (context) {
                                     return [
-                                      PopupMenuItem(value: ProductType.NEW_ARRIVAL, child: Text(getTranslated('new_arrival',context)), textStyle: robotoRegular.copyWith(
+                                      PopupMenuItem(value: ProductType.NEW_ARRIVAL, child: Text(getTranslated('new_arrival',context)!), textStyle: robotoRegular.copyWith(
                                         color: Theme.of(context).hintColor,
                                          )),
-                                      PopupMenuItem(value: ProductType.TOP_PRODUCT, child: Text(getTranslated('top_product',context)), textStyle: robotoRegular.copyWith(
+                                      PopupMenuItem(value: ProductType.TOP_PRODUCT, child: Text(getTranslated('top_product',context)!), textStyle: robotoRegular.copyWith(
                                         color: Theme.of(context).hintColor,
                                         )),
-                                      PopupMenuItem(value: ProductType.BEST_SELLING, child: Text(getTranslated('best_selling',context)), textStyle: robotoRegular.copyWith(
+                                      PopupMenuItem(value: ProductType.BEST_SELLING, child: Text(getTranslated('best_selling',context)!), textStyle: robotoRegular.copyWith(
                                         color: Theme.of(context).hintColor,
                                        )),
-                                      PopupMenuItem(value: ProductType.DISCOUNTED_PRODUCT, child: Text(getTranslated('discounted_product',context)), textStyle: robotoRegular.copyWith(
+                                      PopupMenuItem(value: ProductType.DISCOUNTED_PRODUCT, child: Text(getTranslated('discounted_product',context)!), textStyle: robotoRegular.copyWith(
                                         color: Theme.of(context).hintColor,
                                       )),
                                     ];
@@ -406,7 +406,7 @@ class _HomePageState extends State<HomePage> {
                                     padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL,vertical:Dimensions.PADDING_SIZE_SMALL ),
                                     child: Image.asset(Images.dropdown, scale: 3,),
                                   ),
-                                  onSelected: (value) {
+                                  onSelected: (dynamic value) {
                                     if(value == ProductType.NEW_ARRIVAL){
                                       Provider.of<ProductProvider>(context, listen: false).changeTypeOfProduct(value, types[0]);
                                     }else if(value == ProductType.TOP_PRODUCT){
@@ -436,13 +436,13 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
 
-              Provider.of<SplashProvider>(context, listen: false).configModel.announcement.status == '1'?
+              Provider.of<SplashProvider>(context, listen: false).configModel!.announcement!.status == '1'?
               Positioned(top: MediaQuery.of(context).size.height-128,
                 left: 0,right: 0,
                 child: Consumer<SplashProvider>(
                   builder: (context, announcement, _){
-                    return (announcement.configModel.announcement.announcement != null && announcement.onOff)?
-                    AnnouncementScreen(announcement: announcement.configModel.announcement):SizedBox();
+                    return (announcement.configModel!.announcement!.announcement != null && announcement.onOff)?
+                    AnnouncementScreen(announcement: announcement.configModel!.announcement):SizedBox();
                   },
 
                 ),
@@ -457,7 +457,7 @@ class _HomePageState extends State<HomePage> {
 
 class SliverDelegate extends SliverPersistentHeaderDelegate {
   Widget child;
-  SliverDelegate({@required this.child});
+  SliverDelegate({required this.child});
 
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {

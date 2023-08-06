@@ -8,10 +8,10 @@ import 'package:bed3a_ecommerce/utill/dimensions.dart';
 import 'package:provider/provider.dart';
 
 class ShippingMethodBottomSheet extends StatefulWidget {
-  final String groupId;
-  final int sellerId;
+  final String? groupId;
+  final int? sellerId;
   final int sellerIndex;
-  ShippingMethodBottomSheet({@required this.groupId, @required this.sellerId, @required this.sellerIndex});
+  ShippingMethodBottomSheet({required this.groupId, required this.sellerId, required this.sellerIndex});
 
   @override
   _ShippingMethodBottomSheetState createState() => _ShippingMethodBottomSheetState();
@@ -20,7 +20,7 @@ class ShippingMethodBottomSheet extends StatefulWidget {
 class _ShippingMethodBottomSheetState extends State<ShippingMethodBottomSheet> {
   route(bool isRoute, String message) async {
     if (isRoute) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated('shipping_method_added_successfully', context)), backgroundColor: Colors.green));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated('shipping_method_added_successfully', context)!), backgroundColor: Colors.green));
      Navigator.pop(context);
 
     } else {
@@ -53,7 +53,7 @@ class _ShippingMethodBottomSheetState extends State<ShippingMethodBottomSheet> {
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: Theme.of(context).highlightColor,
-                  boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 700 : 200], spreadRadius: 1, blurRadius: 5)]),
+                  boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 700 : 200]!, spreadRadius: 1, blurRadius: 5)]),
               child: Icon(Icons.clear, size: Dimensions.ICON_SIZE_SMALL),
             ),
           ),
@@ -61,24 +61,24 @@ class _ShippingMethodBottomSheetState extends State<ShippingMethodBottomSheet> {
 
         Consumer<CartProvider>(
           builder: (context, order, child) {
-            return order.shippingList[widget.sellerIndex].shippingMethodList != null ? order.shippingList[widget.sellerIndex].shippingMethodList.length != 0 ?  SizedBox(
+            return order.shippingList![widget.sellerIndex].shippingMethodList != null ? order.shippingList![widget.sellerIndex].shippingMethodList!.length != 0 ?  SizedBox(
               height: 300,
               child: ListView.builder(
-                itemCount: order.shippingList[widget.sellerIndex].shippingMethodList.length,
+                itemCount: order.shippingList![widget.sellerIndex].shippingMethodList!.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
 
                   return RadioListTile(
-                    title: Text('${order.shippingList[widget.sellerIndex].shippingMethodList[index].title} (Duration: ${order.shippingList[widget.sellerIndex].shippingMethodList[index].duration}, Cost: ${
-                        PriceConverter.convertPrice(context, order.shippingList[widget.sellerIndex].shippingMethodList[index].cost)})'),
+                    title: Text('${order.shippingList![widget.sellerIndex].shippingMethodList![index].title} (Duration: ${order.shippingList![widget.sellerIndex].shippingMethodList![index].duration}, Cost: ${
+                        PriceConverter.convertPrice(context, order.shippingList![widget.sellerIndex].shippingMethodList![index].cost)})'),
                     value: index,
-                    groupValue: order.shippingList[widget.sellerIndex].shippingIndex,
+                    groupValue: order.shippingList![widget.sellerIndex].shippingIndex,
                     activeColor: Theme.of(context).primaryColor,
                     toggleable: false,
-                    onChanged: (value) async {
+                    onChanged: (dynamic value) async {
                       Provider.of<CartProvider>(context, listen: false).setSelectedShippingMethod(value, widget.sellerIndex);
                       ShippingMethodModel shipping = ShippingMethodModel();
-                      shipping.id = order.shippingList[widget.sellerIndex].shippingMethodList[index].id;
+                      shipping.id = order.shippingList![widget.sellerIndex].shippingMethodList![index].id;
                      shipping.duration = widget.groupId;
                       order.isLoading
                           ? Center(child: CircularProgressIndicator(

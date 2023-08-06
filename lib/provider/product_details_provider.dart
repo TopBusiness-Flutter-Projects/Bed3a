@@ -12,51 +12,51 @@ import 'package:bed3a_ecommerce/view/basewidget/show_custom_snakbar.dart';
 import 'package:http/http.dart' as http;
 
 class ProductDetailsProvider extends ChangeNotifier {
-  final ProductDetailsRepo productDetailsRepo;
-  ProductDetailsProvider({@required this.productDetailsRepo});
+  final ProductDetailsRepo? productDetailsRepo;
+  ProductDetailsProvider({required this.productDetailsRepo});
 
-  List<ReviewModel> _reviewList;
-  int _imageSliderIndex;
+  List<ReviewModel>? _reviewList;
+  int? _imageSliderIndex;
   bool _wish = false;
-  int _quantity = 0;
-  int _variantIndex;
-  List<int> _variationIndex;
+  int? _quantity = 0;
+  int? _variantIndex;
+  List<int>? _variationIndex;
   int _rating = 0;
   bool _isLoading = false;
-  int _orderCount;
-  int _wishCount;
-  String _sharableLink;
-  String _errorText;
+  int? _orderCount;
+  int? _wishCount;
+  String? _sharableLink;
+  String? _errorText;
   bool _hasConnection = true;
   bool _isDetails = false;
   bool get isDetails =>_isDetails;
 
-  List<ReviewModel> get reviewList => _reviewList;
-  int get imageSliderIndex => _imageSliderIndex;
+  List<ReviewModel>? get reviewList => _reviewList;
+  int? get imageSliderIndex => _imageSliderIndex;
   bool get isWished => _wish;
-  int get quantity => _quantity;
-  int get variantIndex => _variantIndex;
-  List<int> get variationIndex => _variationIndex;
+  int? get quantity => _quantity;
+  int? get variantIndex => _variantIndex;
+  List<int>? get variationIndex => _variationIndex;
   int get rating => _rating;
   bool get isLoading => _isLoading;
-  int get orderCount => _orderCount;
-  int get wishCount => _wishCount;
-  String get sharableLink => _sharableLink;
-  String get errorText => _errorText;
+  int? get orderCount => _orderCount;
+  int? get wishCount => _wishCount;
+  String? get sharableLink => _sharableLink;
+  String? get errorText => _errorText;
   bool get hasConnection => _hasConnection;
-  ProductDetailsModel _productDetailsModel;
-  ProductDetailsModel get productDetailsModel => _productDetailsModel;
+  ProductDetailsModel? _productDetailsModel;
+  ProductDetailsModel? get productDetailsModel => _productDetailsModel;
 
 
 
   Future<void> getProductDetails(BuildContext context, String productId) async {
 
     _isDetails = true;
-    ApiResponse apiResponse = await productDetailsRepo.getProduct(productId);
+    ApiResponse apiResponse = await productDetailsRepo!.getProduct(productId);
 
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _isDetails = false;
-      _productDetailsModel = ProductDetailsModel.fromJson(apiResponse.response.data);
+      _productDetailsModel = ProductDetailsModel.fromJson(apiResponse.response!.data);
     } else {
       _isDetails = false;
       showCustomSnackBar(apiResponse.error.toString(), context);
@@ -66,14 +66,14 @@ class ProductDetailsProvider extends ChangeNotifier {
   }
 
 
-  Future<void> initProduct(int productId,String productSlug, BuildContext context) async {
+  Future<void> initProduct(int? productId,String? productSlug, BuildContext context) async {
     _hasConnection = true;
     _variantIndex = 0;
-    ApiResponse reviewResponse = await productDetailsRepo.getReviews(productId.toString());
-    if (reviewResponse.response != null && reviewResponse.response.statusCode == 200) {
-        productDetailsRepo.getProduct(productSlug.toString());
+    ApiResponse reviewResponse = await productDetailsRepo!.getReviews(productId.toString());
+    if (reviewResponse.response != null && reviewResponse.response!.statusCode == 200) {
+        productDetailsRepo!.getProduct(productSlug.toString());
       _reviewList = [];
-      reviewResponse.response.data.forEach((reviewModel) => _reviewList.add(ReviewModel.fromJson(reviewModel)));
+      reviewResponse.response!.data.forEach((reviewModel) => _reviewList!.add(ReviewModel.fromJson(reviewModel)));
       _imageSliderIndex = 0;
       _quantity = 1;
     } else {
@@ -83,11 +83,11 @@ class ProductDetailsProvider extends ChangeNotifier {
   }
 
 
-  void initData(ProductDetailsModel product, int minimumOrderQuantity, BuildContext context) {
+  void initData(ProductDetailsModel product, int? minimumOrderQuantity, BuildContext context) {
     _variantIndex = 0;
     _quantity = minimumOrderQuantity;
     _variationIndex = [];
-    product.choiceOptions.forEach((element) => _variationIndex.add(0));
+    product.choiceOptions!.forEach((element) => _variationIndex!.add(0));
   }
 
   void removePrevReview() {
@@ -96,10 +96,10 @@ class ProductDetailsProvider extends ChangeNotifier {
   }
 
   void getCount(String productID, BuildContext context) async {
-    ApiResponse apiResponse = await productDetailsRepo.getCount(productID);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
-      _orderCount = apiResponse.response.data['order_count'];
-      _wishCount = apiResponse.response.data['wishlist_count'];
+    ApiResponse apiResponse = await productDetailsRepo!.getCount(productID);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      _orderCount = apiResponse.response!.data['order_count'];
+      _wishCount = apiResponse.response!.data['wishlist_count'];
     } else {
       ApiChecker.checkApi(context, apiResponse);
     }
@@ -107,15 +107,15 @@ class ProductDetailsProvider extends ChangeNotifier {
   }
 
   void getSharableLink(String productID, BuildContext context) async {
-    ApiResponse apiResponse = await productDetailsRepo.getSharableLink(productID);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
-      _sharableLink = apiResponse.response.data;
+    ApiResponse apiResponse = await productDetailsRepo!.getSharableLink(productID);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      _sharableLink = apiResponse.response!.data;
     } else {
       ApiChecker.checkApi(context, apiResponse);
     }
   }
 
-  void setErrorText(String error) {
+  void setErrorText(String? error) {
     _errorText = error;
     notifyListeners();
   }
@@ -141,14 +141,14 @@ class ProductDetailsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setCartVariantIndex(int minimumOrderQuantity,int index, BuildContext context) {
+  void setCartVariantIndex(int? minimumOrderQuantity,int index, BuildContext context) {
     _variantIndex = index;
     _quantity = minimumOrderQuantity;
     notifyListeners();
   }
 
-  void setCartVariationIndex(int minimumOrderQuantity, int index, int i, BuildContext context) {
-    _variationIndex[index] = i;
+  void setCartVariationIndex(int? minimumOrderQuantity, int index, int i, BuildContext context) {
+    _variationIndex![index] = i;
     _quantity = minimumOrderQuantity;
     notifyListeners();
   }
@@ -162,7 +162,7 @@ class ProductDetailsProvider extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
 
-    http.StreamedResponse response = await productDetailsRepo.submitReview(reviewBody, files, token);
+    http.StreamedResponse response = await productDetailsRepo!.submitReview(reviewBody, files, token);
     ResponseModel responseModel;
     if (response.statusCode == 200) {
       _rating = 0;

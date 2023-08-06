@@ -11,7 +11,7 @@ import 'package:shimmer/shimmer.dart';
 
 class TopSellerView extends StatelessWidget {
   final bool isHomePage;
-  TopSellerView({@required this.isHomePage});
+  TopSellerView({required this.isHomePage});
 
   @override
   Widget build(BuildContext context) {
@@ -57,15 +57,15 @@ class TopSellerShimmer extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
 
         return Container(
-          decoration: BoxDecoration(boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 700 : 200], spreadRadius: 2, blurRadius: 5)]),
+          decoration: BoxDecoration(boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 700 : 200]!, spreadRadius: 2, blurRadius: 5)]),
           margin: EdgeInsets.all(3),
           child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
 
             Expanded(
               flex: 7,
               child: Shimmer.fromColors(
-                baseColor: Colors.grey[300],
-                highlightColor: Colors.grey[100],
+                baseColor: Colors.grey[300]!,
+                highlightColor: Colors.grey[100]!,
                 enabled: Provider.of<TopSellerProvider>(context).topSellerList.length == 0,
                 child: Container(decoration: BoxDecoration(
                   color: Colors.white,
@@ -81,8 +81,8 @@ class TopSellerShimmer extends StatelessWidget {
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
               ),
               child: Shimmer.fromColors(
-                baseColor: Colors.grey[300],
-                highlightColor: Colors.grey[100],
+                baseColor: Colors.grey[300]!,
+                highlightColor: Colors.grey[100]!,
                 enabled: Provider.of<CategoryProvider>(context).categoryList.length == 0,
                 child: Container(height: 10, color: Colors.white, margin: EdgeInsets.only(left: 15, right: 15)),
               ),

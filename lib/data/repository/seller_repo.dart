@@ -5,12 +5,12 @@ import 'package:bed3a_ecommerce/data/model/response/base/api_response.dart';
 import 'package:bed3a_ecommerce/utill/app_constants.dart';
 
 class SellerRepo {
-  final DioClient dioClient;
-  SellerRepo({@required this.dioClient});
+  final DioClient? dioClient;
+  SellerRepo({required this.dioClient});
 
   Future<ApiResponse> getSeller(String sellerId) async {
     try {
-      final response = await dioClient.get(AppConstants.SELLER_URI+sellerId);
+      final response = await dioClient!.get(AppConstants.SELLER_URI+sellerId);
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));

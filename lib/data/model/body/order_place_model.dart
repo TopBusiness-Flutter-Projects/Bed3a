@@ -3,20 +3,20 @@ import 'package:bed3a_ecommerce/data/model/response/product_model.dart';
 
 class OrderPlaceModel {
 
-  String _paymentMethod;
-  double _discount;
+  String? _paymentMethod;
+  double? _discount;
 
   OrderPlaceModel(
 
       String paymentMethod,
-      double discount) {
+      double? discount) {
     this._paymentMethod = paymentMethod;
     this._discount = discount;
   }
 
 
-  String get paymentMethod => _paymentMethod;
-  double get discount => _discount;
+  String? get paymentMethod => _paymentMethod;
+  double? get discount => _discount;
 
   OrderPlaceModel.fromJson(Map<String, dynamic> json) {
 

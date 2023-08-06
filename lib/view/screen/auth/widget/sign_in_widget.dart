@@ -25,9 +25,9 @@ class SignInWidget extends StatefulWidget {
 }
 
 class _SignInWidgetState extends State<SignInWidget> {
-  TextEditingController _emailController;
-  TextEditingController _passwordController;
-  GlobalKey<FormState> _formKeyLogin;
+  TextEditingController? _emailController;
+  TextEditingController? _passwordController;
+  GlobalKey<FormState>? _formKeyLogin;
 
   @override
   void initState() {
@@ -35,14 +35,14 @@ class _SignInWidgetState extends State<SignInWidget> {
     _formKeyLogin = GlobalKey<FormState>();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
-    _emailController.text = Provider.of<AuthProvider>(context, listen: false).getUserEmail() ?? null;
-    _passwordController.text = Provider.of<AuthProvider>(context, listen: false).getUserPassword() ?? null;
+    _emailController!.text = (Provider.of<AuthProvider>(context, listen: false).getUserEmail() ?? null)!;
+    _passwordController!.text = (Provider.of<AuthProvider>(context, listen: false).getUserPassword() ?? null)!;
   }
 
   @override
   void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
+    _emailController!.dispose();
+    _passwordController!.dispose();
     super.dispose();
   }
 
@@ -51,25 +51,25 @@ class _SignInWidgetState extends State<SignInWidget> {
   LoginModel loginBody = LoginModel();
 
   void loginUser() async {
-    if (_formKeyLogin.currentState.validate()) {
-      _formKeyLogin.currentState.save();
+    if (_formKeyLogin!.currentState!.validate()) {
+      _formKeyLogin!.currentState!.save();
 
-      String _email = _emailController.text.trim();
-      String _password = _passwordController.text.trim();
+      String _email = _emailController!.text.trim();
+      String _password = _passwordController!.text.trim();
 
       if (_email.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('EMAIL_MUST_BE_REQUIRED', context)),
+          content: Text(getTranslated('EMAIL_MUST_BE_REQUIRED', context)!),
           backgroundColor: Colors.red,
         ));
       } else if (_password.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('PASSWORD_MUST_BE_REQUIRED', context)),
+          content: Text(getTranslated('PASSWORD_MUST_BE_REQUIRED', context)!),
           backgroundColor: Colors.red,
         ));
       } else {
 
-        if (Provider.of<AuthProvider>(context, listen: false).isRemember) {
+        if (Provider.of<AuthProvider>(context, listen: false).isRemember!) {
           Provider.of<AuthProvider>(context, listen: false).saveUserEmail(_email, _password);
         } else {
           Provider.of<AuthProvider>(context, listen: false).clearUserEmailAndPassword();
@@ -85,17 +85,17 @@ class _SignInWidgetState extends State<SignInWidget> {
   route(bool isRoute, String token, String temporaryToken, String errorMessage) async {
     if (isRoute) {
       if(token==null || token.isEmpty){
-        if(Provider.of<SplashProvider>(context,listen: false).configModel.emailVerification){
-          Provider.of<AuthProvider>(context, listen: false).checkEmail(_emailController.text.toString(),
+        if(Provider.of<SplashProvider>(context,listen: false).configModel!.emailVerification!){
+          Provider.of<AuthProvider>(context, listen: false).checkEmail(_emailController!.text.toString(),
               temporaryToken).then((value) async {
             if (value.isSuccess) {
-              Provider.of<AuthProvider>(context, listen: false).updateEmail(_emailController.text.toString());
+              Provider.of<AuthProvider>(context, listen: false).updateEmail(_emailController!.text.toString());
               Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => VerificationScreen(
-                  temporaryToken,'',_emailController.text.toString())), (route) => false);
+                  temporaryToken,'',_emailController!.text.toString())), (route) => false);
 
             }
           });
-        }else if(Provider.of<SplashProvider>(context,listen: false).configModel.phoneVerification){
+        }else if(Provider.of<SplashProvider>(context,listen: false).configModel!.phoneVerification!){
           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => MobileVerificationScreen(
               temporaryToken)), (route) => false);
         }
@@ -159,12 +159,12 @@ class _SignInWidgetState extends State<SignInWidget> {
                       onChanged: authProvider.updateRemember,),),
 
 
-                  Text(getTranslated('REMEMBER', context), style: titilliumRegular),
+                  Text(getTranslated('REMEMBER', context)!, style: titilliumRegular),
                 ],),
 
                   InkWell(
                     onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ForgetPasswordScreen())),
-                    child: Text(getTranslated('FORGET_PASSWORD', context),
+                    child: Text(getTranslated('FORGET_PASSWORD', context)!,
                         style: titilliumRegular.copyWith(
                         color: ColorResources.getLightSkyBlue(context))),
                   ),
@@ -188,7 +188,7 @@ class _SignInWidgetState extends State<SignInWidget> {
             SocialLoginWidget(),
             SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT),
 
-            Center(child: Text(getTranslated('OR', context),
+            Center(child: Text(getTranslated('OR', context)!,
                 style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT))),
 
 
@@ -207,7 +207,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                 width: double.infinity, height: 40, alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: Colors.transparent, borderRadius: BorderRadius.circular(6),),
-                child: Text(getTranslated('CONTINUE_AS_GUEST', context),
+                child: Text(getTranslated('CONTINUE_AS_GUEST', context)!,
                     style: titleHeader.copyWith(color: ColorResources.getPrimary(context))),
               ),
             ),

@@ -1,10 +1,10 @@
 import 'package:bed3a_ecommerce/data/model/response/chat_model.dart';
 
 class MessageModel {
-  int totalSize;
-  String limit;
-  String offset;
-  List<Message> message;
+  int? totalSize;
+  String? limit;
+  String? offset;
+  List<Message>? message;
 
   MessageModel({this.totalSize, this.limit, this.offset, this.message});
 
@@ -15,7 +15,7 @@ class MessageModel {
     if (json['message'] != null) {
       message = <Message>[];
       json['message'].forEach((v) {
-        message.add(Message.fromJson(v));
+        message!.add(Message.fromJson(v));
       });
     }
   }
@@ -26,22 +26,22 @@ class MessageModel {
     data['limit'] = limit;
     data['offset'] = offset;
     if (message != null) {
-      data['message'] = message.map((v) => v.toJson()).toList();
+      data['message'] = message!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class Message {
-  int id;
-  String message;
-  int sentByCustomer;
-  int sentBySeller;
-  int sentByAdmin;
-  int seenByDeliveryMan;
-  String createdAt;
-  DeliveryMan deliveryMan;
-  SellerInfo sellerInfo;
+  int? id;
+  String? message;
+  int? sentByCustomer;
+  int? sentBySeller;
+  int? sentByAdmin;
+  int? seenByDeliveryMan;
+  String? createdAt;
+  DeliveryMan? deliveryMan;
+  SellerInfo? sellerInfo;
 
   Message(
       {this.id,
@@ -79,10 +79,10 @@ class Message {
     data['seen_by_delivery_man'] = seenByDeliveryMan;
     data['created_at'] = createdAt;
     if (deliveryMan != null) {
-      data['delivery_man'] = deliveryMan.toJson();
+      data['delivery_man'] = deliveryMan!.toJson();
     }
     if (sellerInfo != null) {
-      data['seller_info'] = sellerInfo.toJson();
+      data['seller_info'] = sellerInfo!.toJson();
     }
     return data;
   }

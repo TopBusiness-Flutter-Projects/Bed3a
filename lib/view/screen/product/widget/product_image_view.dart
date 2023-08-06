@@ -16,8 +16,8 @@ import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 
 class ProductImageView extends StatelessWidget {
-  final pd.ProductDetailsModel productModel;
-  ProductImageView({@required this.productModel});
+  final pd.ProductDetailsModel? productModel;
+  ProductImageView({required this.productModel});
 
   final PageController _controller = PageController();
 
@@ -28,13 +28,13 @@ class ProductImageView extends StatelessWidget {
       children: [
         InkWell(
           onTap: ()=> Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) =>
-              ProductImageScreen(title: getTranslated('product_image', context),imageList: productModel.images))),
-          child: productModel.images !=null ?
+              ProductImageScreen(title: getTranslated('product_image', context),imageList: productModel!.images))),
+          child: productModel!.images !=null ?
           Container(
             decoration: BoxDecoration(
               color: Colors.black,
               borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
-              boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 700 : 300],
+              boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 700 : 300]!,
                   spreadRadius: 1, blurRadius: 5)],
               gradient: Provider.of<ThemeProvider>(context).darkTheme ? null : LinearGradient(
                 colors: [ColorResources.WHITE, ColorResources.IMAGE_BG],
@@ -45,17 +45,17 @@ class ProductImageView extends StatelessWidget {
             child: Stack(children: [
               SizedBox(
                 height: MediaQuery.of(context).size.width,
-                child: productModel.images != null?
+                child: productModel!.images != null?
 
                 PageView.builder(
                   controller: _controller,
-                  itemCount: productModel.images.length,
+                  itemCount: productModel!.images!.length,
                   itemBuilder: (context, index) {
                     return InkWell(
                       child: FadeInImage.assetNetwork(fit: BoxFit.cover,
                         placeholder: Images.placeholder, height: MediaQuery.of(context).size.width,
                         width: MediaQuery.of(context).size.width,
-                        image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls.productImageUrl}/${productModel.images[index]}',
+                        image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.productImageUrl}/${productModel!.images![index]}',
                         imageErrorBuilder: (c, o, s) => Image.asset(
                           Images.placeholder, height: MediaQuery.of(context).size.width,
                           width: MediaQuery.of(context).size.width,fit: BoxFit.cover,
@@ -84,7 +84,7 @@ class ProductImageView extends StatelessWidget {
                     Provider.of<ProductDetailsProvider>(context).imageSliderIndex != null?
                     Padding(
                       padding: const EdgeInsets.only(right: Dimensions.PADDING_SIZE_DEFAULT,bottom: Dimensions.PADDING_SIZE_DEFAULT),
-                      child: Text('${Provider.of<ProductDetailsProvider>(context).imageSliderIndex+1}'+'/'+'${productModel.images.length.toString()}'),
+                      child: Text('${Provider.of<ProductDetailsProvider>(context).imageSliderIndex!+1}'+'/'+'${productModel!.images!.length.toString()}'),
                     ):SizedBox(),
                   ],
                 ),
@@ -96,7 +96,7 @@ class ProductImageView extends StatelessWidget {
                       backgroundColor: ColorResources.getImageBg(context),
                       favColor: Colors.redAccent,
                       isSelected: Provider.of<WishListProvider>(context,listen: false).isWish,
-                      productId: productModel.id,
+                      productId: productModel!.id,
                     ),
                     SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
 
@@ -104,7 +104,7 @@ class ProductImageView extends StatelessWidget {
                     InkWell(
                       onTap: () {
                         if(Provider.of<ProductDetailsProvider>(context, listen: false).sharableLink != null) {
-                          Share.share(Provider.of<ProductDetailsProvider>(context, listen: false).sharableLink);
+                          Share.share(Provider.of<ProductDetailsProvider>(context, listen: false).sharableLink!);
                         }
                       },
                       child: Card(
@@ -123,7 +123,7 @@ class ProductImageView extends StatelessWidget {
               ),
 
 
-              productModel.unitPrice !=null && productModel.discount != 0 ?
+              productModel!.unitPrice !=null && productModel!.discount != 0 ?
               Positioned(
                 left: 0,top: 0,
                 child: Column(
@@ -135,8 +135,8 @@ class ProductImageView extends StatelessWidget {
                         color: Theme.of(context).primaryColor,
                         borderRadius: BorderRadius.only(bottomRight: Radius.circular(Dimensions.PADDING_SIZE_SMALL))
                       ),
-                      child: Text('${PriceConverter.percentageCalculation(context, productModel.unitPrice,
-                          productModel.discount, productModel.discountType)}',
+                      child: Text('${PriceConverter.percentageCalculation(context, productModel!.unitPrice,
+                          productModel!.discount, productModel!.discountType)}',
                         style: titilliumRegular.copyWith(color: Theme.of(context).cardColor, fontSize: Dimensions.FONT_SIZE_LARGE),
                       ),
                     ),
@@ -157,7 +157,7 @@ class ProductImageView extends StatelessWidget {
 
   List<Widget> _indicators(BuildContext context) {
     List<Widget> indicators = [];
-    for (int index = 0; index < productModel.images.length; index++) {
+    for (int index = 0; index < productModel!.images!.length; index++) {
       indicators.add(TabPageSelectorIndicator(
         backgroundColor: index == Provider.of<ProductDetailsProvider>(context).imageSliderIndex ?
         Theme.of(context).primaryColor : ColorResources.WHITE,

@@ -5,24 +5,24 @@ import 'package:bed3a_ecommerce/data/model/response/product_model.dart';
 import 'package:bed3a_ecommerce/helper/api_checker.dart';
 
 class FeaturedDealProvider extends ChangeNotifier {
-  final FeaturedDealRepo featuredDealRepo;
+  final FeaturedDealRepo? featuredDealRepo;
 
-  FeaturedDealProvider({@required this.featuredDealRepo});
+  FeaturedDealProvider({required this.featuredDealRepo});
 
-  int _featuredDealSelectedIndex;
+  int? _featuredDealSelectedIndex;
   List<Product> _featuredDealProductList =[];
   List<Product> get featuredDealProductList =>_featuredDealProductList;
-  int get featuredDealSelectedIndex => _featuredDealSelectedIndex;
+  int? get featuredDealSelectedIndex => _featuredDealSelectedIndex;
 
   Future<void> getFeaturedDealList(bool reload, BuildContext context) async {
 
 
 
-      ApiResponse apiResponse = await featuredDealRepo.getFeaturedDeal();
-      if (apiResponse.response != null && apiResponse.response.statusCode == 200 && apiResponse.response.data.toString() != '{}') {
+      ApiResponse apiResponse = await featuredDealRepo!.getFeaturedDeal();
+      if (apiResponse.response != null && apiResponse.response!.statusCode == 200 && apiResponse.response!.data.toString() != '{}') {
         _featuredDealProductList =[];
-        print('----rrr--->${apiResponse.response.data.toString()}');
-        apiResponse.response.data.forEach((fDeal) => _featuredDealProductList.add(Product.fromJson(fDeal)));
+        print('----rrr--->${apiResponse.response!.data.toString()}');
+        apiResponse.response!.data.forEach((fDeal) => _featuredDealProductList.add(Product.fromJson(fDeal)));
         _featuredDealSelectedIndex = 0;
       } else {
         ApiChecker.checkApi(context, apiResponse);

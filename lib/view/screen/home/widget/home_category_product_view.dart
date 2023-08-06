@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 
 class HomeCategoryProductView extends StatelessWidget {
   final bool isHomePage;
-  HomeCategoryProductView({@required this.isHomePage});
+  HomeCategoryProductView({required this.isHomePage});
 
   @override
   Widget build(BuildContext context) {
@@ -38,22 +38,22 @@ class HomeCategoryProductView extends StatelessWidget {
                             )
                           : SizedBox(),
                       ConstrainedBox(
-                        constraints: homeCategoryProductProvider.homeCategoryProductList[index].products.length > 0 ?
+                        constraints: homeCategoryProductProvider.homeCategoryProductList[index].products!.length > 0 ?
                         BoxConstraints(maxHeight: Dimensions.CARD_HEIGHT):BoxConstraints(maxHeight: 0),
                         child: ListView.builder(
-                            itemCount: homeCategoryProductProvider.homeCategoryProductList[index].products.length,
+                            itemCount: homeCategoryProductProvider.homeCategoryProductList[index].products!.length,
                             padding: EdgeInsets.all(0),
                             scrollDirection: Axis.horizontal,
                             shrinkWrap: true,
                             itemBuilder: (BuildContext context, int i) {
                               return InkWell(
                                 onTap: () {Navigator.push(context, PageRouteBuilder(transitionDuration: Duration(milliseconds: 1000),
-                                        pageBuilder: (context, anim1, anim2) => ProductDetails(productId: homeCategoryProductProvider.productList[i].id,slug: homeCategoryProductProvider.productList[i].slug,),
+                                        pageBuilder: (context, anim1, anim2) => ProductDetails(productId: homeCategoryProductProvider.productList![i].id,slug: homeCategoryProductProvider.productList![i].slug,),
                                       ));
                                 },
                                 child: Container(
                                   width: (MediaQuery.of(context).size.width/2)-20,
-                                  child: ProductWidget(productModel: homeCategoryProductProvider.homeCategoryProductList[index].products[i])
+                                  child: ProductWidget(productModel: homeCategoryProductProvider.homeCategoryProductList[index].products![i])
 
                                 ),
                               );
