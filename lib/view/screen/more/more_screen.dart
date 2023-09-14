@@ -188,18 +188,18 @@ class _MoreScreenState extends State<MoreScreen> {
 
 
                   // Buttons
-                  TitleButton(image: Images.fast_delivery, title: getTranslated('address', context),
+                  TitleButton(image: Images.fast_delivery, title: getTranslated('products', context),
                       navigateTo: AddressListScreen()),
 
-                  TitleButton(image: Images.more_filled_image, title: getTranslated('all_category', context),
-                      navigateTo: AllCategoryScreen()),
-
-                  TitleButton(image: Images.notification_filled, title: getTranslated('notification', context),
-                      navigateTo: NotificationScreen()),
-
-                  singleVendor?SizedBox():
-                  TitleButton(image: Images.chats, title: getTranslated('chats', context),
-                      navigateTo: InboxScreen()),
+                  // TitleButton(image: Images.more_filled_image, title: getTranslated('all_category', context),
+                  //     navigateTo: AllCategoryScreen()),
+                  //
+                  // TitleButton(image: Images.notification_filled, title: getTranslated('notification', context),
+                  //     navigateTo: NotificationScreen()),
+                  //
+                  // singleVendor?SizedBox():
+                  // TitleButton(image: Images.chats, title: getTranslated('chats', context),
+                  //     navigateTo: InboxScreen()),
 
                   TitleButton(image: Images.settings, title: getTranslated('settings', context),
                       navigateTo: SettingsScreen()),
@@ -215,40 +215,40 @@ class _MoreScreenState extends State<MoreScreen> {
                       navigateTo: HtmlViewScreen(title: getTranslated('privacy_policy', context),
                         url: Provider.of<SplashProvider>(context, listen: false).configModel!.privacyPolicy,)),
 
-                  if(Provider.of<SplashProvider>(context, listen: false).configModel!.refundPolicy!.status ==1)
-                    TitleButton(image: Images.refund_policy, title: getTranslated('refund_policy', context),
-                        navigateTo: HtmlViewScreen(title: getTranslated('refund_policy', context),
-                          url: Provider.of<SplashProvider>(context, listen: false).configModel!.refundPolicy!.content,)),
+                  // if(Provider.of<SplashProvider>(context, listen: false).configModel!.refundPolicy!.status ==1)
+                  //   TitleButton(image: Images.refund_policy, title: getTranslated('refund_policy', context),
+                  //       navigateTo: HtmlViewScreen(title: getTranslated('refund_policy', context),
+                  //         url: Provider.of<SplashProvider>(context, listen: false).configModel!.refundPolicy!.content,)),
+                  //
+                  // if(Provider.of<SplashProvider>(context, listen: false).configModel!.returnPolicy!.status ==1)
+                  //   TitleButton(image: Images.return_policy, title: getTranslated('return_policy', context),
+                  //       navigateTo: HtmlViewScreen(title: getTranslated('return_policy', context),
+                  //         url: Provider.of<SplashProvider>(context, listen: false).configModel!.returnPolicy!.content,)),
 
-                  if(Provider.of<SplashProvider>(context, listen: false).configModel!.returnPolicy!.status ==1)
-                    TitleButton(image: Images.return_policy, title: getTranslated('return_policy', context),
-                        navigateTo: HtmlViewScreen(title: getTranslated('return_policy', context),
-                          url: Provider.of<SplashProvider>(context, listen: false).configModel!.returnPolicy!.content,)),
+                  // if(Provider.of<SplashProvider>(context, listen: false).configModel!.cancellationPolicy!.status ==1)
+                  //   TitleButton(image: Images.c_policy, title: getTranslated('cancellation_policy', context),
+                  //       navigateTo: HtmlViewScreen(title: getTranslated('cancellation_policy', context),
+                  //         url: Provider.of<SplashProvider>(context, listen: false).configModel!.cancellationPolicy!.content,)),
 
-                  if(Provider.of<SplashProvider>(context, listen: false).configModel!.cancellationPolicy!.status ==1)
-                    TitleButton(image: Images.c_policy, title: getTranslated('cancellation_policy', context),
-                        navigateTo: HtmlViewScreen(title: getTranslated('cancellation_policy', context),
-                          url: Provider.of<SplashProvider>(context, listen: false).configModel!.cancellationPolicy!.content,)),
-
-                  TitleButton(image: Images.help_center, title: getTranslated('faq', context),
-                      navigateTo: FaqScreen(title: getTranslated('faq', context),)),
-
-                  TitleButton(image: Images.about_us, title: getTranslated('about_us', context),
-                      navigateTo: HtmlViewScreen(title: getTranslated('about_us', context),
-                        url: Provider.of<SplashProvider>(context, listen: false).configModel!.aboutUs,)),
-
-                  TitleButton(image: Images.contact_us, title: getTranslated('contact_us', context),
-                      navigateTo: WebViewScreen(title: getTranslated('contact_us', context),
-                        url: Provider.of<SplashProvider>(context, listen: false).configModel!.staticUrls!.contactUs,
-                  )),
-
-                  ListTile(
-                    leading: Image.asset(Images.logo_image, width: 25, height: 25, fit: BoxFit.fill,
-                        color: ColorResources.getPrimary(context)),
-                    title: Text(getTranslated('app_info', context)!,
-                        style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
-                    trailing: Text(AppConstants.APP_VERSION),
-                  ),
+                  // TitleButton(image: Images.help_center, title: getTranslated('faq', context),
+                  //     navigateTo: FaqScreen(title: getTranslated('faq', context),)),
+                  //
+                  // TitleButton(image: Images.about_us, title: getTranslated('about_us', context),
+                  //     navigateTo: HtmlViewScreen(title: getTranslated('about_us', context),
+                  //       url: Provider.of<SplashProvider>(context, listen: false).configModel!.aboutUs,)),
+                  //
+                  // TitleButton(image: Images.contact_us, title: getTranslated('contact_us', context),
+                  //     navigateTo: WebViewScreen(title: getTranslated('contact_us', context),
+                  //       url: Provider.of<SplashProvider>(context, listen: false).configModel!.staticUrls!.contactUs,
+                  // )),
+                  //
+                  // ListTile(
+                  //   leading: Image.asset(Images.logo_image, width: 25, height: 25, fit: BoxFit.fill,
+                  //       color: ColorResources.getPrimary(context)),
+                  //   title: Text(getTranslated('app_info', context)!,
+                  //       style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
+                  //   trailing: Text(AppConstants.APP_VERSION),
+                  // ),
 
                   isGuestMode ? SizedBox() : ListTile(
                     leading: Icon(Icons.exit_to_app, color: ColorResources.getPrimary(context), size: 25),

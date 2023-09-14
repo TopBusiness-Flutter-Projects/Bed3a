@@ -19,7 +19,7 @@ class RelatedProductView extends StatelessWidget {
             physics: NeverScrollableScrollPhysics(),
             staggeredTileBuilder: (int index) => StaggeredTile.fit(1),
             itemBuilder: (BuildContext context, int index) {
-              return ProductWidget(productModel: prodProvider.relatedProductList![index]);
+              return ProductWidget(productModel: prodProvider.relatedProductList![index],index: index,);
             },
           ): Center(child: Text('No related Product')) :
           ProductShimmer(isHomePage: false, isEnabled: Provider.of<ProductProvider>(context).relatedProductList == null),

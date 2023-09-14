@@ -52,7 +52,7 @@ class FeaturedProductView extends StatelessWidget {
                 itemCount: productList.length,
                 itemBuilder: (ctx,index){
                   return Container(width: (MediaQuery.of(context).size.width/2)-20,
-                      child: ProductWidget(productModel: productList[index]));
+                      child: ProductWidget(productModel: productList[index],index: index,));
 
                 }) :
             StaggeredGridView.countBuilder(
@@ -63,7 +63,7 @@ class FeaturedProductView extends StatelessWidget {
               shrinkWrap: true,
               staggeredTileBuilder: (int index) => StaggeredTile.fit(1),
               itemBuilder: (BuildContext context, int index) {
-                return ProductWidget(productModel: productList[index]);
+                return ProductWidget(productModel: productList[index],index: index,);
               },
             ),
           ): SizedBox.shrink() : ProductShimmer(isHomePage: true ,isEnabled: prodProvider.firstFeaturedLoading),

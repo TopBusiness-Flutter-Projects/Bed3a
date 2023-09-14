@@ -93,7 +93,8 @@ class _BottomCartViewState extends State<BottomCartView> {
           ]),
         )),
 
-        Expanded(flex: 11, child: InkWell(
+        Expanded(flex: 11, child:
+        InkWell(
           onTap: () {
             if(vacationIsOn || temporaryClose ){
               showCustomSnackBar(getTranslated('this_shop_is_close_now', context), context, isToaster: true);

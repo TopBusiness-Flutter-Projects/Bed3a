@@ -14,8 +14,8 @@ class CategoryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column( children: [
       Container(
-        height: MediaQuery.of(context).size.width/5,
-        width: MediaQuery.of(context).size.width/5,
+        height: MediaQuery.of(context).size.width/6,
+        width: MediaQuery.of(context).size.width/6,
         decoration: BoxDecoration(
           border: Border.all(color: Theme.of(context).primaryColor.withOpacity(.2)),
           borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_SMALL),

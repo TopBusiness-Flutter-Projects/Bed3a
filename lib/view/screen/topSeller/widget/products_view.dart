@@ -8,12 +8,12 @@ import 'package:bed3a_ecommerce/view/basewidget/product_widget.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 
-class ProductView extends StatelessWidget {
+class TopSellerProductView extends StatelessWidget {
   final bool isHomePage;
   final ProductType productType;
   final ScrollController? scrollController;
   final String? sellerId;
-  ProductView({required this.isHomePage, required this.productType, this.scrollController, this.sellerId});
+  TopSellerProductView({required this.isHomePage, required this.productType, this.scrollController, this.sellerId});
 
   @override
   Widget build(BuildContext context) {

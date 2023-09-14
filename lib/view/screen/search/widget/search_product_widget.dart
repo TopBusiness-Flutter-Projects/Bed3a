@@ -56,7 +56,7 @@ class SearchProductWidget extends StatelessWidget {
             itemCount: products!.length,
             staggeredTileBuilder: (int index) => StaggeredTile.fit(1),
             itemBuilder: (BuildContext context, int index) {
-              return ProductWidget(productModel: products![index]);},
+              return ProductWidget(productModel: products![index],index: index,);},
             ),
           ),
         ],

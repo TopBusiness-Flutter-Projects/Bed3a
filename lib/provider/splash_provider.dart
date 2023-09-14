@@ -3,7 +3,7 @@ import 'package:bed3a_ecommerce/data/model/response/base/api_response.dart';
 import 'package:bed3a_ecommerce/data/model/response/config_model.dart';
 import 'package:bed3a_ecommerce/data/repository/splash_repo.dart';
 import 'package:bed3a_ecommerce/helper/api_checker.dart';
-import 'package:package_info/package_info.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class SplashProvider extends ChangeNotifier {
   final SplashRepo? splashRepo;

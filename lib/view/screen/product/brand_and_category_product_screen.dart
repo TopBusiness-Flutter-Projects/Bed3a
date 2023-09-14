@@ -58,7 +58,7 @@ class BrandAndCategoryProductScreen extends StatelessWidget {
                 shrinkWrap: true,
                 staggeredTileBuilder: (int index) => StaggeredTile.fit(1),
                 itemBuilder: (BuildContext context, int index) {
-                  return ProductWidget(productModel: productProvider.brandOrCategoryProductList[index]);
+                  return ProductWidget(productModel: productProvider.brandOrCategoryProductList[index],index: index,);
                 },
               ),
             ) :

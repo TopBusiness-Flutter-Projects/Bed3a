@@ -1,3 +1,4 @@
+import 'package:bed3a_ecommerce/data/model/response/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:bed3a_ecommerce/data/model/response/cart_model.dart';
 import 'package:bed3a_ecommerce/helper/price_converter.dart';
@@ -179,6 +180,7 @@ class CartWidget extends StatelessWidget {
 
 class QuantityButton extends StatelessWidget {
   final CartModel? cartModel;
+  final Product? productModel;
   final bool isIncrement;
   final int? quantity;
   final int index;
@@ -186,7 +188,7 @@ class QuantityButton extends StatelessWidget {
   final int? minimumOrderQuantity;
   final bool? digitalProduct;
   QuantityButton({required this.isIncrement, required this.quantity, required this.index,
-    required this.maxQty,required this.cartModel, this.minimumOrderQuantity, this.digitalProduct});
+    required this.maxQty, this.cartModel, this.minimumOrderQuantity, this.digitalProduct, this.productModel});
 
   @override
   Widget build(BuildContext context) {

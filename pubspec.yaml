@@ -6,7 +6,8 @@ publish_to: 'none'
 version: 1.0.1+2
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+ sdk: '>=3.0.6 <4.0.0'
+
 
 dependencies:
   flutter:
@@ -25,7 +26,7 @@ dependencies:
   fancy_bottom_navigation: ^0.3.3
   carousel_slider: ^4.0.0-nullsafety.0
   flutter_staggered_grid_view: ^0.4.1
-  shimmer: ^2.0.0-nullsafety.0
+  shimmer: ^3.0.0
   change_app_package_name: ^1.1.0
   url_launcher: ^6.0.2
   image_picker: ^0.8.4+8
@@ -33,7 +34,7 @@ dependencies:
   flutter_html: ^3.0.0-alpha.3
   share: ^2.0.1
   photo_view: ^0.14.0
-  package_info: ^2.0.0
+  package_info_plus: ^4.1.0
   firebase_core: ^1.7.0
   firebase_messaging: ^11.2.6
   flutter_local_notifications: ^9.0.0

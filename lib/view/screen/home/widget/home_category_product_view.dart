@@ -53,7 +53,7 @@ class HomeCategoryProductView extends StatelessWidget {
                                 },
                                 child: Container(
                                   width: (MediaQuery.of(context).size.width/2)-20,
-                                  child: ProductWidget(productModel: homeCategoryProductProvider.homeCategoryProductList[index].products![i])
+                                  child: ProductWidget(productModel: homeCategoryProductProvider.homeCategoryProductList[index].products![i],index: index,)
 
                                 ),
                               );

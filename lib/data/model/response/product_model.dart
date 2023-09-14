@@ -46,6 +46,9 @@ class Product {
   int? _id;
   String? _addedBy;
   int? _userId;
+  int? quantity;
+  int? totalCurrentStock;
+
   String? _name;
   String? _slug;
   String? _productType;

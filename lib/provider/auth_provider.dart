@@ -143,9 +143,9 @@ class AuthProvider with ChangeNotifier {
     _isLoading = false;
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       Map map = apiResponse.response!.data;
-      String? temporaryToken = '';
-      String? token = '';
-      String? message = '';
+      String? temporaryToken='';
+      String? token ='';
+      String? message ;
       // String token = map["token"];
 
       try{
@@ -155,8 +155,7 @@ class AuthProvider with ChangeNotifier {
 
       }
       try{
-        token = map["token"];
-
+        token = map["token"]??'';
       }catch(e){
 
       }
@@ -172,7 +171,8 @@ class AuthProvider with ChangeNotifier {
         await authRepo!.updateToken();
       }
 
-      callback(true, token, temporaryToken, message);
+      callback(true, token??'',
+          temporaryToken??'', message??"");
       notifyListeners();
     } else {
       String? errorMessage;

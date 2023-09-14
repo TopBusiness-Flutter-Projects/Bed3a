@@ -59,7 +59,7 @@ class AuthScreen extends StatelessWidget{
                           builder: (context,authProvider,child)=>Row(
                             children: [
                               InkWell(
-                                onTap: () => _pageController.animateToPage(0, duration: Duration(seconds: 1), curve: Curves.easeInOut),
+                                onTap: () => _pageController.animateToPage(0, duration: Duration(milliseconds: 10), curve: Curves.linear),
                                 child: Column(
                                   children: [
                                     Text(getTranslated('SIGN_IN', context)!,
@@ -79,7 +79,7 @@ class AuthScreen extends StatelessWidget{
 
                               InkWell(
                                 onTap: () => _pageController.animateToPage(1,
-                                    duration: Duration(seconds: 1), curve: Curves.easeInOut),
+                                    duration: Duration(milliseconds: 10), curve: Curves.linear),
                                 child: Column(
                                   children: [
 

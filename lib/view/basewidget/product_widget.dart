@@ -10,9 +10,13 @@ import 'package:bed3a_ecommerce/view/basewidget/rating_bar.dart';
 import 'package:bed3a_ecommerce/view/screen/product/product_details_screen.dart';
 import 'package:provider/provider.dart';
 
+import '../../localization/language_constrants.dart';
+import '../screen/cart/widget/cart_widget.dart';
+
 class ProductWidget extends StatelessWidget {
   final Product productModel;
-  ProductWidget({required this.productModel});
+  final int index;
+  ProductWidget({required this.productModel, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +30,7 @@ class ProductWidget extends StatelessWidget {
         ));
       },
       child: Container(
-        height: Dimensions.CARD_HEIGHT,
+        // height: Dimensions.CARD_HEIGHT,
         margin: EdgeInsets.all(5),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
@@ -34,7 +38,10 @@ class ProductWidget extends StatelessWidget {
           boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.2), spreadRadius: 1, blurRadius: 5)],
         ),
         child: Stack(children: [
-          Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
             // Product Image
             Container(
               height: 150,
@@ -53,7 +60,14 @@ class ProductWidget extends StatelessWidget {
                 ),
               ),
             ),
-
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(productModel.name ?? '',
+                    style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL,
+                        fontWeight: FontWeight.w400,color: Theme.of(context).hintColor),
+                    maxLines: 2,
+                  ),
+                ),
             // Product Details
             Padding(
               padding: EdgeInsets.only(top :Dimensions.PADDING_SIZE_SMALL,bottom: 5, left: 5,right: 5),
@@ -61,52 +75,126 @@ class ProductWidget extends StatelessWidget {
 
                 child: Center(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(productModel.name ?? '', textAlign: TextAlign.center,
-                          style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL,
-                          fontWeight: FontWeight.w400), maxLines: 2,
-                          overflow: TextOverflow.ellipsis),
-                      SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                      // productModel.discount!= null && productModel.discount! > 0 ?
+                       Row(
+                         children: [
+                           Container(
+                               decoration: BoxDecoration(
+                                 color: Colors.grey[200],
+                                 borderRadius: BorderRadius.all(Radius.circular(16))
+                               ),
+                               child: Padding(
+                                 padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 8),
+                                 child: Text(PriceConverter.convertPrice(context, productModel.unitPrice)),
+                               )),
+                           SizedBox(width: 4,),
+                           Container(
+                               decoration: BoxDecoration(
+                                 color: Colors.grey[200],
+                                 borderRadius: BorderRadius.all(Radius.circular(16))
+                               ),
+                               child: Padding(
+                                 padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 5),
+                                 child: Text("24 عبوة "),
+                               )),
+                         ],
+                       ),
+                      //   style: titleRegular.copyWith(
+                      //     color: ColorResources.getRed(context),
+                      //     decoration: TextDecoration.lineThrough,
+                      //
+                      //     fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL,
+                      //   ),
+                      // ) : SizedBox.shrink(),
+                      // SizedBox(height: 2,),
+                      //
+                      //
+                      // Text(PriceConverter.convertPrice(context,
+                      //     productModel.unitPrice, discountType: productModel.discountType,
+                      //     discount: productModel.discount),
+                      //   style: titilliumSemiBold.copyWith(color: ColorResources.getPrimary(context)),
+                      // ),
+                      //
+                      // SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                      // Text(productModel.name ?? '',
+                      //     style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL,
+                      //         fontWeight: FontWeight.w400,color: Theme.of(context).hintColor),
+                      //     maxLines: 2,
+                      //    ),
+                      // Row(mainAxisAlignment: MainAxisAlignment.center,
+                      //     children: [
+                      //       RatingBar(
+                      //         rating: double.parse(ratting),
+                      //         size: 18,
+                      //       ),
+                      //
+                      //
+                      //   Text('(${productModel.reviewCount.toString() ?? 0})',
+                      //       style: robotoRegular.copyWith(
+                      //         fontSize: Dimensions.FONT_SIZE_SMALL,
+                      //       )),
+                      //
+                      // ]),
+                      // SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
 
-                      Row(mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            RatingBar(
-                              rating: double.parse(ratting),
-                              size: 18,
-                            ),
 
 
-                        Text('(${productModel.reviewCount.toString() ?? 0})',
-                            style: robotoRegular.copyWith(
-                              fontSize: Dimensions.FONT_SIZE_SMALL,
-                            )),
 
-                      ]),
-                      SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                      InkWell(
+                        onTap: () {
+                          // if(vacationIsOn || temporaryClose ){
+                          //   showCustomSnackBar(getTranslated('this_shop_is_close_now', context), context, isToaster: true);
+                          // }else{
+                          //   showModalBottomSheet(context: context, isScrollControlled: true,
+                          //       backgroundColor: Theme.of(context).primaryColor.withOpacity(0),
+                          //       builder: (con) => CartBottomSheet(product: productModel, callback: (){
+                          //         showCustomSnackBar(getTranslated('added_to_cart', context), context, isError: false);
+                          //       },));
+                          // }
 
-
-                        productModel.discount!= null && productModel.discount! > 0 ?
-                        Text(PriceConverter.convertPrice(context, productModel.unitPrice),
-                        style: titleRegular.copyWith(
-                          color: ColorResources.getRed(context),
-                          decoration: TextDecoration.lineThrough,
-
-                          fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL,
+                        },
+                        child: Container(
+                          height: 50,
+                          margin: EdgeInsets.symmetric(horizontal: 5),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: ColorResources.getPrimary(context),
+                          ),
+                          child: Text(
+                            getTranslated('add_to_cart', context)!,
+                            style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE, color: Theme.of(context).highlightColor),
+                          ),
                         ),
-                      ) : SizedBox.shrink(),
-                      SizedBox(height: 2,),
-
-
-                      Text(PriceConverter.convertPrice(context,
-                          productModel.unitPrice, discountType: productModel.discountType,
-                          discount: productModel.discount),
-                        style: titilliumSemiBold.copyWith(color: ColorResources.getPrimary(context)),
                       ),
-
-
-
+                      // Row(
+                      //   children: [
+                      //     Padding(
+                      //       padding: EdgeInsets.only(right: Dimensions.PADDING_SIZE_SMALL),
+                      //       child: QuantityButton(isIncrement: false, index: index,
+                      //         quantity: productModel.quantity,
+                      //         maxQty: productModel.totalCurrentStock,
+                      //         productModel: productModel, minimumOrderQuantity: productModel.minimumOrderQuantity,
+                      //         digitalProduct: productModel!.productType == "digital"? true : false,
+                      //
+                      //       ),
+                      //     ),
+                      //     Text(productModel.quantity.toString(), style: titilliumSemiBold),
+                      //
+                      //     Padding(
+                      //       padding: EdgeInsets.only(left: Dimensions.PADDING_SIZE_SMALL),
+                      //       child: QuantityButton(index: index, isIncrement: true,
+                      //         quantity: productModel!.quantity,
+                      //         maxQty: productModel.totalCurrentStock,
+                      //         productModel: productModel, minimumOrderQuantity: productModel.minimumOrderQuantity,
+                      //         digitalProduct: productModel!.productType == "digital"? true : false,
+                      //       ),
+                      //     ),
+                      //   ],
+                      // )
                     ],
                   ),
                 ),
@@ -116,25 +204,25 @@ class ProductWidget extends StatelessWidget {
 
           // Off
 
-          productModel.discount! > 0 ?
-          Positioned(top: 0, left: 0, child: Container(
-              height: 20,
-              padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-              decoration: BoxDecoration(
-                color: ColorResources.getPrimary(context),
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
-              ),
-
-
-              child: Center(
-                child: Text(PriceConverter.percentageCalculation(context, productModel.unitPrice,
-                      productModel.discount, productModel.discountType),
-                  style: robotoRegular.copyWith(color: Theme.of(context).highlightColor,
-                      fontSize: Dimensions.FONT_SIZE_SMALL),
-                ),
-              ),
-            ),
-          ) : SizedBox.shrink(),
+          // productModel.discount! > 0 ?
+          // Positioned(top: 0, left: 0, child: Container(
+          //     height: 20,
+          //     padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+          //     decoration: BoxDecoration(
+          //       color: ColorResources.getPrimary(context),
+          //       borderRadius: BorderRadius.only(topLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
+          //     ),
+          //
+          //
+          //     child: Center(
+          //       child: Text(PriceConverter.percentageCalculation(context, productModel.unitPrice,
+          //             productModel.discount, productModel.discountType),
+          //         style: robotoRegular.copyWith(color: Theme.of(context).highlightColor,
+          //             fontSize: Dimensions.FONT_SIZE_SMALL),
+          //       ),
+          //     ),
+          //   ),
+          // ) : SizedBox.shrink(),
 
         ]),
       ),

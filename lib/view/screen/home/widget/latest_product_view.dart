@@ -45,7 +45,7 @@ class LatestProductView extends StatelessWidget {
                 itemCount: productList.length,
                 itemBuilder: (ctx,index){
                   return Container(width: (MediaQuery.of(context).size.width/2)-20,
-                      child: ProductWidget(productModel: productList[index]));
+                      child: ProductWidget(productModel: productList[index],index: index,));
 
                 }),
           ): SizedBox.shrink() : ProductShimmer(isHomePage: true ,isEnabled: prodProvider.firstLoading),
