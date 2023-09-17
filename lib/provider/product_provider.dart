@@ -21,6 +21,7 @@ class ProductProvider extends ChangeNotifier {
 
   bool _filterIsLoading = false;
   bool _filterFirstLoading = true;
+  int? _variantIndex;
 
   bool _isLoading = false;
   bool _isFeaturedLoading = false;
@@ -33,7 +34,13 @@ class ProductProvider extends ChangeNotifier {
   int? _lPageSize;
   int? get lPageSize=> _lPageSize;
   int? _featuredPageSize;
+  int? _quantity = 0;
+  int? get quantity => _quantity;
 
+  int? get variantIndex => _variantIndex;
+  List<int>? get variationIndex => _variationIndex;
+
+  List<int>? _variationIndex;
   ProductType get productType => _productType;
   String? get title => _title;
   int get lOffset => _lOffset;
@@ -143,6 +150,12 @@ class ProductProvider extends ChangeNotifier {
   void removeFirstLoading() {
     _firstLoading = true;
     notifyListeners();
+  }
+  void initData(Product product, int? minimumOrderQuantity, BuildContext context) {
+    _variantIndex = 0;
+    _quantity = minimumOrderQuantity;
+    _variationIndex = [];
+    product.choiceOptions!.forEach((element) => _variationIndex!.add(0));
   }
 
   // Seller products

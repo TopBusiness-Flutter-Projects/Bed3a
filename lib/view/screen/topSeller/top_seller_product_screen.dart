@@ -23,7 +23,9 @@ import 'package:bed3a_ecommerce/view/screen/chat/chat_screen.dart';
 import 'package:bed3a_ecommerce/view/screen/home/widget/products_view.dart';
 import 'package:provider/provider.dart';
 
+import '../../../provider/cart_provider.dart';
 import '../../../provider/product_details_provider.dart';
+import '../cart/cart_screen.dart';
 import '../home/widget/banners_view.dart';
 import '../product/widget/bottom_cart_view.dart';
 import 'widget/category_view.dart';
@@ -42,12 +44,13 @@ class _TopSellerProductScreenState extends State<TopSellerProductScreen> {
   ScrollController _scrollController = ScrollController();
   bool vacationIsOn = false;
 
-  void _load(){
+  void _load() {
     Provider.of<ProductProvider>(context, listen: false).clearSellerData();
-    Provider.of<ProductProvider>(context, listen: false).initSellerProductList(widget.topSeller!.sellerId.toString(), 1, context);
-    Provider.of<SellerProvider>(context, listen: false).initSeller(widget.topSeller!.sellerId.toString(), context);
+    Provider.of<ProductProvider>(context, listen: false).initSellerProductList(
+        widget.topSeller!.sellerId.toString(), 1, context);
+    Provider.of<SellerProvider>(context, listen: false)
+        .initSeller(widget.topSeller!.sellerId.toString(), context);
   }
-
 
   @override
   void initState() {
@@ -57,41 +60,40 @@ class _TopSellerProductScreenState extends State<TopSellerProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-    if(widget.topSeller!.vacationEndDate != null){
-      DateTime vacationDate = DateTime.parse(widget.topSeller!.vacationEndDate!);
-      DateTime vacationStartDate = DateTime.parse(widget.topSeller!.vacationStartDate!);
+    if (widget.topSeller!.vacationEndDate != null) {
+      DateTime vacationDate =
+          DateTime.parse(widget.topSeller!.vacationEndDate!);
+      DateTime vacationStartDate =
+          DateTime.parse(widget.topSeller!.vacationStartDate!);
       final today = DateTime.now();
       final difference = vacationDate.difference(today).inDays;
       final startDate = vacationStartDate.difference(today).inDays;
 
-      if(difference >= 0 && widget.topSeller!.vacationStatus == 1 && startDate <= 0){
+      if (difference >= 0 &&
+          widget.topSeller!.vacationStatus == 1 &&
+          startDate <= 0) {
         vacationIsOn = true;
-      }
-
-      else{
+      } else {
         vacationIsOn = false;
       }
-      print('------=>${widget.topSeller!.name}${widget.topSeller!.vacationEndDate}/${widget.topSeller!.vacationStartDate}${vacationIsOn.toString()}/${difference.toString()}/${startDate.toString()}');
-
+      print(
+          '------=>${widget.topSeller!.name}${widget.topSeller!.vacationEndDate}/${widget.topSeller!.vacationStartDate}${vacationIsOn.toString()}/${difference.toString()}/${startDate.toString()}');
     }
-
 
     return Scaffold(
       backgroundColor: ColorResources.getIconBg(context),
-
       body: Column(
         children: [
-
           CustomAppBar(title: widget.topSeller!.name),
-
           Expanded(
             child: ListView(
               controller: _scrollController,
               physics: BouncingScrollPhysics(),
               padding: EdgeInsets.all(0),
               children: [
-                TopSellerCategoryView(isHomePage: false,),
+                TopSellerCategoryView(
+                  isHomePage: false,
+                ),
                 // Banner
                 // Padding(
                 //   padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
@@ -255,22 +257,123 @@ class _TopSellerProductScreenState extends State<TopSellerProductScreen> {
 
                 Padding(
                   padding: EdgeInsets.all(Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                  child: TopSellerProductView(isHomePage: false, productType: ProductType.SELLER_PRODUCT,
-                      scrollController: _scrollController, sellerId: widget.topSeller!.id.toString()),
+                  child: TopSellerProductView(
+                      isHomePage: false,
+                      productType: ProductType.SELLER_PRODUCT,
+                      scrollController: _scrollController,
+                      sellerId: widget.topSeller!.id.toString()),
                 ),
-
               ],
             ),
           ),
         ],
       ),
-      bottomNavigationBar: Consumer<ProductDetailsProvider>(
-          builder: (context, details, child) {
-            return !details.isDetails?
-            BottomCartView(product: details.productDetailsModel):SizedBox();
-          }
-      ),
-
+      bottomNavigationBar:
+          Consumer<ProductDetailsProvider>(builder: (context, details, child) {
+        return !details.isDetails
+            ? Container(
+                height: 80,
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).highlightColor,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10)),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Theme.of(context).hintColor,
+                        blurRadius: .5,
+                        spreadRadius: .1)
+                  ],
+                ),
+                child: Row(children: [
+                  Padding(
+                    padding:
+                        EdgeInsets.all(Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                    child: Stack(children: [
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => CartScreen()));
+                          },
+                          child: Image.asset(Images.cart_arrow_down_image,
+                              color: ColorResources.getPrimary(context))),
+                      Positioned(
+                        top: 0,
+                        right: 15,
+                        child: Consumer<CartProvider>(
+                            builder: (context, cart, child) {
+                          return Container(
+                            height: 17,
+                            width: 17,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: ColorResources.getPrimary(context),
+                            ),
+                            child: Text(
+                              cart.cartList.length.toString(),
+                              style: titilliumSemiBold.copyWith(
+                                  fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL,
+                                  color: Theme.of(context).highlightColor),
+                            ),
+                          );
+                        }),
+                      )
+                    ]),
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsets.all(Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                    child: Column(
+                      children: [
+                        Text(
+                          "الحد الادنى: 2200 ج.م",
+                          style: titleRegular.copyWith(
+                              fontSize: Dimensions.FONT_SIZE_SMALL,
+                              color: ColorResources.getPrimary(context)),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(
+                          "اجمالى الطلب : 2000 ج.م",
+                          style: titleRegular.copyWith(
+                              fontSize: Dimensions.FONT_SIZE_SMALL,
+                              color: ColorResources.getRed(context)),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsets.all(Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                    child: Column(
+                      children: [
+                        Text(
+                          "اقل عدد منتجات: 2",
+                          style: titleRegular.copyWith(
+                              fontSize: Dimensions.FONT_SIZE_SMALL,
+                              color: ColorResources.getPrimary(context)),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(
+                          "عدد المنتجات : 1",
+                          style: titleRegular.copyWith(
+                              fontSize: Dimensions.FONT_SIZE_SMALL,
+                              color: ColorResources.getRed(context)),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                  ),
+                ]),
+              )
+            : SizedBox();
+      }),
     );
   }
 }

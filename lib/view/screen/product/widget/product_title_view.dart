@@ -66,19 +66,19 @@ class ProductTitleView extends StatelessWidget {
             SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
 
             Row(children: [
-              Text('${details.reviewList != null ? details.reviewList!.length : 0} reviews | ',
-                  style: titilliumRegular.copyWith(color: Theme.of(context).hintColor,
-                    fontSize: Dimensions.FONT_SIZE_DEFAULT,)),
+              // Text('${details.reviewList != null ? details.reviewList!.length : 0} reviews | ',
+              //     style: titilliumRegular.copyWith(color: Theme.of(context).hintColor,
+              //       fontSize: Dimensions.FONT_SIZE_DEFAULT,)),
 
-              Text('${details.orderCount} orders | ', style: titilliumRegular.copyWith(
-                color: Theme.of(context).hintColor,
-                fontSize: Dimensions.FONT_SIZE_DEFAULT,
-              )),
+              // Text('${details.orderCount} orders | ', style: titilliumRegular.copyWith(
+              //   color: Theme.of(context).hintColor,
+              //   fontSize: Dimensions.FONT_SIZE_DEFAULT,
+              // )),
 
-              Text('${details.wishCount} wish', style: titilliumRegular.copyWith(
-                color: Theme.of(context).hintColor,
-                fontSize: Dimensions.FONT_SIZE_DEFAULT,
-              )),
+              // Text('${details.wishCount} wish', style: titilliumRegular.copyWith(
+              //   color: Theme.of(context).hintColor,
+              //   fontSize: Dimensions.FONT_SIZE_DEFAULT,
+              // )),
 
               Expanded(child: SizedBox.shrink()),
               SizedBox(width: 5),

@@ -46,9 +46,8 @@ class Product {
   int? _id;
   String? _addedBy;
   int? _userId;
-  int? quantity;
-  int? totalCurrentStock;
-
+  int? quantity=0;
+  int? totalCurrentStock=0;
   String? _name;
   String? _slug;
   String? _productType;
@@ -64,7 +63,7 @@ class Product {
   double? _purchasePrice;
   double? _tax;
   String? _taxModel;
-  int? _minQty;
+  int? _minQty=0;
   int? _refundable;
   String? _digitalProductType;
   String? _digitalFileReady;
@@ -80,7 +79,7 @@ class Product {
   int? _isMultiPly;
   int? _reviewCount;
   String? _videoUrl;
-  int? _minimumOrderQty;
+  int? _minimumOrderQty=0;
 
 
 
@@ -225,7 +224,7 @@ class Product {
       }
     }
     _unit = json['unit'];
-    _minQty = json['min_qty'];
+    _minQty = json['min_qty']??0;
 
     if(json['refundable']!=null){
       _refundable = int.parse(json['refundable'].toString());

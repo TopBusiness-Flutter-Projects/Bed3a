@@ -56,10 +56,10 @@ class ProductSpecification extends StatelessWidget {
         SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
 
 
-        InkWell(
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => SpecificationScreen(specification: productSpecification))),
-            child: Text(getTranslated('view_full_detail', context)!,
-              style: titleRegular.copyWith(color: Theme.of(context).primaryColor),))
+        // InkWell(
+        //     onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => SpecificationScreen(specification: productSpecification))),
+        //     child: Text(getTranslated('view_full_detail', context)!,
+        //       style: titleRegular.copyWith(color: Theme.of(context).primaryColor),))
 
       ],
     );

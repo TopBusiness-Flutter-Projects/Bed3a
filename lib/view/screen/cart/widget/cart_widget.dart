@@ -210,15 +210,19 @@ class QuantityButton extends StatelessWidget {
           });
         }
       },
-      child: Icon(
-        isIncrement ? Icons.add_circle : Icons.remove_circle,
-        color: isIncrement
-            ?  quantity! >= maxQty! && !digitalProduct!? ColorResources.getGrey(context)
-            : ColorResources.getPrimary(context)
-            : quantity! > 1
-            ? ColorResources.getPrimary(context)
-            : ColorResources.getGrey(context),
-        size: 30,
+      child: Container(
+        decoration: BoxDecoration( color: Colors.grey,
+        borderRadius: BorderRadius.all(Radius.circular(10))),
+        child: Icon(
+          isIncrement ? Icons.add :quantity==1?Icons.delete_outline: Icons.remove,
+          color: isIncrement
+              ?  quantity! >= maxQty! && !digitalProduct!? Colors.black
+              : ColorResources.getPrimary(context)
+              : quantity! > 1
+              ? ColorResources.getPrimary(context)
+              :  Colors.black,
+          size: 30,
+        ),
       ),
     );
   }

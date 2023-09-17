@@ -126,76 +126,76 @@ class _ProductDetailsState extends State<ProductDetails> {
 
 
                         (details.productDetailsModel?.details != null && details.productDetailsModel!.details!.isNotEmpty) ?
-                        Container(height: 250,
+                        Container(height: 150,
                           margin: EdgeInsets.only(top: Dimensions.PADDING_SIZE_SMALL),
                           padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
                           child: ProductSpecification(productSpecification: details.productDetailsModel!.details ?? ''),) : SizedBox(),
 
-                        details.productDetailsModel?.videoUrl != null?
-                        YoutubeVideoWidget(url: details.productDetailsModel!.videoUrl):SizedBox(),
-
-                        Container(padding: EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_DEFAULT,
-                            horizontal: Dimensions.FONT_SIZE_DEFAULT),
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).cardColor
-                            ),
-                            child: PromiseScreen()),
-
-
-
-                        details.productDetailsModel!.addedBy == 'seller' ?
-                        SellerView(sellerId: details.productDetailsModel!.userId.toString()) : SizedBox.shrink(),
-
-
-
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          margin: EdgeInsets.only(top: Dimensions.PADDING_SIZE_SMALL),
-                          padding: EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
-                          color: Theme.of(context).cardColor,
-                          child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                            Text(getTranslated('customer_reviews', context)!,
-                              style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),),
-                            SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT,),
-                            Container(width: 230,height: 30,
-                              decoration: BoxDecoration(color: ColorResources.visitShop(context),
-                                borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_LARGE),),
+                        // details.productDetailsModel?.videoUrl != null?
+                        // YoutubeVideoWidget(url: details.productDetailsModel!.videoUrl):SizedBox(),
+                        //
+                        // Container(padding: EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_DEFAULT,
+                        //     horizontal: Dimensions.FONT_SIZE_DEFAULT),
+                        //     decoration: BoxDecoration(
+                        //         color: Theme.of(context).cardColor
+                        //     ),
+                        //     child: PromiseScreen()),
+                        //
+                        //
+                        //
+                        // details.productDetailsModel!.addedBy == 'seller' ?
+                        // SellerView(sellerId: details.productDetailsModel!.userId.toString()) : SizedBox.shrink(),
+                        //
 
 
-                              child: Row(mainAxisAlignment: MainAxisAlignment.center,crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  RatingBar(rating: double.parse(details.productDetailsModel!.averageReview!), size: 18,),
-                                  SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT),
-                                  Text('${double.parse(details.productDetailsModel!.averageReview!).toStringAsFixed(1)}'+ ' '+ '${getTranslated('out_of_5', context)}'),
-                                ],
-                              ),
-                            ),
-
-                            SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
-                            Text('${getTranslated('total', context)}' + ' '+'${details.reviewList != null ? details.reviewList!.length : 0}' +' '+ '${getTranslated('reviews', context)}'),
-
-
-
-                            details.reviewList != null ? details.reviewList!.length != 0 ? ReviewWidget(reviewModel: details.reviewList![0])
-                                : SizedBox() : ReviewShimmer(),
-                            details.reviewList != null ? details.reviewList!.length > 1 ? ReviewWidget(reviewModel: details.reviewList![1])
-                                : SizedBox() : ReviewShimmer(),
-                            details.reviewList != null ? details.reviewList!.length > 2 ? ReviewWidget(reviewModel: details.reviewList![2])
-                                : SizedBox() : ReviewShimmer(),
-
-                            InkWell(
-                                onTap: () {
-                                  if(details.reviewList != null)
-                                  {Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                                      ReviewScreen(reviewList: details.reviewList)));}},
-                                child: details.reviewList != null && details.reviewList!.length > 3?
-                                Text(getTranslated('view_more', context)!,
-                                  style: titilliumRegular.copyWith(color: Theme.of(context).primaryColor),):SizedBox())
-
-
-
-                          ]),
-                        ),
+                        // Container(
+                        //   width: MediaQuery.of(context).size.width,
+                        //   margin: EdgeInsets.only(top: Dimensions.PADDING_SIZE_SMALL),
+                        //   padding: EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
+                        //   color: Theme.of(context).cardColor,
+                        //   child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                        //     Text(getTranslated('customer_reviews', context)!,
+                        //       style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),),
+                        //     SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT,),
+                        //     Container(width: 230,height: 30,
+                        //       decoration: BoxDecoration(color: ColorResources.visitShop(context),
+                        //         borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_LARGE),),
+                        //
+                        //
+                        //       child: Row(mainAxisAlignment: MainAxisAlignment.center,crossAxisAlignment: CrossAxisAlignment.center,
+                        //         children: [
+                        //           RatingBar(rating: double.parse(details.productDetailsModel!.averageReview!), size: 18,),
+                        //           SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT),
+                        //           Text('${double.parse(details.productDetailsModel!.averageReview!).toStringAsFixed(1)}'+ ' '+ '${getTranslated('out_of_5', context)}'),
+                        //         ],
+                        //       ),
+                        //     ),
+                        //
+                        //     SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
+                        //     Text('${getTranslated('total', context)}' + ' '+'${details.reviewList != null ? details.reviewList!.length : 0}' +' '+ '${getTranslated('reviews', context)}'),
+                        //
+                        //
+                        //     //
+                        //     // details.reviewList != null ? details.reviewList!.length != 0 ? ReviewWidget(reviewModel: details.reviewList![0])
+                        //     //     : SizedBox() : ReviewShimmer(),
+                        //     // details.reviewList != null ? details.reviewList!.length > 1 ? ReviewWidget(reviewModel: details.reviewList![1])
+                        //     //     : SizedBox() : ReviewShimmer(),
+                        //     // details.reviewList != null ? details.reviewList!.length > 2 ? ReviewWidget(reviewModel: details.reviewList![2])
+                        //     //     : SizedBox() : ReviewShimmer(),
+                        //
+                        //     InkWell(
+                        //         onTap: () {
+                        //           if(details.reviewList != null)
+                        //           {Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                        //               ReviewScreen(reviewList: details.reviewList)));}},
+                        //         child: details.reviewList != null && details.reviewList!.length > 3?
+                        //         Text(getTranslated('view_more', context)!,
+                        //           style: titilliumRegular.copyWith(color: Theme.of(context).primaryColor),):SizedBox())
+                        //
+                        //
+                        //
+                        //   ]),
+                        // ),
 
                         details.productDetailsModel!.addedBy == 'seller' ?
                         Padding(padding: EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
