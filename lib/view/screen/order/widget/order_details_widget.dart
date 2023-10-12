@@ -42,7 +42,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
     _port.listen((dynamic data) {
       // setState((){ });
     });
-    FlutterDownloader.registerCallback(downloadCallback);
+  //  FlutterDownloader.registerCallback(downloadCallback);
   }
 
   @override
