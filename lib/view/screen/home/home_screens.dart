@@ -43,7 +43,6 @@ import 'package:bed3a_ecommerce/view/screen/search/search_screen.dart';
 import 'package:bed3a_ecommerce/view/screen/topSeller/all_top_seller_screen.dart';
 import 'package:provider/provider.dart';
 
-
 class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
@@ -53,18 +52,30 @@ class _HomePageState extends State<HomePage> {
   final ScrollController _scrollController = ScrollController();
 
   Future<void> _loadData(BuildContext context, bool reload) async {
-    await Provider.of<BannerProvider>(context, listen: false).getBannerList(reload, context);
-    await Provider.of<BannerProvider>(context, listen: false).getFooterBannerList(context);
-    await Provider.of<BannerProvider>(context, listen: false).getMainSectionBanner(context);
-    await Provider.of<CategoryProvider>(context, listen: false).getCategoryList(reload, context);
-    await Provider.of<HomeCategoryProductProvider>(context, listen: false).getHomeCategoryProductList(reload, context);
-    await Provider.of<TopSellerProvider>(context, listen: false).getTopSellerList(reload, context);
-    await Provider.of<BrandProvider>(context, listen: false).getBrandList(reload, context);
-    await Provider.of<ProductProvider>(context, listen: false).getLatestProductList(1, context, reload: reload);
-    await Provider.of<ProductProvider>(context, listen: false).getFeaturedProductList('1', context, reload: reload);
-    await Provider.of<FeaturedDealProvider>(context, listen: false).getFeaturedDealList(reload, context);
-    await Provider.of<ProductProvider>(context, listen: false).getLProductList('1', context, reload: reload);
-    await Provider.of<ProductProvider>(context, listen: false).getRecommendedProduct(context);
+    await Provider.of<BannerProvider>(context, listen: false)
+        .getBannerList(reload, context);
+    await Provider.of<BannerProvider>(context, listen: false)
+        .getFooterBannerList(context);
+    await Provider.of<BannerProvider>(context, listen: false)
+        .getMainSectionBanner(context);
+    await Provider.of<CategoryProvider>(context, listen: false)
+        .getCategoryList(reload, context);
+    await Provider.of<HomeCategoryProductProvider>(context, listen: false)
+        .getHomeCategoryProductList(reload, context);
+    await Provider.of<TopSellerProvider>(context, listen: false)
+        .getTopSellerList(reload, context);
+    await Provider.of<BrandProvider>(context, listen: false)
+        .getBrandList(reload, context);
+    await Provider.of<ProductProvider>(context, listen: false)
+        .getLatestProductList(1, context, reload: reload);
+    await Provider.of<ProductProvider>(context, listen: false)
+        .getFeaturedProductList('1', context, reload: reload);
+    await Provider.of<FeaturedDealProvider>(context, listen: false)
+        .getFeaturedDealList(reload, context);
+    await Provider.of<ProductProvider>(context, listen: false)
+        .getLProductList('1', context, reload: reload);
+    await Provider.of<ProductProvider>(context, listen: false)
+        .getRecommendedProduct(context);
   }
 
   void passData(int index, String title) {
@@ -77,25 +88,31 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
-    singleVendor = Provider.of<SplashProvider>(context, listen: false).configModel!.businessMode == "single";
-    Provider.of<FlashDealProvider>(context, listen: false).getMegaDealList(true, context, true);
+    singleVendor = Provider.of<SplashProvider>(context, listen: false)
+            .configModel!
+            .businessMode ==
+        "single";
+    Provider.of<FlashDealProvider>(context, listen: false)
+        .getMegaDealList(true, context, true);
 
     _loadData(context, false);
 
-    if(Provider.of<AuthProvider>(context, listen: false).isLoggedIn()) {
+    if (Provider.of<AuthProvider>(context, listen: false).isLoggedIn()) {
       Provider.of<CartProvider>(context, listen: false).uploadToServer(context);
       Provider.of<CartProvider>(context, listen: false).getCartDataAPI(context);
-    }else {
+    } else {
       Provider.of<CartProvider>(context, listen: false).getCartData();
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
-
-
-   List<String?> types =[getTranslated('new_arrival', context),getTranslated('top_product', context), getTranslated('best_selling', context),  getTranslated('discounted_product', context)];
+    List<String?> types = [
+      getTranslated('new_arrival', context),
+      getTranslated('top_product', context),
+      getTranslated('best_selling', context),
+      getTranslated('discounted_product', context)
+    ];
     return Scaffold(
       backgroundColor: ColorResources.getHomeBg(context),
       resizeToAvoidBottomInset: false,
@@ -104,9 +121,10 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Theme.of(context).primaryColor,
           onRefresh: () async {
             await _loadData(context, true);
-            await Provider.of<FlashDealProvider>(context, listen: false).getMegaDealList(true, context, false);
+            await Provider.of<FlashDealProvider>(context, listen: false)
+                .getMegaDealList(true, context, false);
 
-           // return true;
+            // return true;
           },
           child: Stack(
             children: [
@@ -125,7 +143,11 @@ class _HomePageState extends State<HomePage> {
                       Padding(
                         padding: const EdgeInsets.only(right: 12.0),
                         child: IconButton(
-                          onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (_) => CartScreen()));
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => CartScreen()));
                           },
                           icon: Stack(clipBehavior: Clip.none, children: [
                             Image.asset(
@@ -134,11 +156,19 @@ class _HomePageState extends State<HomePage> {
                               width: Dimensions.ICON_SIZE_DEFAULT,
                               color: ColorResources.getPrimary(context),
                             ),
-                            Positioned(top: -4, right: -4,
-                              child: Consumer<CartProvider>(builder: (context, cart, child) {
-                                return CircleAvatar(radius: 7, backgroundColor: ColorResources.RED,
+                            Positioned(
+                              top: -4,
+                              right: -4,
+                              child: Consumer<CartProvider>(
+                                  builder: (context, cart, child) {
+                                return CircleAvatar(
+                                  radius: 7,
+                                  backgroundColor: ColorResources.RED,
                                   child: Text(cart.cartList.length.toString(),
-                                      style: titilliumSemiBold.copyWith(color: ColorResources.WHITE, fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL,
+                                      style: titilliumSemiBold.copyWith(
+                                        color: ColorResources.WHITE,
+                                        fontSize:
+                                            Dimensions.FONT_SIZE_EXTRA_SMALL,
                                       )),
                                 );
                               }),
@@ -146,8 +176,6 @@ class _HomePageState extends State<HomePage> {
                           ]),
                         ),
                       ),
-
-
                     ],
                   ),
 
@@ -156,52 +184,73 @@ class _HomePageState extends State<HomePage> {
                       pinned: true,
                       delegate: SliverDelegate(
                           child: InkWell(
-                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => SearchScreen())),
-                            child: Container(padding: EdgeInsets.symmetric(
-                                horizontal: Dimensions.HOME_PAGE_PADDING, vertical: Dimensions.PADDING_SIZE_SMALL),
-                              color: ColorResources.getHomeBg(context),
-                              alignment: Alignment.center,
-                              child: Container(padding: EdgeInsets.only(
-                                left: Dimensions.HOME_PAGE_PADDING, right: Dimensions.PADDING_SIZE_EXTRA_SMALL,
-                                top: Dimensions.PADDING_SIZE_EXTRA_SMALL, bottom: Dimensions.PADDING_SIZE_EXTRA_SMALL,
-                              ),
-                                height: 60, alignment: Alignment.centerLeft,
-                                decoration: BoxDecoration(color: Theme.of(context).cardColor,
-                                  boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ?
-                                  900 : 200]!, spreadRadius: 1, blurRadius: 1)],
-                                  borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL),),
-                                child: Row(mainAxisAlignment : MainAxisAlignment.spaceBetween, children: [
-
+                        onTap: () => Navigator.push(context,
+                            MaterialPageRoute(builder: (_) => SearchScreen())),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: Dimensions.HOME_PAGE_PADDING,
+                              vertical: Dimensions.PADDING_SIZE_SMALL),
+                          color: ColorResources.getHomeBg(context),
+                          alignment: Alignment.center,
+                          child: Container(
+                            padding: EdgeInsets.only(
+                              left: Dimensions.HOME_PAGE_PADDING,
+                              right: Dimensions.PADDING_SIZE_EXTRA_SMALL,
+                              top: Dimensions.PADDING_SIZE_EXTRA_SMALL,
+                              bottom: Dimensions.PADDING_SIZE_EXTRA_SMALL,
+                            ),
+                            height: 60,
+                            alignment: Alignment.centerLeft,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).cardColor,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey[
+                                        Provider.of<ThemeProvider>(context)
+                                                .darkTheme
+                                            ? 900
+                                            : 200]!,
+                                    spreadRadius: 1,
+                                    blurRadius: 1)
+                              ],
+                              borderRadius: BorderRadius.circular(
+                                  Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                            ),
+                            child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
                                   Text(getTranslated('SEARCH_HINT', context)!,
-                                      style: robotoRegular.copyWith(color: Theme.of(context).hintColor)),
-
+                                      style: robotoRegular.copyWith(
+                                          color: Theme.of(context).hintColor)),
                                   Container(
-                                    width: 40,height: 40,decoration: BoxDecoration(color: Theme.of(context).primaryColor,
-                                      borderRadius: BorderRadius.all(Radius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL))
+                                    width: 40,
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                        color: Theme.of(context).primaryColor,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(Dimensions
+                                                .PADDING_SIZE_EXTRA_SMALL))),
+                                    child: Icon(Icons.search,
+                                        color: Theme.of(context).cardColor,
+                                        size: Dimensions.ICON_SIZE_SMALL),
                                   ),
-                                    child: Icon(Icons.search, color: Theme.of(context).cardColor, size: Dimensions.ICON_SIZE_SMALL),
-                                  ),
-                            ]),
+                                ]),
                           ),
                         ),
                       ))),
 
                   SliverToBoxAdapter(
                     child: Padding(
-                      padding: EdgeInsets.fromLTRB(Dimensions.HOME_PAGE_PADDING,
-                          Dimensions.PADDING_SIZE_SMALL, Dimensions.PADDING_SIZE_DEFAULT, Dimensions.PADDING_SIZE_SMALL  ),
+                      padding: EdgeInsets.fromLTRB(
+                          Dimensions.HOME_PAGE_PADDING,
+                          Dimensions.PADDING_SIZE_SMALL,
+                          Dimensions.PADDING_SIZE_DEFAULT,
+                          Dimensions.PADDING_SIZE_SMALL),
                       child: Column(
                         children: [
                           BannersView(),
                           SizedBox(height: Dimensions.HOME_PAGE_PADDING),
-
-
-
-
-
-
-
-
 
                           // Mega Deal
                           // Consumer<FlashDealProvider>(
@@ -226,10 +275,6 @@ class _HomePageState extends State<HomePage> {
                           //           child: FlashDealsView(),
                           //         )) : SizedBox.shrink();},),
 
-
-
-
-
                           // Brand
                           // Provider.of<SplashProvider>(context, listen: false).configModel!.brandSetting == "1"?
                           // Padding(
@@ -242,32 +287,50 @@ class _HomePageState extends State<HomePage> {
                           // Provider.of<SplashProvider>(context, listen: false).configModel!.brandSetting == "1"?
                           // BrandView(isHomePage: true) : SizedBox(),
 
-
-
                           //top seller
-                          singleVendor?SizedBox():
-                          TitleRow(title: getTranslated('sellers', context),
-                            onTap: () {Navigator.push(context, MaterialPageRoute(builder: (_) => AllTopSellerScreen(topSeller: null,)));},),
-                          singleVendor?SizedBox(height: 0):SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-                          singleVendor?SizedBox():
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: Dimensions.HOME_PAGE_PADDING),
-                            child: TopSellerView(isHomePage: true),
-                          ),
+                          singleVendor
+                              ? SizedBox()
+                              : TitleRow(
+                                  title: getTranslated('sellers', context),
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (_) => AllTopSellerScreen(
+                                                  topSeller: null,
+                                                )));
+                                  },
+                                ),
+                          singleVendor
+                              ? SizedBox(height: 0)
+                              : SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+                          singleVendor
+                              ? SizedBox()
+                              : Padding(
+                                  padding: const EdgeInsets.only(
+                                      bottom: Dimensions.HOME_PAGE_PADDING),
+                                  child: TopSellerView(isHomePage: true),
+                                ),
 
                           // Category
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_EXTRA_SMALL,vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                            child: TitleRow(title: getTranslated('CATEGORY', context),
-                                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AllCategoryScreen()))),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal:
+                                    Dimensions.PADDING_SIZE_EXTRA_EXTRA_SMALL,
+                                vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                            child: TitleRow(
+                                title: getTranslated('CATEGORY', context),
+                                onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => AllCategoryScreen()))),
                           ),
                           SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                           Padding(
-                            padding: const EdgeInsets.only(bottom: Dimensions.HOME_PAGE_PADDING),
+                            padding: const EdgeInsets.only(
+                                bottom: Dimensions.HOME_PAGE_PADDING),
                             child: CategoryView(isHomePage: true),
                           ),
-
-
 
                           //footer banner
                           // Consumer<BannerProvider>(builder: (context, footerBannerProvider, child){
@@ -277,10 +340,6 @@ class _HomePageState extends State<HomePage> {
                           //     child: FooterBannersView(index: 0,),
                           //   ):SizedBox();
                           // }),
-
-
-
-
 
                           // Featured Products
                           // Consumer<ProductProvider>(
@@ -301,11 +360,6 @@ class _HomePageState extends State<HomePage> {
                           //   padding: const EdgeInsets.only(bottom: Dimensions.HOME_PAGE_PADDING),
                           //   child: FeaturedProductView(scrollController: _scrollController, isHome: true,),
                           // ),
-
-
-
-
-
 
                           // Featured Deal
                           // Consumer<FeaturedDealProvider>(
@@ -333,10 +387,6 @@ class _HomePageState extends State<HomePage> {
                           //   child: RecommendedProductView(),
                           // ),
 
-
-
-
-
                           //footer banner
                           // Consumer<BannerProvider>(builder: (context, footerBannerProvider, child){
                           //   return footerBannerProvider.mainSectionBannerList != null &&
@@ -360,8 +410,6 @@ class _HomePageState extends State<HomePage> {
                           // SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                           // LatestProductView(scrollController: _scrollController),
                           // SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-
-
 
                           //Home category
                           // HomeCategoryProductView(isHomePage: true),
@@ -428,25 +476,35 @@ class _HomePageState extends State<HomePage> {
                           // }),
                           // ProductView(isHomePage: false, productType: ProductType.NEW_ARRIVAL, scrollController: _scrollController),
                           // SizedBox(height: Dimensions.HOME_PAGE_PADDING),
-
                         ],
                       ),
                     ),
                   )
                 ],
               ),
-
-              Provider.of<SplashProvider>(context, listen: false).configModel!.announcement!.status == '1'?
-              Positioned(top: MediaQuery.of(context).size.height-128,
-                left: 0,right: 0,
-                child: Consumer<SplashProvider>(
-                  builder: (context, announcement, _){
-                    return (announcement.configModel!.announcement!.announcement != null && announcement.onOff)?
-                    AnnouncementScreen(announcement: announcement.configModel!.announcement):SizedBox();
-                  },
-
-                ),
-              ):SizedBox(),
+              Provider.of<SplashProvider>(context, listen: false)
+                          .configModel!
+                          .announcement!
+                          .status ==
+                      '1'
+                  ? Positioned(
+                      top: MediaQuery.of(context).size.height - 128,
+                      left: 0,
+                      right: 0,
+                      child: Consumer<SplashProvider>(
+                        builder: (context, announcement, _) {
+                          return (announcement.configModel!.announcement!
+                                          .announcement !=
+                                      null &&
+                                  announcement.onOff)
+                              ? AnnouncementScreen(
+                                  announcement:
+                                      announcement.configModel!.announcement)
+                              : SizedBox();
+                        },
+                      ),
+                    )
+                  : SizedBox(),
             ],
           ),
         ),
@@ -460,7 +518,8 @@ class SliverDelegate extends SliverPersistentHeaderDelegate {
   SliverDelegate({required this.child});
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
     return child;
   }
 
@@ -472,6 +531,8 @@ class SliverDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(SliverDelegate oldDelegate) {
-    return oldDelegate.maxExtent != 70 || oldDelegate.minExtent != 70 || child != oldDelegate.child;
+    return oldDelegate.maxExtent != 70 ||
+        oldDelegate.minExtent != 70 ||
+        child != oldDelegate.child;
   }
 }

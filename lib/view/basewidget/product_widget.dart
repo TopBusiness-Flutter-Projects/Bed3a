@@ -339,7 +339,9 @@ class _ProductWidgetState extends State<ProductWidget> {
                                                   : widget.productModel.shippingCost ?? 0,
                                               widget.productModel.minimumOrderQuantity,
                                               widget.productModel.productType,
-                                              widget.productModel.slug);
+                                              widget.productModel.slug,
+                                              widget.productModel.limitPrice,
+                                              widget.productModel.limitProduct);
 
                                           // cart.variations = _variation;
                                           if (Provider.of<AuthProvider>(context,
