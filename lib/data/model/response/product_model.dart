@@ -81,47 +81,49 @@ class Product {
   int? _reviewCount;
   String? _videoUrl;
   int? _minimumOrderQty = 0;
-
-  Product({
-    int? id,
-    String? addedBy,
-    int? userId,
-    String? name,
-    String? slug,
-    String? productType,
-    List<CategoryIds>? categoryIds,
-    String? unit,
-    int? minQty,
-    int? refundable,
-    String? digitalProductType,
-    String? digitalFileReady,
-    List<String>? images,
-    String? thumbnail,
-    List<ProductColors>? colors,
-    String? variantProduct,
-    List<String>? attributes,
-    List<ChoiceOptions>? choiceOptions,
-    List<Variation>? variation,
-    double? unitPrice,
-    double? purchasePrice,
-    double? tax,
-    String? taxModel,
-    String? taxType,
-    double? discount,
-    String? discountType,
-    int? currentStock,
-    String? details,
-    String? attachment,
-    String? createdAt,
-    String? updatedAt,
-    int? featuredStatus,
-    List<Rating>? rating,
-    double? shippingCost,
-    int? isMultiPly,
-    int? reviewCount,
-    String? videoUrl,
-    int? minimumOrderQty,
-  }) {
+  dynamic _limitPrice;
+  dynamic _limitProduct;
+  Product(
+      {int? id,
+      String? addedBy,
+      int? userId,
+      String? name,
+      String? slug,
+      String? productType,
+      List<CategoryIds>? categoryIds,
+      String? unit,
+      int? minQty,
+      int? refundable,
+      String? digitalProductType,
+      String? digitalFileReady,
+      List<String>? images,
+      String? thumbnail,
+      List<ProductColors>? colors,
+      String? variantProduct,
+      List<String>? attributes,
+      List<ChoiceOptions>? choiceOptions,
+      List<Variation>? variation,
+      double? unitPrice,
+      double? purchasePrice,
+      double? tax,
+      String? taxModel,
+      String? taxType,
+      double? discount,
+      String? discountType,
+      int? currentStock,
+      String? details,
+      String? attachment,
+      String? createdAt,
+      String? updatedAt,
+      int? featuredStatus,
+      List<Rating>? rating,
+      double? shippingCost,
+      int? isMultiPly,
+      int? reviewCount,
+      String? videoUrl,
+      int? minimumOrderQty,
+      dynamic limitPrice,
+      dynamic limitProduct}) {
     this._id = id;
     this._addedBy = addedBy;
     this._userId = userId;
@@ -164,6 +166,8 @@ class Product {
       this._videoUrl = videoUrl;
     }
     this._minimumOrderQty = minimumOrderQty;
+    this._limitPrice = limitPrice;
+    this._limitProduct = limitProduct;
   }
 
   int? get id => _id;
@@ -201,7 +205,8 @@ class Product {
   int? get reviewCount => _reviewCount;
   String? get videoUrl => _videoUrl;
   int? get minimumOrderQuantity => _minimumOrderQty;
-
+  dynamic get limitPrice => _limitPrice;
+  dynamic get limitProduct => _limitProduct;
   Product.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
     _addedBy = json['added_by'];
@@ -334,6 +339,8 @@ class Product {
         _minimumOrderQty = int.parse(json['minimum_order_qty'].toString());
       }
     }
+    _limitPrice = json['limit_price'];
+    _limitProduct = json['limit_product'];
   }
 
   Map<String, dynamic> toJson() {
@@ -381,6 +388,9 @@ class Product {
     data['reviews_count'] = this._reviewCount;
     data['video_url'] = this._videoUrl;
     data['minimum_order_qty'] = this._minimumOrderQty;
+    data['limit_price'] = this._limitPrice;
+
+    data['limit_product'] = this._limitProduct;
     return data;
   }
 }

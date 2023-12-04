@@ -125,6 +125,18 @@ class _CartScreenState extends State<CartScreen> {
         shippingAmount += cart.cartList[j].shippingCost ?? 0;
       }
 
+      bool checkConditionForAllItems(List<CartModel> sellerGroupList) {
+        for (int i = 0; i < sellerGroupList.length; i++) {
+          if (!(sellerGroupList[i].quantity! >=
+                  sellerGroupList[i].limitProduct!) ||
+              !((sellerGroupList[i].price! * sellerGroupList[i].quantity!) >=
+                  sellerGroupList[i].limitPrice!)) {
+            return false;
+          }
+        }
+        return true;
+      }
+
       return Scaffold(
         bottomNavigationBar: (!widget.fromCheckout && !cart.isLoading)
             ? Container(
@@ -163,6 +175,7 @@ class _CartScreenState extends State<CartScreen> {
                             Builder(
                               builder: (context) => InkWell(
                                 onTap: () {
+                                  // if () {}
                                   if (Provider.of<AuthProvider>(context,
                                           listen: false)
                                       .isLoggedIn()) {
@@ -208,17 +221,29 @@ class _CartScreenState extends State<CartScreen> {
                                                   context)!),
                                               backgroundColor: Colors.red));
                                     } else {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (_) => CheckoutScreen(
-                                                    cartList: cartList,
-                                                    totalOrderAmount: amount,
-                                                    shippingFee: shippingAmount,
-                                                    discount: discount,
-                                                    tax: tax,
-                                                    onlyDigital: _onlyDigital,
-                                                  )));
+                                      bool conditionMet =
+                                          checkConditionForAllItems(
+                                              sellerGroupList);
+                                      if (conditionMet) {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (_) => CheckoutScreen(
+                                                      cartList: cartList,
+                                                      totalOrderAmount: amount,
+                                                      shippingFee:
+                                                          shippingAmount,
+                                                      discount: discount,
+                                                      tax: tax,
+                                                      onlyDigital: _onlyDigital,
+                                                    )));
+                                      } else {
+                                        //  Flutter
+                                        showCustomSnackBar(
+                                            isToaster: true,
+                                            "من فضلك تخطي الحد الادني من كل تاجر",
+                                            context);
+                                      }
                                     }
                                   } else {
                                     showAnimatedDialog(context, GuestDialog(),
@@ -273,7 +298,8 @@ class _CartScreenState extends State<CartScreen> {
                       child: Container(
                         child: Column(
                           children: [
-                            Expanded(
+                            Flexible(
+                              fit: FlexFit.tight,
                               child: RefreshIndicator(
                                 onRefresh: () async {
                                   if (Provider.of<AuthProvider>(context,
@@ -463,6 +489,63 @@ class _CartScreenState extends State<CartScreen> {
                                                 ),
                                               ),
                                             ),
+                                            Container(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width /
+                                                            44),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
+                                                  children: [
+                                                    Column(
+                                                      children: [
+                                                        Text(
+                                                            'الحد الادني: ${sellerGroupList[index].limitPrice}'),
+                                                        Text(
+                                                            'أقل عدد منتجات : ${sellerGroupList[index].limitProduct}'),
+                                                      ],
+                                                    ),
+                                                    Column(
+                                                      children: [
+                                                        Text(
+                                                          'إجمال الطلب: ${(sellerGroupList[index].price! * sellerGroupList[index].quantity!)}',
+                                                          style: TextStyle(
+                                                              color: (sellerGroupList[index]
+                                                                              .price! *
+                                                                          sellerGroupList[index]
+                                                                              .quantity!) <
+                                                                      sellerGroupList[
+                                                                              index]
+                                                                          .limitPrice!
+                                                                  ? Colors.red
+                                                                  : Colors.blue,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600),
+                                                        ),
+                                                        Text(
+                                                          ' عدد منتجات: ${sellerGroupList[index].quantity.toString()}',
+                                                          style: TextStyle(
+                                                              color: sellerGroupList[
+                                                                              index]
+                                                                          .quantity! <
+                                                                      sellerGroupList[
+                                                                              index]
+                                                                          .limitProduct!
+                                                                  ? Colors.red
+                                                                  : Colors.blue,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ))
                                           ]),
                                     );
                                   },
@@ -484,15 +567,14 @@ class _CartScreenState extends State<CartScreen> {
                                               listen: false)
                                           .isLoggedIn()) {
                                         showModalBottomSheet(
-                                          context: context,
-                                          isScrollControlled: true,
-                                          backgroundColor: Colors.transparent,
-                                          builder: (context) =>
-                                              ShippingMethodBottomSheet(
-                                                  groupId: 'all_cart_group',
-                                                  sellerIndex: 0,
-                                                  sellerId: 1),
-                                        );
+                                            context: context,
+                                            isScrollControlled: true,
+                                            backgroundColor: Colors.transparent,
+                                            builder: (context) =>
+                                                ShippingMethodBottomSheet(
+                                                    groupId: 'all_cart_group',
+                                                    sellerIndex: 0,
+                                                    sellerId: 1));
                                       } else {
                                         showCustomSnackBar(
                                             'not_logged_in', context);
