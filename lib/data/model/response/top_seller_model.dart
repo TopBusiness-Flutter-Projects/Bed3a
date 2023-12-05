@@ -15,19 +15,18 @@ class TopSellerModel {
 
   TopSellerModel(
       {int? id,
-        int? sellerId,
-        String? name,
-        String? address,
-        String? contact,
-        String? image,
-        String? createdAt,
-        String? updatedAt,
-        String? banner,
-        int? temporaryClose,
-        String? vacationEndDate,
-        String? vacationStartDate,
-        int? vacationStatus
-      }) {
+      int? sellerId,
+      String? name,
+      String? address,
+      String? contact,
+      String? image,
+      String? createdAt,
+      String? updatedAt,
+      String? banner,
+      int? temporaryClose,
+      String? vacationEndDate,
+      String? vacationStartDate,
+      int? vacationStatus}) {
     this._id = id;
     this._sellerId = sellerId;
     this._name = name;
@@ -67,10 +66,14 @@ class TopSellerModel {
     _createdAt = json['created_at'];
     _updatedAt = json['updated_at'];
     _banner = json['banner'];
-    _temporaryClose = json['temporary_close'] != null? int.parse(json['temporary_close'].toString()):0;
+    _temporaryClose = json['temporary_close'] != null
+        ? int.parse(json['temporary_close'].toString())
+        : 0;
     _vacationEndDate = json['vacation_end_date'];
     _vacationStartDate = json['vacation_start_date'];
-    _vacationStatus = json['vacation_status'] != null? int.parse(json['vacation_status'].toString()):0;
+    _vacationStatus = json['vacation_status'] != null
+        ? int.parse(json['vacation_status'].toString())
+        : 0;
   }
 
   Map<String, dynamic> toJson() {

@@ -189,6 +189,8 @@
   "high_to_low_price": "سعر مرتفع إلى منخفض",
   "select_shipping_method": "إختر طريقة الشحن",
   "total_price": "السعر الكلي",
+  "total_price_dis": "السعر بعد الخصم",
+
   "language": "لغة",
   "product_images": "صور المنتج",
   "ok": "حسنا",

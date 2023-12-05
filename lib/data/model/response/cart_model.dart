@@ -1,6 +1,9 @@
 import 'package:bed3a_ecommerce/data/model/response/product_model.dart';
 
+import 'seller_model.dart';
+
 class CartModel {
+  Shop? _sellerInfo;
   int? _id;
   int? _productId;
   String? _image;
@@ -34,8 +37,12 @@ class CartModel {
   String? _slug;
   dynamic _limitPrice;
   dynamic _limitProduct;
-
+  dynamic _hasDiscount;
+  dynamic _discountPercent;
   CartModel(
+      this._hasDiscount,
+      this._discountPercent,
+      this._sellerInfo,
       this._id,
       this._productId,
       this._thumbnail,
@@ -70,6 +77,8 @@ class CartModel {
 
   String? get variant => _variant;
   String? get color => _color;
+  dynamic get hasDiscount => _hasDiscount;
+  dynamic get discountPercent => _discountPercent;
   Variation? get variation => _variation;
   // ignore: unnecessary_getters_setters
   int? get quantity => _quantity;
@@ -78,6 +87,7 @@ class CartModel {
     _quantity = value;
   }
 
+  Shop? get sellerInfo => _sellerInfo;
   int? get maxQuantity => _maxQuantity;
   double? get price => _price;
   double? get discountedPrice => _discountedPrice;
@@ -111,7 +121,10 @@ class CartModel {
     _id = json['id'];
     _productId = int.parse(json['product_id'].toString());
     _name = json['name'];
+    _hasDiscount = json['has_discount'];
+    _discountPercent = json['discount_percent'];
     _seller = json['seller'];
+    _sellerInfo = json['shop'] == null ? null : Shop.fromJson(json['shop']);
     _thumbnail = json['thumbnail'];
     _sellerId = int.parse(json['seller_id'].toString());
     _sellerIs = json['seller_is'];
@@ -160,6 +173,8 @@ class CartModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this._id;
+    data['discount_percent'] = this._discountPercent;
+    data['has_discount'] = this._hasDiscount;
     data['product_id'] = this._productId;
     data['name'] = this._name;
     data['seller'] = this._seller;
@@ -188,6 +203,8 @@ class CartModel {
       data['choice_options'] =
           this._choiceOptions!.map((v) => v.toJson()).toList();
     }
+    data['shop'] = this.shopInfo;
+
     data['variation_indexes'] = this._variationIndexes;
     data['shipping_cost'] = this._shippingCost;
     data['_shippingType'] = this._shippingType;

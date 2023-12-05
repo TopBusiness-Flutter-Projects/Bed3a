@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'seller_model.dart';
+
 class ProductModel {
   int? _totalSize;
   int? _limit;
@@ -44,6 +46,7 @@ class ProductModel {
 }
 
 class Product {
+  Shop? _sellerShop;
   int? _id;
   String? _addedBy;
   int? _userId;
@@ -83,8 +86,13 @@ class Product {
   int? _minimumOrderQty = 0;
   dynamic _limitPrice;
   dynamic _limitProduct;
+  dynamic _hasDiscount;
+  dynamic _discountPercent;
   Product(
       {int? id,
+      Shop? sellerShop,
+      dynamic discountPercent,
+      dynamic hasDiscount,
       String? addedBy,
       int? userId,
       String? name,
@@ -124,7 +132,10 @@ class Product {
       int? minimumOrderQty,
       dynamic limitPrice,
       dynamic limitProduct}) {
+    this._sellerShop = sellerShop;
     this._id = id;
+    this._hasDiscount = hasDiscount;
+    this._discountPercent = discountPercent;
     this._addedBy = addedBy;
     this._userId = userId;
     this._name = name;
@@ -171,6 +182,10 @@ class Product {
   }
 
   int? get id => _id;
+  dynamic get hasDiscount => _hasDiscount;
+  dynamic get discountPercent => _discountPercent;
+
+  Shop? get sellerShop => _sellerShop;
   String? get addedBy => _addedBy;
   int? get userId => _userId;
   String? get name => _name;
@@ -209,10 +224,14 @@ class Product {
   dynamic get limitProduct => _limitProduct;
   Product.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
+    _sellerShop = json['shop'] == null ? null : Shop.fromJson(json['shop']);
     _addedBy = json['added_by'];
     _userId = json['user_id'];
     _name = json['name'];
     _slug = json['slug'];
+    _hasDiscount = json['has_discount'];
+    _discountPercent = json['discount_percent'];
+
     _productType = json['product_type'];
     if (json['category_ids'] != null) {
       _categoryIds = [];
@@ -346,8 +365,11 @@ class Product {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this._id;
+    data['discount_percent'] = this._discountPercent;
+    data['has_discount'] = this._hasDiscount;
     data['added_by'] = this._addedBy;
     data['user_id'] = this._userId;
+    data['shop'] = this._sellerShop;
     data['name'] = this._name;
     data['slug'] = this._slug;
     data['product_type'] = this._productType;

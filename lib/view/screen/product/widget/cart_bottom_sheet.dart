@@ -516,111 +516,115 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                                             ? 'out_of_stock'
                                             : 'add_to_cart',
                                         context),
-                                    onTap: _stock <
-                                                widget.product!
-                                                    .minimumOrderQty! &&
-                                            widget.product!.productType ==
-                                                "physical"
-                                        ? null
-                                        : () {
-                                            if (_stock! >=
+                                    onTap:
+                                        _stock <
                                                     widget.product!
-                                                        .minimumOrderQty! ||
+                                                        .minimumOrderQty! &&
                                                 widget.product!.productType ==
-                                                    "digital") {
-                                              CartModel cart = CartModel(
-                                                  widget.product!.id,
-                                                  widget.product!.id,
-                                                  widget.product!.thumbnail,
-                                                  widget.product!.name,
-                                                  widget.product!.addedBy ==
-                                                          'seller'
-                                                      ? '${Provider.of<SellerProvider>(context, listen: false).sellerModel!.seller!.fName} '
-                                                          '${Provider.of<SellerProvider>(context, listen: false).sellerModel!.seller!.lName}'
-                                                      : 'admin',
-                                                  price,
-                                                  priceWithDiscount,
-                                                  details.quantity,
-                                                  _stock,
-                                                  (widget.product!.colors != null &&
-                                                          widget.product!.colors!
-                                                                  .length >
-                                                              0)
-                                                      ? widget
-                                                          .product!
-                                                          .colors![details
-                                                              .variantIndex!]
-                                                          .name
-                                                      : '',
-                                                  (widget.product!.colors != null &&
-                                                          widget.product!.colors!
-                                                                  .length >
-                                                              0)
-                                                      ? widget
-                                                          .product!
-                                                          .colors![details
-                                                              .variantIndex!]
-                                                          .code
-                                                      : '',
-                                                  _variation,
-                                                  widget.product!.discount,
-                                                  widget.product!.discountType,
-                                                  widget.product!.tax,
-                                                  widget.product!.taxModel,
-                                                  widget.product!.taxType,
-                                                  1,
-                                                  '',
-                                                  widget.product!.userId,
-                                                  '',
-                                                  '',
-                                                  '',
-                                                  widget.product!.choiceOptions,
-                                                  Provider.of<ProductDetailsProvider>(context, listen: false)
-                                                      .variationIndex,
-                                                  widget.product!.multiplyQty == 1
-                                                      ? widget.product!.shippingCost! *
-                                                          details.quantity!
-                                                      : widget.product!.shippingCost ?? 0,
-                                                  widget.product!.minimumOrderQty,
-                                                  widget.product!.productType,
-                                                  widget.product!.slug,
-                                                  0,
-                                                  0);
+                                                    "physical"
+                                            ? null
+                                            : () {
+                                                if (_stock! >=
+                                                        widget.product!
+                                                            .minimumOrderQty! ||
+                                                    widget.product!
+                                                            .productType ==
+                                                        "digital") {
+                                                  CartModel cart = CartModel(
+                                                      widget
+                                                          .product!.hasDiscount,
+                                                      widget.product!
+                                                          .discountPercent,
+                                                      widget
+                                                          .product!.seller!.shop,
+                                                      widget.product!.id,
+                                                      widget.product!.id,
+                                                      widget.product!.thumbnail,
+                                                      widget.product!.name,
+                                                      widget.product!.addedBy ==
+                                                              'seller'
+                                                          ? '${Provider.of<SellerProvider>(context, listen: false).sellerModel!.seller!.fName} '
+                                                              '${Provider.of<SellerProvider>(context, listen: false).sellerModel!.seller!.lName}'
+                                                          : 'admin',
+                                                      price,
+                                                      priceWithDiscount,
+                                                      details.quantity,
+                                                      _stock,
+                                                      (widget.product!.colors != null && widget.product!.colors!.length > 0)
+                                                          ? widget
+                                                              .product!
+                                                              .colors![details
+                                                                  .variantIndex!]
+                                                              .name
+                                                          : '',
+                                                      (widget.product!.colors != null && widget.product!.colors!.length > 0)
+                                                          ? widget
+                                                              .product!
+                                                              .colors![details
+                                                                  .variantIndex!]
+                                                              .code
+                                                          : '',
+                                                      _variation,
+                                                      widget.product!.discount,
+                                                      widget.product!
+                                                          .discountType,
+                                                      widget.product!.tax,
+                                                      widget.product!.taxModel,
+                                                      widget.product!.taxType,
+                                                      1,
+                                                      '',
+                                                      widget.product!.userId,
+                                                      '',
+                                                      '',
+                                                      '',
+                                                      widget.product!
+                                                          .choiceOptions,
+                                                      Provider.of<ProductDetailsProvider>(context, listen: false)
+                                                          .variationIndex,
+                                                      widget.product!.multiplyQty == 1
+                                                          ? widget.product!.shippingCost! *
+                                                              details.quantity!
+                                                          : widget.product!.shippingCost ?? 0,
+                                                      widget.product!.minimumOrderQty,
+                                                      widget.product!.productType,
+                                                      widget.product!.slug,
+                                                      0,
+                                                      0);
 
-                                              // cart.variations = _variation;
-                                              if (Provider.of<AuthProvider>(
-                                                      context,
-                                                      listen: false)
-                                                  .isLoggedIn()) {
-                                                Provider.of<CartProvider>(
-                                                        context,
-                                                        listen: false)
-                                                    .addToCartAPI(
-                                                  cart,
-                                                  route,
-                                                  context,
-                                                  widget
-                                                      .product!.choiceOptions!,
-                                                  Provider.of<ProductDetailsProvider>(
+                                                  // cart.variations = _variation;
+                                                  if (Provider.of<AuthProvider>(
                                                           context,
                                                           listen: false)
-                                                      .variationIndex,
-                                                );
-                                              } else {
-                                                Provider.of<CartProvider>(
+                                                      .isLoggedIn()) {
+                                                    Provider.of<CartProvider>(
+                                                            context,
+                                                            listen: false)
+                                                        .addToCartAPI(
+                                                      cart,
+                                                      route,
+                                                      context,
+                                                      widget.product!
+                                                          .choiceOptions!,
+                                                      Provider.of<ProductDetailsProvider>(
+                                                              context,
+                                                              listen: false)
+                                                          .variationIndex,
+                                                    );
+                                                  } else {
+                                                    Provider.of<CartProvider>(
+                                                            context,
+                                                            listen: false)
+                                                        .addToCart(cart);
+                                                    Navigator.pop(context);
+                                                    showCustomSnackBar(
+                                                        getTranslated(
+                                                            'added_to_cart',
+                                                            context),
                                                         context,
-                                                        listen: false)
-                                                    .addToCart(cart);
-                                                Navigator.pop(context);
-                                                showCustomSnackBar(
-                                                    getTranslated(
-                                                        'added_to_cart',
-                                                        context),
-                                                    context,
-                                                    isError: false);
-                                              }
-                                            }
-                                          }),
+                                                        isError: false);
+                                                  }
+                                                }
+                                              }),
                               ),
                         SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT),
                         Provider.of<CartProvider>(context, listen: false)
@@ -651,6 +655,10 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                                                 widget.product!.productType ==
                                                     "digital") {
                                               CartModel cart = CartModel(
+                                                  widget.product!.hasDiscount,
+                                                  widget
+                                                      .product!.discountPercent,
+                                                  widget.product!.seller!.shop,
                                                   widget.product!.id,
                                                   widget.product!.id,
                                                   widget.product!.thumbnail,
