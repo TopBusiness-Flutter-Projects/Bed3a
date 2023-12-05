@@ -189,6 +189,7 @@
   "high_to_low_price": "High to low price",
   "select_shipping_method": "Select shipping method",
   "total_price": "Total Price : ",
+  "total_price_dis": "Price (Discount): ",
   "language": "Language",
   "product_images": "Product images",
   "ok": "Ok",

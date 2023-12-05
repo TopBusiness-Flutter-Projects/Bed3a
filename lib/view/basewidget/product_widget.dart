@@ -285,6 +285,10 @@ class _ProductWidgetState extends State<ProductWidget> {
                                             widget.productModel.productType ==
                                                 "digital") {
                                           CartModel cart = CartModel(
+                                              widget.productModel.hasDiscount,
+                                              widget
+                                                  .productModel.discountPercent,
+                                              widget.productModel.sellerShop,
                                               widget.productModel.id,
                                               widget.productModel.id,
                                               widget.productModel.thumbnail,

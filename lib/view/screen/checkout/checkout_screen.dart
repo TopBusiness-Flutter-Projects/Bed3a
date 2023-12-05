@@ -92,7 +92,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   @override
   Widget build(BuildContext context) {
     _order = widget.totalOrderAmount + widget.discount;
-
     List<PaymentMethod> _paymentMethods = [
       if (_cod! && !widget.onlyDigital)
         PaymentMethod('cash_on_delivery', Images.cod),
@@ -206,7 +205,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             } else {
               List<CartModel> _cartList = [];
               _cartList.addAll(widget.cartList);
-
               for (int index = 0; index < widget.cartList.length; index++) {
                 for (int i = 0;
                     i <
@@ -972,22 +970,34 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                     null
                                 ? Provider.of<CouponProvider>(context).discount
                                 : 0;
-
                         return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               AmountWidget(
                                   title: getTranslated('sub_total', context),
                                   amount: PriceConverter.convertPrice(
-                                      context, _order)),
+                                    context,
+                                    (_order +
+                                        widget.shippingFee -
+                                        widget.discount -
+                                        _couponDiscount! +
+                                        widget.tax),
+                                    discount: widget.discount,
+                                    discountType: 'percent',
+                                  )),
                               AmountWidget(
                                   title: getTranslated('SHIPPING_FEE', context),
                                   amount: PriceConverter.convertPrice(
                                       context, widget.shippingFee)),
                               AmountWidget(
-                                  title: getTranslated('DISCOUNT', context),
-                                  amount: PriceConverter.convertPrice(
-                                      context, widget.discount)),
+                                title: getTranslated('DISCOUNT', context),
+
+                                amount: widget.discount.toString() + '%',
+                                // amount: PriceConverter.convertPrice(
+                                //   context,
+                                //   widget.discount,
+                                // ),
+                              ),
                               AmountWidget(
                                   title:
                                       getTranslated('coupon_voucher', context),
@@ -1004,12 +1014,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                   title:
                                       getTranslated('TOTAL_PAYABLE', context),
                                   amount: PriceConverter.convertPrice(
-                                      context,
-                                      (_order +
-                                          widget.shippingFee -
-                                          widget.discount -
-                                          _couponDiscount! +
-                                          widget.tax))),
+                                      context, _order,
+                                      discount: widget.discount,
+                                      discountType: 'percent')),
                             ]);
                       },
                     ),

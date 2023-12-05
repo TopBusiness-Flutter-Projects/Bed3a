@@ -1,3 +1,4 @@
+import 'package:bed3a_ecommerce/data/model/response/top_seller_model.dart';
 import 'package:flutter/material.dart';
 import 'package:bed3a_ecommerce/data/model/response/cart_model.dart';
 import 'package:bed3a_ecommerce/helper/price_converter.dart';
@@ -17,6 +18,9 @@ import 'package:bed3a_ecommerce/view/screen/cart/widget/cart_widget.dart';
 import 'package:bed3a_ecommerce/view/screen/checkout/checkout_screen.dart';
 import 'package:bed3a_ecommerce/view/screen/checkout/widget/shipping_method_bottom_sheet.dart';
 import 'package:provider/provider.dart';
+
+import '../product/product_details_screen.dart';
+import '../topSeller/top_seller_product_screen.dart';
 
 class CartScreen extends StatefulWidget {
   final bool fromCheckout;
@@ -156,20 +160,56 @@ class _CartScreenState extends State<CartScreen> {
                         children: [
                             Expanded(
                                 child: Center(
-                                    child: Row(
+                                    child: Column(
                               children: [
-                                Text(
-                                  '${getTranslated('total_price', context)}',
-                                  style: titilliumSemiBold.copyWith(
-                                      fontSize: Dimensions.FONT_SIZE_DEFAULT),
+                                Flexible(
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        '${getTranslated('total_price', context)}',
+                                        style: titilliumSemiBold.copyWith(
+                                            fontSize:
+                                                Dimensions.FONT_SIZE_DEFAULT),
+                                      ),
+                                      Text(
+                                        PriceConverter.convertPrice(
+                                            context, amount + shippingAmount),
+                                        style: titilliumSemiBold.copyWith(
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            fontSize:
+                                                Dimensions.FONT_SIZE_DEFAULT,
+                                            decorationThickness: 1.5,
+                                            decoration:
+                                                cartList[0].hasDiscount != 0
+                                                    ? TextDecoration.lineThrough
+                                                    : TextDecoration.none,
+                                            decorationColor: Colors.red),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                Text(
-                                  PriceConverter.convertPrice(
-                                      context, amount + shippingAmount),
-                                  style: titilliumSemiBold.copyWith(
-                                      color: Theme.of(context).primaryColor,
-                                      fontSize: Dimensions.FONT_SIZE_LARGE),
-                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      '${getTranslated('total_price_dis', context)}',
+                                      style: titilliumSemiBold.copyWith(
+                                          fontSize:
+                                              Dimensions.FONT_SIZE_DEFAULT),
+                                    ),
+                                    Text(
+                                      PriceConverter.convertPrice(
+                                          context, amount + shippingAmount,
+                                          discount: double.parse(cartList[0]
+                                              .discountPercent
+                                              .toString()),
+                                          discountType: 'percent'),
+                                      style: titilliumSemiBold.copyWith(
+                                          color: Theme.of(context).primaryColor,
+                                          fontSize: Dimensions.FONT_SIZE_LARGE),
+                                    ),
+                                  ],
+                                )
                               ],
                             ))),
                             Builder(
@@ -233,7 +273,8 @@ class _CartScreenState extends State<CartScreen> {
                                                       totalOrderAmount: amount,
                                                       shippingFee:
                                                           shippingAmount,
-                                                      discount: discount,
+                                                      discount:double.parse( cartList[0]
+                                                          .discountPercent.toString()),
                                                       tax: tax,
                                                       onlyDigital: _onlyDigital,
                                                     )));
@@ -329,16 +370,48 @@ class _CartScreenState extends State<CartScreen> {
                                                     padding:
                                                         const EdgeInsets.all(
                                                             8.0),
-                                                    child: Text(
-                                                        sellerGroupList[index]
-                                                            .shopInfo!,
-                                                        textAlign:
-                                                            TextAlign.end,
-                                                        style: titilliumSemiBold
-                                                            .copyWith(
-                                                          fontSize: Dimensions
-                                                              .FONT_SIZE_LARGE,
-                                                        )),
+                                                    child: Row(
+                                                      children: [
+                                                        Flexible(
+                                                          fit: FlexFit.tight,
+                                                          child: Text(
+                                                              sellerGroupList[
+                                                                      index]
+                                                                  .shopInfo!,
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .start,
+                                                              style:
+                                                                  titilliumSemiBold
+                                                                      .copyWith(
+                                                                fontSize: Dimensions
+                                                                    .FONT_SIZE_LARGE,
+                                                              )),
+                                                        ),
+                                                        MaterialButton(
+                                                            color: Colors.blue,
+                                                            shape: RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            12)),
+                                                            onPressed: () {
+                                                              Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                      builder: (_) => TopSellerProductScreen(
+                                                                          // topSellerId: cartList[index]
+                                                                          //     .sellerId,
+                                                                          topSeller: TopSellerModel(address: cartList[index].sellerInfo!.address, banner: cartList[index].sellerInfo!.banner, contact: cartList[index].sellerInfo!.contact, createdAt: cartList[index].sellerInfo!.createdAt, id: cartList[index].sellerInfo!.id, image: cartList[index].sellerInfo!.image, name: cartList[index].sellerInfo!.name, sellerId: cartList[index].sellerId, temporaryClose: cartList[index].sellerInfo!.temporaryClose, updatedAt: cartList[index].sellerInfo!.updatedAt, vacationEndDate: cartList[index].sellerInfo!.vacationEndDate, vacationStartDate: cartList[index].sellerInfo!.vacationStartDate, vacationStatus: cartList[index].sellerInfo!.vacationStatus))));
+                                                            },
+                                                            child: Text(
+                                                              'إضافة منتج',
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white),
+                                                            ))
+                                                      ],
+                                                    ),
                                                   )
                                                 : SizedBox(),
                                             Card(
@@ -363,18 +436,15 @@ class _CartScreenState extends State<CartScreen> {
                                                               .length,
                                                       itemBuilder:
                                                           (context, i) {
-                                                        return InkWell(
-                                                          onTap: () {},
-                                                          child: CartWidget(
-                                                            cartModel:
-                                                                cartProductList[
-                                                                    index][i],
-                                                            index:
-                                                                cartProductIndexList[
-                                                                    index][i],
-                                                            fromCheckout: widget
-                                                                .fromCheckout,
-                                                          ),
+                                                        return CartWidget(
+                                                          cartModel:
+                                                              cartProductList[
+                                                                  index][i],
+                                                          index:
+                                                              cartProductIndexList[
+                                                                  index][i],
+                                                          fromCheckout: widget
+                                                              .fromCheckout,
                                                         );
                                                       },
                                                     ),

@@ -53,11 +53,14 @@ class ProductDetailsModel {
   String? _averageReview;
   List<Reviews>? _reviews;
   Seller? _seller;
-
+  dynamic _hasDiscount;
+  dynamic _discountPercent;
   ProductDetailsModel({
     int? id,
     String? addedBy,
     int? userId,
+    dynamic hasDiscount,
+    dynamic discountPercent,
     String? name,
     String? slug,
     String? productType,
@@ -107,6 +110,8 @@ class ProductDetailsModel {
     List<Reviews>? reviews,
     Seller? seller,
   }) {
+    this._hasDiscount = hasDiscount;
+    this._discountPercent = discountPercent;
     if (id != null) {
       this._id = id;
     }
@@ -263,6 +268,8 @@ class ProductDetailsModel {
       this._seller = seller;
     }
   }
+  dynamic get discountPercent => _discountPercent;
+  dynamic get hasDiscount => _hasDiscount;
 
   int? get id => _id;
   String? get addedBy => _addedBy;
@@ -318,6 +325,8 @@ class ProductDetailsModel {
 
   ProductDetailsModel.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
+    _hasDiscount = json['has_discount'];
+    _discountPercent = json['discount_percent'];
     _addedBy = json['added_by'];
     _userId = json['user_id'];
     _name = json['name'];
@@ -404,6 +413,8 @@ class ProductDetailsModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this._id;
+    data['discount_percent'] = this._discountPercent;
+    data['has_discount'] = this._hasDiscount;
     data['added_by'] = this._addedBy;
     data['user_id'] = this._userId;
     data['name'] = this._name;

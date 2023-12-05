@@ -48,6 +48,8 @@ class _SellerCardState extends State<SellerCard> {
             MaterialPageRoute(
                 builder: (_) =>
                     TopSellerProductScreen(topSeller: widget.sellerModel)));
+
+        print(widget.sellerModel);
       },
       child: Stack(
         children: [
