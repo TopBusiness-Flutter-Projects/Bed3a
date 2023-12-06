@@ -36,9 +36,7 @@ class _ProductWidgetState extends State<ProductWidget> {
     // TODO: implement initState
     super.initState();
     Provider.of<ProductProvider>(context, listen: false).initData(
-        widget.productModel!,
-        widget.productModel.minimumOrderQuantity,
-        context);
+        widget.productModel, widget.productModel.minimumOrderQuantity, context);
   }
 
   @override
@@ -148,28 +146,31 @@ class _ProductWidgetState extends State<ProductWidget> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   // Product Image
-                  Container(
-                    height: MediaQuery.of(context).size.width / 3,
-                    decoration: BoxDecoration(
-                      color: ColorResources.getIconBg(context),
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10)),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10)),
-                      child: FadeInImage.assetNetwork(
-                        placeholder: Images.placeholder,
-                        fit: BoxFit.cover,
-                        height: MediaQuery.of(context).size.width / 2.45,
-                        image:
-                            '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.productThumbnailUrl}/${widget.productModel.thumbnail}',
-                        imageErrorBuilder: (c, o, s) => Image.asset(
-                            Images.placeholder_1x1,
-                            fit: BoxFit.cover,
-                            height: MediaQuery.of(context).size.width / 2.45),
+                  Flexible(
+                    fit: FlexFit.tight,
+                    child: Container(
+                      height: MediaQuery.of(context).size.width / 3,
+                      decoration: BoxDecoration(
+                        color: ColorResources.getIconBg(context),
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10)),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10)),
+                        child: FadeInImage.assetNetwork(
+                          placeholder: Images.placeholder,
+                          fit: BoxFit.cover,
+                          height: MediaQuery.of(context).size.width / 2.45,
+                          image:
+                              '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.productThumbnailUrl}/${widget.productModel.thumbnail}',
+                          imageErrorBuilder: (c, o, s) => Image.asset(
+                              Images.placeholder_1x1,
+                              fit: BoxFit.cover,
+                              height: MediaQuery.of(context).size.width / 2.45),
+                        ),
                       ),
                     ),
                   ),
@@ -200,20 +201,20 @@ class _ProductWidgetState extends State<ProductWidget> {
                             // productModel.discount!= null && productModel.discount! > 0 ?
                             Row(
                               children: [
-                                Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey[200],
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(16))),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0, vertical: 8),
-                                      child: Text(PriceConverter.convertPrice(
-                                          context,
-                                          widget.productModel.unitPrice)),
-                                    )),
-                                SizedBox(
-                                  width: 4,
+                                Flexible(
+                                  fit: FlexFit.tight,
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey[200],
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(16))),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0, vertical: 8),
+                                        child: Text(PriceConverter.convertPrice(
+                                            context,
+                                            widget.productModel.unitPrice)),
+                                      )),
                                 ),
                                 Container(
                                     decoration: BoxDecoration(
@@ -223,7 +224,11 @@ class _ProductWidgetState extends State<ProductWidget> {
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 8.0, vertical: 5),
-                                      child: Text("24 عبوة "),
+                                      child: Text(widget.productModel.quantity
+                                              .toString() +
+                                          'عبوة',
+                                          
+                                          ),
                                     )),
                               ],
                             ),
