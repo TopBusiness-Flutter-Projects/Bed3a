@@ -273,8 +273,10 @@ class _CartScreenState extends State<CartScreen> {
                                                       totalOrderAmount: amount,
                                                       shippingFee:
                                                           shippingAmount,
-                                                      discount:double.parse( cartList[0]
-                                                          .discountPercent.toString()),
+                                                      discount: double.parse(
+                                                          cartList[0]
+                                                              .discountPercent
+                                                              .toString()),
                                                       tax: tax,
                                                       onlyDigital: _onlyDigital,
                                                     )));
