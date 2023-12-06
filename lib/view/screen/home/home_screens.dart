@@ -401,15 +401,26 @@ class _HomePageState extends State<HomePage> {
                           //
                           //
                           // // Latest Products
-                          // Padding(
-                          //   padding: const EdgeInsets.symmetric(horizontal: 7,vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                          //   child: TitleRow(title: getTranslated('latest_products', context),
-                          //       onTap: () {Navigator.push(context, MaterialPageRoute(builder: (_) => AllProductScreen(
-                          //           productType: ProductType.LATEST_PRODUCT)));}),
-                          // ),
-                          // SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-                          // LatestProductView(scrollController: _scrollController),
-                          // SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 7,
+                                vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                            child: TitleRow(
+                                title:
+                                    getTranslated('latest_products', context),
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => AllProductScreen(
+                                              productType:
+                                                  ProductType.LATEST_PRODUCT)));
+                                }),
+                          ),
+                          SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+                          LatestProductView(
+                              scrollController: _scrollController),
+                          SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
 
                           //Home category
                           // HomeCategoryProductView(isHomePage: true),
