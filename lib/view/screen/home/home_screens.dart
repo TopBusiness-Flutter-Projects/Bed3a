@@ -406,15 +406,18 @@ class _HomePageState extends State<HomePage> {
                                 horizontal: 7,
                                 vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                             child: TitleRow(
-                                title:
-                                    getTranslated('latest_products', context),
+                                title: 'الاكثر مبيعاً',
+                                // getTranslated('latest_products', context),
                                 onTap: () {
                                   Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => AllProductScreen(
-                                              productType:
-                                                  ProductType.LATEST_PRODUCT)));
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => AllProductScreen(
+                                          // scrollController: _scrollController,
+                                          productType:
+                                              ProductType.BEST_SELLING),
+                                    ),
+                                  );
                                 }),
                           ),
                           SizedBox(height: Dimensions.PADDING_SIZE_SMALL),

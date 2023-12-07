@@ -44,13 +44,12 @@ class LatestProductView extends StatelessWidget {
           !prodProvider.firstLoading
               ? productList.length != 0
                   ? Container(
-                      height: Dimensions.CARD_HEIGHT,
+                      height: Dimensions.CARD_HEIGHT + 50,
                       child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: productList.length,
                           itemBuilder: (ctx, index) {
                             return Container(
-                              
                                 width: (MediaQuery.of(context).size.width / 2) -
                                     20,
                                 child: ProductWidget(

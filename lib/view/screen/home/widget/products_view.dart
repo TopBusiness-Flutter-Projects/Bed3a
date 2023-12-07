@@ -90,9 +90,7 @@ class ProductView extends StatelessWidget {
           print(
               '==========>Product List ==${prodProvider.firstLoading}====>${productList.length}');
         }
-
         print('========hello hello===>${productList!.length}');
-
         return Column(children: [
           !prodProvider.filterFirstLoading
               ? productList.length != 0

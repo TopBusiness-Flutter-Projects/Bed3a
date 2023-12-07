@@ -33,7 +33,6 @@ class ProductWidget extends StatefulWidget {
 class _ProductWidgetState extends State<ProductWidget> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Provider.of<ProductProvider>(context, listen: false).initData(
         widget.productModel, widget.productModel.minimumOrderQuantity, context);
@@ -146,8 +145,8 @@ class _ProductWidgetState extends State<ProductWidget> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   // Product Image
-                  Flexible(
-                    fit: FlexFit.tight,
+                  Container(
+                    // fit: FlexFit.tight,
                     child: Container(
                       height: MediaQuery.of(context).size.width / 3,
                       decoration: BoxDecoration(
@@ -224,11 +223,11 @@ class _ProductWidgetState extends State<ProductWidget> {
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 8.0, vertical: 5),
-                                      child: Text(widget.productModel.quantity
-                                              .toString() +
-                                          'عبوة',
-                                          
-                                          ),
+                                      child: Text(
+                                        widget.productModel.quantity
+                                                .toString() +
+                                            'عبوة',
+                                      ),
                                     )),
                               ],
                             ),
