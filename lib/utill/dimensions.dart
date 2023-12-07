@@ -34,10 +34,8 @@ class Dimensions {
 
   static const double IMAGE_SIZE_EXTRA_SEVENTY = 70.0;
 
-
   static const double topSpace = 30.0;
   static const double splashLogoWidth = 150.0;
-
 
   static const double chooseReviewImageSize = 40.0;
   static const double profileImageSize = 100.0;
