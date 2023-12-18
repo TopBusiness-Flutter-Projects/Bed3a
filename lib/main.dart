@@ -135,26 +135,25 @@ class MyApp extends StatelessWidget {
       _locals.add(Locale(language.languageCode!, language.countryCode));
     });
     return MaterialApp(
-      title: AppConstants.APP_NAME,
-      navigatorKey: navigatorKey,
-      debugShowCheckedModeBanner: false,
-      theme: Provider.of<ThemeProvider>(context).darkTheme ? dark : light,
-      locale: Provider.of<LocalizationProvider>(context).locale,
-      localizationsDelegates: [
-        AppLocalization.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        FallbackLocalizationDelegate()
-      ],
-      supportedLocales: _locals,
-      home: orderId == null
-          ? SplashScreen()
-          : OrderDetailsScreen(
-              orderId: orderId,
-              orderType: 'default_type',
-              isNotification: true),
-    );
+        title: AppConstants.APP_NAME,
+        navigatorKey: navigatorKey,
+        debugShowCheckedModeBanner: false,
+        theme: Provider.of<ThemeProvider>(context).darkTheme ? dark : light,
+        locale: Provider.of<LocalizationProvider>(context).locale,
+        localizationsDelegates: [
+          AppLocalization.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          FallbackLocalizationDelegate()
+        ],
+        supportedLocales: _locals,
+        home: orderId == null
+            ? SplashScreen()
+            : OrderDetailsScreen(
+                orderId: orderId,
+                orderType: 'default_type',
+                isNotification: true));
   }
 }
 
