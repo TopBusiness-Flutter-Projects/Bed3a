@@ -33,6 +33,8 @@ class AuthRepo {
     try {
       Response response = await dioClient!.post(
         AppConstants.REGISTRATION_URI,
+        options: Options(
+            headers: {"lang": "sa", "content-type": "application/json"}),
         data: register.toJson(),
       );
       return ApiResponse.withSuccess(response);

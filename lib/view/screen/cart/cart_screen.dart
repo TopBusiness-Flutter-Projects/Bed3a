@@ -64,7 +64,6 @@ class _CartScreenState extends State<CartScreen> {
       bool _onlyDigital = true;
       List<CartModel> cartList = [];
       cartList.addAll(cart.cartList);
-
       for (CartModel cart in cartList) {
         if (cart.productType == "physical") {
           _onlyDigital = false;
@@ -141,6 +140,7 @@ class _CartScreenState extends State<CartScreen> {
         return true;
       }
 
+      double totalOfSeller = 0;
       return Scaffold(
         bottomNavigationBar: (!widget.fromCheckout && !cart.isLoading)
             ? Container(
@@ -223,8 +223,9 @@ class _CartScreenState extends State<CartScreen> {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(SnackBar(
                                         content: Text(getTranslated(
-                                            'select_at_least_one_product',
-                                            context)!),
+                                                'select_at_least_one_product',
+                                                context) ??
+                                            ''),
                                         backgroundColor: Colors.red,
                                       ));
                                     } else if (cart.chosenShippingList.length <

@@ -74,7 +74,6 @@ class CartModel {
       this._slug,
       this._limitPrice,
       this._limitProduct);
-
   String? get variant => _variant;
   String? get color => _color;
   dynamic get hasDiscount => _hasDiscount;
