@@ -143,8 +143,8 @@ class CartWidget extends StatelessWidget {
                             width: Dimensions.FONT_SIZE_DEFAULT,
                           ),
                           Text(
-                            PriceConverter.convertPrice(
-                                context, cartModel!.price,
+                            PriceConverter.convertPrice(context,
+                                (cartModel!.price! * cartModel!.quantity!),
                                 discount: cartModel!.discount,
                                 discountType: 'amount'),
                             maxLines: 1,

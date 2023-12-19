@@ -17,19 +17,30 @@ class SupportTicketProvider extends ChangeNotifier {
   bool _isLoading = false;
 
   List<SupportTicketModel>? get supportTicketList => _supportTicketList;
-  List<SupportReplyModel>? get supportReplyList => _supportReplyList != null ? _supportReplyList!.reversed.toList() : _supportReplyList;
+  List<SupportReplyModel>? get supportReplyList => _supportReplyList != null
+      ? _supportReplyList!.reversed.toList()
+      : _supportReplyList;
   bool get isLoading => _isLoading;
 
-  void sendSupportTicket(SupportTicketBody supportTicketBody, Function(bool isSuccess, String? message) callback, BuildContext context) async {
+  void sendSupportTicket(
+      SupportTicketBody supportTicketBody,
+      Function(bool isSuccess, String? message) callback,
+      BuildContext context) async {
     _isLoading = true;
     notifyListeners();
-    ApiResponse apiResponse = await supportTicketRepo!.sendSupportTicket(supportTicketBody);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+    ApiResponse apiResponse =
+        await supportTicketRepo!.sendSupportTicket(supportTicketBody);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       String? message = apiResponse.response!.data["message"];
       callback(true, message);
       _isLoading = false;
-      _supportTicketList!.add(SupportTicketModel(description: supportTicketBody.description, type: supportTicketBody.type,
-          subject: supportTicketBody.subject, createdAt: DateConverter.formatDate(DateTime.now()), status: 'pending'));
+      _supportTicketList!.add(SupportTicketModel(
+          description: supportTicketBody.description,
+          type: supportTicketBody.type,
+          subject: supportTicketBody.subject,
+          createdAt: DateConverter.formatDate(DateTime.now()),
+          status: 'pending'));
       getSupportTicketList(context);
       notifyListeners();
     } else {
@@ -50,36 +61,45 @@ class SupportTicketProvider extends ChangeNotifier {
 
   Future<void> getSupportTicketList(BuildContext context) async {
     ApiResponse apiResponse = await supportTicketRepo!.getSupportTicketList();
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       _supportTicketList = [];
-      apiResponse.response!.data.forEach((supportTicket) => _supportTicketList!.add(SupportTicketModel.fromJson(supportTicket)));
+      apiResponse.response!.data.forEach((supportTicket) =>
+          _supportTicketList!.add(SupportTicketModel.fromJson(supportTicket)));
     } else {
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();
   }
 
-  Future<void> getSupportTicketReplyList(BuildContext context, int? ticketID) async {
+  Future<void> getSupportTicketReplyList(
+      BuildContext context, int? ticketID) async {
     _supportReplyList = null;
-    ApiResponse apiResponse = await supportTicketRepo!.getSupportReplyList(ticketID.toString());
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+    ApiResponse apiResponse =
+        await supportTicketRepo!.getSupportReplyList(ticketID.toString());
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       _supportReplyList = [];
-      apiResponse.response!.data.forEach((supportReply) => _supportReplyList!.add(SupportReplyModel.fromJson(supportReply)));
+      apiResponse.response!.data.forEach((supportReply) =>
+          _supportReplyList!.add(SupportReplyModel.fromJson(supportReply)));
     } else {
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();
   }
 
-  Future<void> sendReply(BuildContext context, int? ticketID, String message) async {
-    ApiResponse apiResponse = await supportTicketRepo!.sendReply(ticketID.toString(), message);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
-      _supportReplyList!.add(SupportReplyModel(customerMessage: message, createdAt: DateConverter.localDateToIsoString(DateTime.now())
-      ));
+  Future<void> sendReply(
+      BuildContext context, int? ticketID, String message) async {
+    ApiResponse apiResponse =
+        await supportTicketRepo!.sendReply(ticketID.toString(), message);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      _supportReplyList!.add(SupportReplyModel(
+          customerMessage: message,
+          createdAt: DateConverter.localDateToIsoString(DateTime.now())));
     } else {
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();
   }
-
 }

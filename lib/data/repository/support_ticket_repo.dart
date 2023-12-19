@@ -10,9 +10,11 @@ class SupportTicketRepo {
   final DioClient? dioClient;
   SupportTicketRepo({required this.dioClient});
 
-  Future<ApiResponse> sendSupportTicket(SupportTicketBody supportTicketModel) async {
+  Future<ApiResponse> sendSupportTicket(
+      SupportTicketBody supportTicketModel) async {
     try {
-      Response response = await dioClient!.post(AppConstants.SUPPORT_TICKET_URI, data: supportTicketModel.toJson());
+      Response response = await dioClient!.post(AppConstants.SUPPORT_TICKET_URI,
+          data: supportTicketModel.toJson());
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -21,7 +23,8 @@ class SupportTicketRepo {
 
   Future<ApiResponse> getSupportTicketList() async {
     try {
-      final response = await dioClient!.get(AppConstants.SUPPORT_TICKET_GET_URI);
+      final response =
+          await dioClient!.get(AppConstants.SUPPORT_TICKET_GET_URI);
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -30,7 +33,8 @@ class SupportTicketRepo {
 
   Future<ApiResponse> getSupportReplyList(String ticketID) async {
     try {
-      final response = await dioClient!.get('${AppConstants.SUPPORT_TICKET_CONV_URI}$ticketID');
+      final response = await dioClient!
+          .get('${AppConstants.SUPPORT_TICKET_CONV_URI}$ticketID');
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -39,11 +43,12 @@ class SupportTicketRepo {
 
   Future<ApiResponse> sendReply(String ticketID, String message) async {
     try {
-      final response = await dioClient!.post('${AppConstants.SUPPORT_TICKET_REPLY_URI}$ticketID', data: {'message': message});
+      final response = await dioClient!.post(
+          '${AppConstants.SUPPORT_TICKET_REPLY_URI}$ticketID',
+          data: {'message': message});
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
-
 }

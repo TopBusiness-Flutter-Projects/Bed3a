@@ -140,7 +140,24 @@ class _CartScreenState extends State<CartScreen> {
         return true;
       }
 
-      double totalOfSeller = 0;
+      double calculateTotalCost(List<CartModel> cartProductLists) {
+        double totalCosts = 0.0;
+        for (var cart in cartProductLists) {
+          double productTotalCost = (cart.price! * cart.quantity!);
+          totalCosts += productTotalCost;
+        }
+        return totalCosts;
+      }
+
+      int calculateTotalCount(List<CartModel> cartProductLists) {
+        int totalCount = 0;
+        for (var cart in cartProductLists) {
+          int productTotalCost = (cart.quantity!);
+          totalCount += productTotalCost;
+        }
+        return totalCount;
+      }
+
       return Scaffold(
         bottomNavigationBar: (!widget.fromCheckout && !cart.isLoading)
             ? Container(
@@ -585,15 +602,14 @@ class _CartScreenState extends State<CartScreen> {
                                                     Column(
                                                       children: [
                                                         Text(
-                                                          'إجمال الطلب: ${(sellerGroupList[index].price! * sellerGroupList[index].quantity!)}',
+                                                          'إجمال الطلب: ${calculateTotalCost(cartProductList[index])}',
                                                           style: TextStyle(
-                                                              color: (sellerGroupList[index]
-                                                                              .price! *
-                                                                          sellerGroupList[index]
-                                                                              .quantity!) <
+                                                              color: (calculateTotalCost(
+                                                                          cartProductList[
+                                                                              index]) <
                                                                       sellerGroupList[
                                                                               index]
-                                                                          .limitPrice!
+                                                                          .limitPrice!)
                                                                   ? Colors.red
                                                                   : Colors.blue,
                                                               fontWeight:
@@ -603,12 +619,12 @@ class _CartScreenState extends State<CartScreen> {
                                                         Text(
                                                           ' عدد منتجات: ${sellerGroupList[index].quantity.toString()}',
                                                           style: TextStyle(
-                                                              color: sellerGroupList[
-                                                                              index]
-                                                                          .quantity! <
+                                                              color: (calculateTotalCost(
+                                                                          cartProductList[
+                                                                              index]) <
                                                                       sellerGroupList[
                                                                               index]
-                                                                          .limitProduct!
+                                                                          .limitPrice!)
                                                                   ? Colors.red
                                                                   : Colors.blue,
                                                               fontWeight:
