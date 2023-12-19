@@ -160,7 +160,7 @@
   "proceed": "تقدم",
   "add_new_address": "أضف عنوان جديد",
   "no_products_available": "لا توجد منتجات متاحة",
-  "support_ticket": "بطاقة الدعم",
+  "support_ticket": "بطاقات الدعم",
   "write_your_subject": "اكتب موضوعك",
   "select_your_priority": "حدد أولويتك",
   "issue_description": "اكتب مشكلتك بالتفصيل",
@@ -190,6 +190,7 @@
   "select_shipping_method": "إختر طريقة الشحن",
   "total_price": "السعر الكلي",
   "total_price_dis": "السعر بعد الخصم",
+  "titles":"العناوين",
 
   "language": "لغة",
   "product_images": "صور المنتج",

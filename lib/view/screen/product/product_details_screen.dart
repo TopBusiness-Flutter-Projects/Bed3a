@@ -100,7 +100,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   : () => Navigator.pop(context),
             ),
             SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
-            Text(getTranslated('product_details', context)!,
+            Text(getTranslated('product_details', context) ?? '',
                 style: robotoRegular.copyWith(
                     fontSize: 20, color: Theme.of(context).cardColor)),
           ]),
