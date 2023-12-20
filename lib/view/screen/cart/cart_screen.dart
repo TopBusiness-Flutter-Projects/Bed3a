@@ -127,19 +127,7 @@ class _CartScreenState extends State<CartScreen> {
       for (int j = 0; j < cartList.length; j++) {
         shippingAmount += cart.cartList[j].shippingCost ?? 0;
       }
-
-      bool checkConditionForAllItems(List<CartModel> sellerGroupList) {
-        for (int i = 0; i < sellerGroupList.length; i++) {
-          if (!(sellerGroupList[i].quantity! >=
-                  sellerGroupList[i].limitProduct!) ||
-              !((sellerGroupList[i].price! * sellerGroupList[i].quantity!) >=
-                  sellerGroupList[i].limitPrice!)) {
-            return false;
-          }
-        }
-        return true;
-      }
-
+/////////////////////////
       double calculateTotalCost(List<CartModel> cartProductLists) {
         double totalCosts = 0.0;
         for (var cart in cartProductLists) {
@@ -156,6 +144,28 @@ class _CartScreenState extends State<CartScreen> {
           totalCount += productTotalCost;
         }
         return totalCount;
+      }
+
+      bool checkConditionForAllItems(List<CartModel> sellerGroupList) {
+        for (int i = 0; i < sellerGroupList.length; i++) {
+          if (!(calculateTotalCount(sellerGroupList) >=
+                  sellerGroupList[i].limitProduct!) ||
+              !(calculateTotalCost(sellerGroupList) >=
+                  sellerGroupList[i].limitPrice!)) {
+            return false;
+          }
+        }
+        return true;
+      }
+
+      bool checkConditionForAllItemsInList(
+          List<List<CartModel>> listOfSellerGroups) {
+        for (int i = 0; i < listOfSellerGroups.length; i++) {
+          if (!checkConditionForAllItems(listOfSellerGroups[i])) {
+            return false;
+          }
+        }
+        return true;
       }
 
       return Scaffold(
@@ -279,9 +289,10 @@ class _CartScreenState extends State<CartScreen> {
                                                   context)!),
                                               backgroundColor: Colors.red));
                                     } else {
+                                      print(cartProductList.length);
                                       bool conditionMet =
-                                          checkConditionForAllItems(
-                                              sellerGroupList);
+                                          checkConditionForAllItemsInList(
+                                              cartProductList);
                                       if (conditionMet) {
                                         Navigator.push(
                                             context,
@@ -541,8 +552,8 @@ class _CartScreenState extends State<CartScreen> {
                                                                               .spaceBetween,
                                                                       children: [
                                                                         Text(
-                                                                            getTranslated('SHIPPING_PARTNER',
-                                                                                context)!,
+                                                                            getTranslated('SHIPPING_PARTNER', context) ??
+                                                                                '',
                                                                             style:
                                                                                 titilliumRegular),
                                                                         Flexible(
@@ -617,7 +628,7 @@ class _CartScreenState extends State<CartScreen> {
                                                                       .w600),
                                                         ),
                                                         Text(
-                                                          ' عدد منتجات: ${sellerGroupList[index].quantity.toString()}',
+                                                          ' عدد منتجات: ${calculateTotalCount(cartProductList[index])}',
                                                           style: TextStyle(
                                                               color: (calculateTotalCost(
                                                                           cartProductList[
