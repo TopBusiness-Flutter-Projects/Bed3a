@@ -175,17 +175,17 @@ class _SignUpWidgetState extends State<SignUpWidget> {
     }
   }
 
-  String? _countryDialCode = "+880";
+  String _countryDialCode = "+20";
   @override
   void initState() {
     super.initState();
     Provider.of<SplashProvider>(context, listen: false).configModel;
     _countryDialCode = CountryCode.fromCountryCode(
-            Provider.of<SplashProvider>(context, listen: false)
-                .configModel!
-                .countryCode!)
-        .dialCode;
-
+                Provider.of<SplashProvider>(context, listen: false)
+                    .configModel!
+                    .countryCode!)
+            .dialCode ??
+        '+20';
     _formKey = GlobalKey<FormState>();
   }
 
@@ -250,7 +250,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                 child: Row(children: [
                   CodePickerWidget(
                     onChanged: (CountryCode countryCode) {
-                      _countryDialCode = countryCode.dialCode;
+                      _countryDialCode = countryCode.dialCode ?? '+20';
                     },
                     initialSelection: _countryDialCode,
                     favorite: [_countryDialCode],

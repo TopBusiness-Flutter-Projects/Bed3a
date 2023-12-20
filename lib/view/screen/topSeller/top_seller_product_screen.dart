@@ -91,9 +91,11 @@ class _TopSellerProductScreenState extends State<TopSellerProductScreen> {
                 physics: BouncingScrollPhysics(),
                 padding: EdgeInsets.all(0),
                 children: [
-                  TopSellerCategoryView(
-                    isHomePage: false,
-                  ),
+                  ///////////////////////
+                  // TopSellerCategoryView(
+                  //   isHomePage: false,
+                  // ),
+                  ///////////////////////
                   // Banner
                   // Padding(
                   //   padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
@@ -269,86 +271,6 @@ class _TopSellerProductScreenState extends State<TopSellerProductScreen> {
             ),
           ],
         ),
-        // bottomNavigationBar:
-        //     Consumer<ProductDetailsProvider>(builder: (context, details, child) {
-        //   return Consumer<CartProvider>(builder: (context, cart2, child) {
-        //     return !details.isDetails
-        //         ? Container(
-        //             height: 80,
-        //             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        //             decoration: BoxDecoration(
-        //               color: Theme.of(context).highlightColor,
-        //               borderRadius: BorderRadius.only(
-        //                   topLeft: Radius.circular(10),
-        //                   topRight: Radius.circular(10)),
-        //               boxShadow: [
-        //                 BoxShadow(
-        //                     color: Theme.of(context).hintColor,
-        //                     blurRadius: .5,
-        //                     spreadRadius: .1)
-        //               ],
-        //             ),
-        //             child: Row(children: [
-        //               // cart2.cartList.isEmpty
-        //               //     ? Container()
-        //               //     : Padding(
-        //               //         padding: EdgeInsets.all(
-        //               //             Dimensions.PADDING_SIZE_EXTRA_SMALL),
-        //               //         child: Column(
-        //               //           children: [
-        //               //             Text(
-        //               //               "الحد الادنى: ${cart2.cartList[0].limitPrice} ج.م",
-        //               //               style: titleRegular.copyWith(
-        //               //                   fontSize: Dimensions.FONT_SIZE_SMALL,
-        //               //                   color:
-        //               //                       ColorResources.getPrimary(context)),
-        //               //               maxLines: 1,
-        //               //               overflow: TextOverflow.ellipsis,
-        //               //             ),
-        //               //             Text(
-        //               //               "اجمالى الطلب : ${ cart2.cartList[0].}ج.م",
-        //               //               style: titleRegular.copyWith(
-        //               //                   fontSize: Dimensions.FONT_SIZE_SMALL,
-        //               //                   color: ColorResources.getRed(context)),
-        //               //               maxLines: 1,
-        //               //               overflow: TextOverflow.ellipsis,
-        //               //             ),
-        //               //           ],
-        //               //         ),
-        //               //       ),
-        //               // cart2.cartList.isEmpty
-        //               //     ? Container()
-        //               //     : Padding(
-        //               //         padding: EdgeInsets.all(
-        //               //             Dimensions.PADDING_SIZE_EXTRA_SMALL),
-        //               //         child: Column(
-        //               //           children: [
-        //               //             Text(
-        //               //               "اقل عدد منتجات: 2",
-        //               //               style: titleRegular.copyWith(
-        //               //                   fontSize: Dimensions.FONT_SIZE_SMALL,
-        //               //                   color:
-        //               //                       ColorResources.getPrimary(context)),
-        //               //               maxLines: 1,
-        //               //               overflow: TextOverflow.ellipsis,
-        //               //             ),
-        //               //             Text(
-        //               //               "عدد المنتجات : 1",
-        //               //               style: titleRegular.copyWith(
-        //               //                   fontSize: Dimensions.FONT_SIZE_SMALL,
-        //               //                   color: ColorResources.getRed(context)),
-        //               //               maxLines: 1,
-        //               //               overflow: TextOverflow.ellipsis,
-        //               //             ),
-        //               //           ],
-        //               //         ),
-        //               //       ),
-        //             ]),
-        //           )
-        //         : SizedBox();
-        //   });
-        // }),
-
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.white,
           onPressed: () {

@@ -56,7 +56,8 @@ class _SellerCardState extends State<SellerCard> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Expanded(
+              Flexible(
+                fit: FlexFit.tight,
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
@@ -82,6 +83,13 @@ class _SellerCardState extends State<SellerCard> {
                   ),
                 ),
               ),
+              Text(
+                widget.sellerModel!.name ?? '',
+                maxLines: 1,
+                style: TextStyle(
+                  fontSize: MediaQuery.of(context).size.width / 32,
+                ),
+              )
             ],
           ),
           if (widget.sellerModel!.temporaryClose == 1 || vacationIsOn)

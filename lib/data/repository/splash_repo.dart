@@ -29,7 +29,7 @@ class SplashRepo {
     if (!sharedPreferences!.containsKey(AppConstants.INTRO)) {
       sharedPreferences!.setBool(AppConstants.INTRO, true);
     }
-    if(!sharedPreferences!.containsKey(AppConstants.CURRENCY)) {
+    if (!sharedPreferences!.containsKey(AppConstants.CURRENCY)) {
       sharedPreferences!.setString(AppConstants.CURRENCY, '');
     }
   }
@@ -49,6 +49,4 @@ class SplashRepo {
   bool? showIntro() {
     return sharedPreferences!.getBool(AppConstants.INTRO);
   }
-
-
 }
