@@ -28,7 +28,7 @@ class SignUpWidget extends StatefulWidget {
 class _SignUpWidgetState extends State<SignUpWidget> {
   TextEditingController _firstNameController = TextEditingController();
   TextEditingController _lastNameController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
+  TextEditingController? _emailController = TextEditingController();
   TextEditingController _phoneController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmPasswordController = TextEditingController();
@@ -50,9 +50,9 @@ class _SignUpWidgetState extends State<SignUpWidget> {
       isEmailVerified = true;
       String _firstName = _firstNameController.text.trim();
       String _lastName = _lastNameController.text.trim();
-      String _email = _emailController.text.trim();
+      String _email = _emailController!.text.trim();
       String _phone = _phoneController.text.trim();
-      String _phoneNumber = _countryDialCode! + _phoneController.text.trim();
+      String _phoneNumber = _phoneController.text.trim();
       String _password = _passwordController.text.trim();
       String _confirmPassword = _confirmPasswordController.text.trim();
       if (_firstName.isEmpty) {
@@ -66,17 +66,20 @@ class _SignUpWidgetState extends State<SignUpWidget> {
           content: Text(getTranslated('last_name_field_is_required', context)!),
           backgroundColor: Colors.red,
         ));
-      } else if (_email.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('EMAIL_MUST_BE_REQUIRED', context)!),
-          backgroundColor: Colors.red,
-        ));
-      } else if (EmailChecker.isNotValid(_email)) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('enter_valid_email_address', context)!),
-          backgroundColor: Colors.red,
-        ));
-      } else if (_phone.isEmpty) {
+      }
+      //  else if (_email.isEmpty) {
+      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //     content: Text(getTranslated('EMAIL_MUST_BE_REQUIRED', context)!),
+      //     backgroundColor: Colors.red,
+      //   ));
+      // }
+      // else if (EmailChecker.isNotValid(_email)) {
+      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //     content: Text(getTranslated('enter_valid_email_address', context)!),
+      //     backgroundColor: Colors.red,
+      //   ));
+      // }
+      else if (_phone.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(getTranslated('PHONE_MUST_BE_REQUIRED', context)!),
           backgroundColor: Colors.red,
@@ -100,7 +103,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
       } else {
         register.fName = '${_firstNameController.text}';
         register.lName = _lastNameController.text;
-        register.email = _emailController.text;
+        register.email = _emailController?.text ?? '';
         register.phone = _phoneNumber;
         register.password = _passwordController.text;
         await Provider.of<AuthProvider>(context, listen: false)
@@ -126,16 +129,16 @@ class _SignUpWidgetState extends State<SignUpWidget> {
           .configModel!
           .emailVerification!) {
         Provider.of<AuthProvider>(context, listen: false)
-            .checkEmail(_emailController.text.toString(), tempToken)
+            .checkEmail(_emailController!.text.toString(), tempToken)
             .then((value) async {
           if (value.isSuccess) {
             Provider.of<AuthProvider>(context, listen: false)
-                .updateEmail(_emailController.text.toString());
+                .updateEmail(_emailController!.text.toString());
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
                     builder: (_) => VerificationScreen(
-                        tempToken, '', _emailController.text.toString())),
+                        tempToken, '', _emailController!.text.toString())),
                 (route) => false);
           }
         });
@@ -162,7 +165,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
             context,
             MaterialPageRoute(builder: (_) => DashBoardScreen()),
             (route) => false);
-        _emailController.clear();
+        _emailController!.clear();
         _passwordController.clear();
         _firstNameController.clear();
         _lastNameController.clear();

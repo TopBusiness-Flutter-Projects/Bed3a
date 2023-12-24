@@ -74,10 +74,8 @@ Future<void> main() async {
         : null;
   }
   print('========-notification-----$_orderID----===========');
-
   await MyNotification.initialize(flutterLocalNotificationsPlugin);
   FirebaseMessaging.onBackgroundMessage(myBackgroundMessageHandler);
-
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => di.sl<CategoryProvider>()),
