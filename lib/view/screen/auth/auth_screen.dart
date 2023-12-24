@@ -112,7 +112,7 @@ class AuthScreen extends StatelessWidget {
                     child: Consumer<AuthProvider>(
                       builder: (context, authProvider, child) =>
                           PageView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         itemCount: 2,
                         controller: _pageController,
                         itemBuilder: (context, index) {

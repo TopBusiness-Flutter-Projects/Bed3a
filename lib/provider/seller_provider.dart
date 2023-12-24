@@ -15,10 +15,11 @@ class SellerProvider extends ChangeNotifier {
   SellerModel? get sellerModel => _sellerModel;
 
   void initSeller(String sellerId, BuildContext context) async {
-    _orderSellerList =[];
+    _orderSellerList = [];
     ApiResponse apiResponse = await sellerRepo!.getSeller(sellerId);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
-      _orderSellerList =[];
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      _orderSellerList = [];
       _orderSellerList.add(SellerModel.fromJson(apiResponse.response!.data));
       _sellerModel = SellerModel.fromJson(apiResponse.response!.data);
     } else {
@@ -26,5 +27,4 @@ class SellerProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
-
 }

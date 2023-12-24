@@ -26,7 +26,7 @@ class AuthProvider with ChangeNotifier {
   bool? get isRemember => _isRemember;
 
   void updateRemember(bool? value) {
-    _isRemember = value;
+    _isRemember = value ?? false;
     notifyListeners();
   }
 

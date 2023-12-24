@@ -10,7 +10,7 @@ class SellerRepo {
 
   Future<ApiResponse> getSeller(String sellerId) async {
     try {
-      final response = await dioClient!.get(AppConstants.SELLER_URI+sellerId);
+      final response = await dioClient!.get(AppConstants.SELLER_URI + sellerId);
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
