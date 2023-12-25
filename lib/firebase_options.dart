@@ -63,7 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '625094720482',
     projectId: 'bed3a-b919a',
     storageBucket: 'bed3a-b919a.appspot.com',
-    iosClientId: '625094720482-q05tnbl2idk9k92fjf84jfj3a20b6isj.apps.googleusercontent.com',
+    iosClientId:
+        '625094720482-q05tnbl2idk9k92fjf84jfj3a20b6isj.apps.googleusercontent.com',
     iosBundleId: 'com.topbusiness.bed3aecom',
   );
 }

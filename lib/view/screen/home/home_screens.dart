@@ -401,25 +401,30 @@ class _HomePageState extends State<HomePage> {
                           //
                           //
                           // // Latest Products
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 7,
-                                vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                            child: TitleRow(
-                                title: 'الاكثر مبيعاً',
-                                // getTranslated('latest_products', context),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) => AllProductScreen(
-                                          // scrollController: _scrollController,
-                                          productType:
-                                              ProductType.BEST_SELLING),
-                                    ),
-                                  );
-                                }),
-                          ),
+                          Provider.of<ProductProvider>(context, listen: false)
+                                  .lProductList
+                                  .isEmpty
+                              ? Container()
+                              : Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 7,
+                                      vertical:
+                                          Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                                  child: TitleRow(
+                                      title: 'الاكثر مبيعاً',
+                                      // getTranslated('latest_products', context),
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (_) => AllProductScreen(
+                                                // scrollController: _scrollController,
+                                                productType:
+                                                    ProductType.BEST_SELLING),
+                                          ),
+                                        );
+                                      }),
+                                ),
                           SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                           LatestProductView(
                               scrollController: _scrollController),
