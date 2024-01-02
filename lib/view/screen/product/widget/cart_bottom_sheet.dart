@@ -604,7 +604,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                                                       route,
                                                       context,
                                                       widget.product!
-                                                          .choiceOptions!,
+                                                          .choiceOptions,
                                                       Provider.of<ProductDetailsProvider>(
                                                               context,
                                                               listen: false)
@@ -736,7 +736,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                                                   route,
                                                   context,
                                                   widget
-                                                      .product!.choiceOptions!,
+                                                      .product!.choiceOptions,
                                                   Provider.of<ProductDetailsProvider>(
                                                           context,
                                                           listen: false)

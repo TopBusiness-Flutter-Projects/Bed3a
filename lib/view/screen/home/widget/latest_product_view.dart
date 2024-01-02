@@ -40,32 +40,36 @@ class LatestProductView extends StatelessWidget {
       builder: (context, prodProvider, child) {
         List<Product> productList;
         productList = prodProvider.lProductList;
-        return Column(children: [
-          !prodProvider.firstLoading
-              ? productList.length != 0
-                  ? Container(
-                      height: Dimensions.CARD_HEIGHT + 50,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: productList.length,
-                          itemBuilder: (ctx, index) {
-                            return Container(
-                                width: (MediaQuery.of(context).size.width / 2) -
-                                    20,
-                                child: ProductWidget(
-                                  productModel: productList[index],
-                                  index: index,
-                                ));
-                          }),
-                    )
-                  : SizedBox.shrink()
-              : ProductShimmer(
-                  isHomePage: true, isEnabled: prodProvider.firstLoading),
-          // prodProvider.isLoading ? Center(child: Padding(
-          //   padding: EdgeInsets.all(Dimensions.ICON_SIZE_EXTRA_SMALL),
-          //   child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor)),
-          // )) : SizedBox.shrink(),
-        ]);
+        return prodProvider.lProductList.isEmpty
+            ? Container(height: 0)
+            : Column(children: [
+                !prodProvider.firstLoading
+                    ? productList.length != 0
+                        ? Container(
+                            height: Dimensions.CARD_HEIGHT + 50,
+                            child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: productList.length,
+                                itemBuilder: (ctx, index) {
+                                  return Container(
+                                      width:
+                                          (MediaQuery.of(context).size.width /
+                                                  2) -
+                                              20,
+                                      child: ProductWidget(
+                                        productModel: productList[index],
+                                        index: index,
+                                      ));
+                                }),
+                          )
+                        : SizedBox.shrink()
+                    : ProductShimmer(
+                        isHomePage: true, isEnabled: prodProvider.firstLoading),
+                // prodProvider.isLoading ? Center(child: Padding(
+                //   padding: EdgeInsets.all(Dimensions.ICON_SIZE_EXTRA_SMALL),
+                //   child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor)),
+                // )) : SizedBox.shrink(),
+              ]);
       },
     );
   }

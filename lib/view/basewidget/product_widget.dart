@@ -305,8 +305,8 @@ class _ProductWidgetState extends State<ProductWidget> {
                                                 widget.productModel.name,
                                                 widget.productModel.addedBy ==
                                                         'seller'
-                                                    ? '${Provider.of<SellerProvider>(context, listen: false).sellerModel!.seller!.fName} '
-                                                        '${Provider.of<SellerProvider>(context, listen: false).sellerModel!.seller!.lName}'
+                                                    ? '${Provider.of<SellerProvider>(context, listen: false).sellerModel?.seller!.fName ?? ''} '
+                                                        '${Provider.of<SellerProvider>(context, listen: false).sellerModel?.seller!.lName ?? ''}'
                                                     : 'admin',
                                                 price,
                                                 priceWithDiscount,
@@ -371,8 +371,8 @@ class _ProductWidgetState extends State<ProductWidget> {
                                                 cart,
                                                 route,
                                                 context,
-                                                widget.productModel
-                                                    .choiceOptions!,
+                                                widget
+                                                    .productModel.choiceOptions,
                                                 Provider.of<ProductProvider>(
                                                         context,
                                                         listen: false)

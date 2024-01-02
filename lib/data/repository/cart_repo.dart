@@ -38,9 +38,9 @@ class CartRepo {
   }
 
   Future<ApiResponse> addToCartListData(CartModel cart,
-      List<ChoiceOptions> choiceOptions, List<int>? variationIndexes) async {
+      List<ChoiceOptions>? choiceOptions, List<int>? variationIndexes) async {
     Map<String?, dynamic> _choice = Map();
-    for (int index = 0; index < choiceOptions.length; index++) {
+    for (int index = 0; index < choiceOptions!.length; index++) {
       _choice.addAll({
         choiceOptions[index].name:
             choiceOptions[index].options![variationIndexes![index]]
