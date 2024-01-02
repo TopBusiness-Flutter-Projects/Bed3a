@@ -204,12 +204,12 @@ class CartProvider extends ChangeNotifier {
       CartModel cart,
       Function callback,
       BuildContext context,
-      List<ChoiceOptions> choices,
+      List<ChoiceOptions>? choices,
       List<int>? variationIndexes) async {
     _addToCartLoading = true;
     notifyListeners();
-    ApiResponse apiResponse =
-        await cartRepo!.addToCartListData(cart, choices, variationIndexes);
+    ApiResponse apiResponse = await cartRepo!
+        .addToCartListData(cart, choices ?? [], variationIndexes);
     _addToCartLoading = false;
     if (apiResponse.response != null &&
         apiResponse.response!.statusCode == 200) {
