@@ -16,7 +16,6 @@ import 'package:bed3a_ecommerce/view/screen/auth/widget/mobile_verify_screen.dar
 import 'package:bed3a_ecommerce/view/screen/auth/widget/social_login_widget.dart';
 import 'package:bed3a_ecommerce/view/screen/dashboard/dashboard_screen.dart';
 import 'package:provider/provider.dart';
-
 import 'otp_verification_screen.dart';
 
 class SignInWidget extends StatefulWidget {

@@ -2,7 +2,6 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:bed3a_ecommerce/data/model/body/order_place_model.dart';
 import 'package:bed3a_ecommerce/data/model/response/base/api_response.dart';
 import 'package:bed3a_ecommerce/data/model/response/base/error_response.dart';
-import 'package:bed3a_ecommerce/data/model/response/cart_model.dart';
 import 'package:bed3a_ecommerce/data/model/response/order_details.dart';
 import 'package:bed3a_ecommerce/data/model/response/order_model.dart';
 import 'package:bed3a_ecommerce/data/model/response/refund_info_model.dart';

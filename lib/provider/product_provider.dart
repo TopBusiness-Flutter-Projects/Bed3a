@@ -291,7 +291,9 @@ class ProductProvider extends ChangeNotifier {
       if (apiResponse.response != null &&
           apiResponse.response!.statusCode == 200) {
         _featuredProductList.addAll(
-            ProductModel.fromJson(apiResponse.response!.data).products!);
+            ProductModel.fromJson(apiResponse.response!.data).products != null
+                ? ProductModel.fromJson(apiResponse.response!.data).products!
+                : {});
         _featuredPageSize =
             ProductModel.fromJson(apiResponse.response!.data).totalSize;
         _firstFeaturedLoading = false;

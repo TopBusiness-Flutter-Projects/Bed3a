@@ -12,16 +12,27 @@ import 'package:bed3a_ecommerce/view/screen/auth/widget/sign_in_widget.dart';
 import 'package:bed3a_ecommerce/view/screen/auth/widget/sign_up_widget.dart';
 import 'package:provider/provider.dart';
 
-class AuthScreen extends StatelessWidget {
+class AuthScreen extends StatefulWidget {
   final int initialPage;
   AuthScreen({this.initialPage = 0});
+
+  @override
+  State<AuthScreen> createState() => _AuthScreenState();
+}
+
+class _AuthScreenState extends State<AuthScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     Provider.of<ProfileProvider>(context, listen: false)
         .initAddressTypeList(context);
     Provider.of<AuthProvider>(context, listen: false).isRemember;
-    PageController _pageController = PageController(initialPage: initialPage);
+    PageController _pageController =
+        PageController(initialPage: widget.initialPage);
 
     return Scaffold(
       body: Stack(
