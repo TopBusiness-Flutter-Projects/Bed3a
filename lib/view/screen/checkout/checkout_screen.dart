@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:bed3a_ecommerce/data/model/body/order_place_model.dart';
 import 'package:bed3a_ecommerce/data/model/response/cart_model.dart';
@@ -71,6 +72,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   @override
   void initState() {
     super.initState();
+
     Provider.of<ProfileProvider>(context, listen: false)
         .initAddressList(context);
     Provider.of<ProfileProvider>(context, listen: false)
@@ -87,6 +89,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             .configModel!
             .billingAddress ==
         1;
+
+    if (Provider.of<ProfileProvider>(context, listen: false)
+        .addressList
+        .isNotEmpty) {
+      Provider.of<OrderProvider>(context, listen: false).setAddressIndex(0);
+    }
   }
 
   @override
@@ -569,17 +577,24 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                               .addressIndex ==
                                                           null
                                                       ? '${getTranslated('address_type', context)}'
-                                                      : Provider.of<
-                                                                  ProfileProvider>(
-                                                              context,
-                                                              listen: false)
-                                                          .addressList[Provider
-                                                                  .of<OrderProvider>(
+                                                      : Provider.of<ProfileProvider>(context, listen: false)
+                                                                  .addressList[
+                                                                      0]
+                                                                  .addressType !=
+                                                              null
+                                                          ? Provider.of<ProfileProvider>(
+                                                                  context,
+                                                                  listen: false)
+                                                              .addressList[0]
+                                                              .addressType!
+                                                          : Provider.of<ProfileProvider>(
+                                                                  context,
+                                                                  listen: false)
+                                                              .addressList[Provider.of<OrderProvider>(
                                                                       context,
-                                                                      listen:
-                                                                          false)
-                                                              .addressIndex!]
-                                                          .addressType!,
+                                                                      listen: false)
+                                                                  .addressIndex!]
+                                                              .addressType!,
                                                   style: titilliumBold.copyWith(
                                                       fontSize: Dimensions
                                                           .FONT_SIZE_LARGE),
@@ -978,17 +993,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                   amount: PriceConverter.convertPrice(
                                     context,
                                     (_order +
-                                        widget.shippingFee -
+                                        // widget.shippingFee -
                                         widget.discount -
                                         _couponDiscount! +
                                         widget.tax),
                                     discount: widget.discount,
                                     discountType: 'percent',
                                   )),
-                              AmountWidget(
-                                  title: getTranslated('SHIPPING_FEE', context),
-                                  amount: PriceConverter.convertPrice(
-                                      context, widget.shippingFee)),
+                              // AmountWidget(
+                              //     title: getTranslated('SHIPPING_FEE', context),
+                              //     amount: PriceConverter.convertPrice(
+                              //         context, widget.shippingFee)),
                               AmountWidget(
                                 title: getTranslated('DISCOUNT', context),
 
@@ -1003,10 +1018,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                       getTranslated('coupon_voucher', context),
                                   amount: PriceConverter.convertPrice(
                                       context, _couponDiscount)),
-                              AmountWidget(
-                                  title: getTranslated('TAX', context),
-                                  amount: PriceConverter.convertPrice(
-                                      context, widget.tax)),
+                              // AmountWidget(
+                              //     title: getTranslated('TAX', context),
+                              //     amount: PriceConverter.convertPrice(
+                              //         context, widget.tax)),
                               Divider(
                                   height: 5,
                                   color: Theme.of(context).hintColor),

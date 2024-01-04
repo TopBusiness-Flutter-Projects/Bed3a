@@ -18,8 +18,7 @@ import 'package:bed3a_ecommerce/view/screen/cart/widget/cart_widget.dart';
 import 'package:bed3a_ecommerce/view/screen/checkout/checkout_screen.dart';
 import 'package:bed3a_ecommerce/view/screen/checkout/widget/shipping_method_bottom_sheet.dart';
 import 'package:provider/provider.dart';
-
-import '../product/product_details_screen.dart';
+import '../../../provider/profile_provider.dart';
 import '../topSeller/top_seller_product_screen.dart';
 
 class CartScreen extends StatefulWidget {
@@ -45,6 +44,11 @@ class _CartScreenState extends State<CartScreen> {
         Provider.of<CartProvider>(context, listen: false)
             .getAdminShippingMethodList(context);
       }
+      //!TODO
+      Provider.of<ProfileProvider>(context, listen: false)
+          .initAddressList(context);
+      Provider.of<ProfileProvider>(context, listen: false)
+          .initAddressTypeList(context);
     }
   }
 
