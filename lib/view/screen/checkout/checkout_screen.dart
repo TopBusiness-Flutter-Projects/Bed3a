@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:bed3a_ecommerce/data/model/body/order_place_model.dart';
@@ -28,7 +27,6 @@ import 'package:bed3a_ecommerce/view/screen/checkout/widget/offline_payment.dart
 import 'package:bed3a_ecommerce/view/screen/checkout/widget/wallet_payment.dart';
 import 'package:bed3a_ecommerce/view/screen/dashboard/dashboard_screen.dart';
 import 'package:bed3a_ecommerce/view/screen/payment/payment_screen.dart';
-import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class CheckoutScreen extends StatefulWidget {
