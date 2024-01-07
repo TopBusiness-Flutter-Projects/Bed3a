@@ -297,7 +297,7 @@ class QuantityButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        print('--qqq-->$quantity/$minimumOrderQuantity');
+        print('--qqq-->$quantity / $minimumOrderQuantity');
         if (!isIncrement && quantity! > minimumOrderQuantity!) {
           Provider.of<CartProvider>(context, listen: false)
               .updateCartProductQuantity(

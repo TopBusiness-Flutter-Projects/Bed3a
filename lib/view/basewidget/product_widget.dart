@@ -7,15 +7,12 @@ import 'package:bed3a_ecommerce/utill/color_resources.dart';
 import 'package:bed3a_ecommerce/utill/custom_themes.dart';
 import 'package:bed3a_ecommerce/utill/dimensions.dart';
 import 'package:bed3a_ecommerce/utill/images.dart';
-import 'package:bed3a_ecommerce/view/basewidget/rating_bar.dart';
 import 'package:bed3a_ecommerce/view/screen/product/product_details_screen.dart';
 import 'package:provider/provider.dart';
-
 import '../../data/model/response/cart_model.dart';
 import '../../localization/language_constrants.dart';
 import '../../provider/auth_provider.dart';
 import '../../provider/cart_provider.dart';
-import '../../provider/product_details_provider.dart';
 import '../../provider/product_provider.dart';
 import '../../provider/seller_provider.dart';
 import '../screen/cart/widget/cart_widget.dart';
@@ -120,11 +117,10 @@ class _ProductWidgetState extends State<ProductWidget> {
           Navigator.push(
               context,
               PageRouteBuilder(
-                transitionDuration: Duration(milliseconds: 1000),
-                pageBuilder: (context, anim1, anim2) => ProductDetails(
-                    productId: widget.productModel.id,
-                    slug: widget.productModel.slug),
-              ));
+                  transitionDuration: Duration(milliseconds: 1000),
+                  pageBuilder: (context, anim1, anim2) => ProductDetails(
+                      productId: widget.productModel.id,
+                      slug: widget.productModel.slug)));
         },
         child: Container(
           height: MediaQuery.of(context).size.width / 1.5,
@@ -441,7 +437,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                                     padding: EdgeInsets.only(
                                         left: Dimensions.PADDING_SIZE_SMALL),
                                     child: QuantityButton(
-                                      index: widget.index,
+                            index: widget.index,
                                       isIncrement: true,
                                       quantity: widget.productModel.quantity,
                                       maxQty:
