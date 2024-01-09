@@ -67,12 +67,22 @@ class CartRepo {
     }
   }
 
-  Future<ApiResponse> updateQuantity(int? key, int quantity) async {
-    print('Body: ${{'_method': 'put', 'key': key, 'quantity': quantity}}');
+  Future<ApiResponse> updateQuantity(int? key, int quantity,
+      {int isPro = 0}) async {
+    print('Body: ${{
+      '_method': 'put',
+      'key': key,
+      'quantity': quantity,
+      "is_pro": isPro
+    }}');
     try {
-      final response = await dioClient!.post(
-          AppConstants.UPDATE_CART_QUANTITY_URI,
-          data: {'_method': 'put', 'key': key, 'quantity': quantity});
+      final response = await dioClient!
+          .post(AppConstants.UPDATE_CART_QUANTITY_URI, data: {
+        '_method': 'put',
+        'key': key,
+        'quantity': quantity,
+        "is_pro": isPro
+      });
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));

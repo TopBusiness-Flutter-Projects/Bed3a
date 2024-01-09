@@ -5,10 +5,13 @@ import 'package:bed3a_ecommerce/data/repository/splash_repo.dart';
 import 'package:bed3a_ecommerce/helper/api_checker.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+import '../data/model/response/citiesmodel.dart';
+
 class SplashProvider extends ChangeNotifier {
   final SplashRepo? splashRepo;
-  SplashProvider({required this.splashRepo});
-
+  SplashProvider({required this.splashRepo}) {
+    getCitiesList();
+  }
   ConfigModel? _configModel;
   BaseUrls? _baseUrls;
   CurrencyList? _myCurrency;
@@ -21,7 +24,6 @@ class SplashProvider extends ChangeNotifier {
   bool _firstTimeConnectionCheck = true;
   bool _onOff = true;
   bool get onOff => _onOff;
-
   ConfigModel? get configModel => _configModel;
   BaseUrls? get baseUrls => _baseUrls;
   CurrencyList? get myCurrency => _myCurrency;
@@ -108,4 +110,19 @@ class SplashProvider extends ChangeNotifier {
     _onOff = !_onOff;
     notifyListeners();
   }
+
+  List<CitiesModel> cities = [];
+//!
+
+  Future<void> getCitiesList() async {
+    cities = [];
+    ApiResponse apiResponse = await splashRepo!.getCities();
+    apiResponse.response!.data
+        .forEach((cityModel) => cities.add(CitiesModel.fromJson(cityModel)));
+
+    print('.....${cities.length}');
+    notifyListeners();
+  }
+
+  CitiesModel? selectedValue;
 }

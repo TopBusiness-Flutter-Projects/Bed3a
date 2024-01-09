@@ -50,7 +50,7 @@ class Product {
   int? _id;
   String? _addedBy;
   int? _userId;
-  int? quantity = 0;
+  int? _quantity = 0;
   int? totalCurrentStock = 0;
   String? _name;
   String? _slug;
@@ -97,6 +97,7 @@ class Product {
       int? userId,
       String? name,
       String? slug,
+      int? quantity,
       String? productType,
       List<CategoryIds>? categoryIds,
       String? unit,
@@ -139,6 +140,7 @@ class Product {
     this._addedBy = addedBy;
     this._userId = userId;
     this._name = name;
+    this._quantity = quantity;
     this._slug = slug;
     this._categoryIds = categoryIds;
     this._unit = unit;
@@ -184,7 +186,8 @@ class Product {
   int? get id => _id;
   dynamic get hasDiscount => _hasDiscount;
   dynamic get discountPercent => _discountPercent;
-
+  int? get quantity => _quantity;
+  set quantityadd(int i) => _quantity = i;
   Shop? get sellerShop => _sellerShop;
   String? get addedBy => _addedBy;
   int? get userId => _userId;
@@ -229,6 +232,7 @@ class Product {
     _userId = json['user_id'];
     _name = json['name'];
     _slug = json['slug'];
+    _quantity = json['quantity'] ?? 1;
     _hasDiscount = json['has_discount'];
     _discountPercent = json['discount_percent'];
 
@@ -370,6 +374,7 @@ class Product {
     data['added_by'] = this._addedBy;
     data['user_id'] = this._userId;
     data['shop'] = this._sellerShop;
+    data['quantity'] = this._quantity;
     data['name'] = this._name;
     data['slug'] = this._slug;
     data['product_type'] = this._productType;

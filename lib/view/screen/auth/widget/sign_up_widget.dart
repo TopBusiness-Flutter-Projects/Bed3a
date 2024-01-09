@@ -1,3 +1,4 @@
+import 'package:bed3a_ecommerce/view/screen/auth/widget/dropdowncities.dart';
 import 'package:country_code_picker/country_code.dart';
 import 'package:flutter/material.dart';
 import 'package:bed3a_ecommerce/data/model/body/register_model.dart';
@@ -32,6 +33,9 @@ class _SignUpWidgetState extends State<SignUpWidget> {
   TextEditingController _phoneController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmPasswordController = TextEditingController();
+
+  //!
+
   GlobalKey<FormState>? _formKey;
 
   FocusNode _fNameFocus = FocusNode();
@@ -66,13 +70,14 @@ class _SignUpWidgetState extends State<SignUpWidget> {
           content: Text(getTranslated('last_name_field_is_required', context)!),
           backgroundColor: Colors.red,
         ));
+      } else if (Provider.of<SplashProvider>(context, listen: false)
+              .selectedValue ==
+          null) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('اختر المدينه'),
+          backgroundColor: Colors.red,
+        ));
       }
-      //  else if (_email.isEmpty) {
-      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      //     content: Text(getTranslated('EMAIL_MUST_BE_REQUIRED', context)!),
-      //     backgroundColor: Colors.red,
-      //   ));
-      // }
       // else if (EmailChecker.isNotValid(_email)) {
       //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       //     content: Text(getTranslated('enter_valid_email_address', context)!),
@@ -106,6 +111,9 @@ class _SignUpWidgetState extends State<SignUpWidget> {
         register.email = _emailController?.text ?? '';
         register.phone = _phoneNumber;
         register.password = _passwordController.text;
+        register.cityId = Provider.of<SplashProvider>(context, listen: false)
+            .selectedValue!
+            .id;
         await Provider.of<AuthProvider>(context, listen: false)
             .registration(register, route)
             .then((value) {
@@ -123,7 +131,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
 
   route(
       bool isRoute, String token, String tempToken, String errorMessage) async {
-    String _phone = _countryDialCode! + _phoneController.text.trim();
+    String _phone = _countryDialCode + _phoneController.text.trim();
     if (isRoute) {
       if (Provider.of<SplashProvider>(context, listen: false)
           .configModel!
@@ -194,162 +202,173 @@ class _SignUpWidgetState extends State<SignUpWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_SMALL),
-      children: [
-        Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              // for first and last name
-              Container(
-                margin: EdgeInsets.only(
-                    left: Dimensions.MARGIN_SIZE_DEFAULT,
-                    right: Dimensions.MARGIN_SIZE_DEFAULT),
-                child: Row(
-                  children: [
-                    Expanded(
-                        child: CustomTextField(
-                      hintText: getTranslated('FIRST_NAME', context),
-                      textInputType: TextInputType.name,
-                      focusNode: _fNameFocus,
-                      nextNode: _lNameFocus,
-                      isPhoneNumber: false,
-                      capitalization: TextCapitalization.words,
-                      controller: _firstNameController,
-                    )),
-                    SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT),
-                    Expanded(
-                        child: CustomTextField(
-                      hintText: getTranslated('LAST_NAME', context),
-                      focusNode: _lNameFocus,
-                      nextNode: _emailFocus,
-                      capitalization: TextCapitalization.words,
-                      controller: _lastNameController,
-                    )),
-                  ],
-                ),
-              ),
-
-              Container(
-                margin: EdgeInsets.only(
-                    left: Dimensions.MARGIN_SIZE_DEFAULT,
-                    right: Dimensions.MARGIN_SIZE_DEFAULT,
-                    top: Dimensions.MARGIN_SIZE_SMALL),
-                child: CustomTextField(
-                  hintText: getTranslated('ENTER_YOUR_EMAIL', context),
-                  focusNode: _emailFocus,
-                  nextNode: _phoneFocus,
-                  textInputType: TextInputType.emailAddress,
-                  controller: _emailController,
-                ),
-              ),
-
-              Container(
-                margin: EdgeInsets.only(
-                    left: Dimensions.MARGIN_SIZE_DEFAULT,
-                    right: Dimensions.MARGIN_SIZE_DEFAULT,
-                    top: Dimensions.MARGIN_SIZE_SMALL),
-                child: Row(children: [
-                  CodePickerWidget(
-                    onChanged: (CountryCode countryCode) {
-                      _countryDialCode = countryCode.dialCode ?? '+20';
-                    },
-                    initialSelection: _countryDialCode,
-                    favorite: [_countryDialCode],
-                    showDropDownButton: true,
-                    padding: EdgeInsets.zero,
-                    showFlagMain: true,
-                    textStyle: TextStyle(
-                        color: Theme.of(context).textTheme.displayLarge!.color),
-                  ),
-                  Expanded(
-                      child: CustomTextField(
-                    hintText: getTranslated('ENTER_MOBILE_NUMBER', context),
-                    controller: _phoneController,
-                    focusNode: _phoneFocus,
-                    nextNode: _passwordFocus,
-                    isPhoneNumber: true,
-                    textInputAction: TextInputAction.next,
-                    textInputType: TextInputType.phone,
-                  )),
-                ]),
-              ),
-
-              Container(
-                margin: EdgeInsets.only(
-                    left: Dimensions.MARGIN_SIZE_DEFAULT,
-                    right: Dimensions.MARGIN_SIZE_DEFAULT,
-                    top: Dimensions.MARGIN_SIZE_SMALL),
-                child: CustomPasswordTextField(
-                  hintTxt: getTranslated('PASSWORD', context),
-                  controller: _passwordController,
-                  focusNode: _passwordFocus,
-                  nextNode: _confirmPasswordFocus,
-                  textInputAction: TextInputAction.next,
-                ),
-              ),
-
-              Container(
-                margin: EdgeInsets.only(
-                    left: Dimensions.MARGIN_SIZE_DEFAULT,
-                    right: Dimensions.MARGIN_SIZE_DEFAULT,
-                    top: Dimensions.MARGIN_SIZE_SMALL),
-                child: CustomPasswordTextField(
-                  hintTxt: getTranslated('RE_ENTER_PASSWORD', context),
-                  controller: _confirmPasswordController,
-                  focusNode: _confirmPasswordFocus,
-                  textInputAction: TextInputAction.done,
-                ),
-              ),
-            ],
-          ),
-        ),
-
-        Container(
-          margin: EdgeInsets.only(
-              left: Dimensions.MARGIN_SIZE_LARGE,
-              right: Dimensions.MARGIN_SIZE_LARGE,
-              bottom: Dimensions.MARGIN_SIZE_LARGE,
-              top: Dimensions.MARGIN_SIZE_LARGE),
-          child: Provider.of<AuthProvider>(context).isLoading
-              ? Center(
-                  child: CircularProgressIndicator(
-                    valueColor: new AlwaysStoppedAnimation<Color>(
-                      Theme.of(context).primaryColor,
+    return Consumer<SplashProvider>(
+      builder: (context, splash, child) {
+        return ListView(
+          padding:
+              EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_SMALL),
+          children: [
+            Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  // for first and last name
+                  Container(
+                    margin: EdgeInsets.only(
+                        left: Dimensions.MARGIN_SIZE_DEFAULT,
+                        right: Dimensions.MARGIN_SIZE_DEFAULT),
+                    child: Row(
+                      children: [
+                        Expanded(
+                            child: CustomTextField(
+                          hintText: getTranslated('FIRST_NAME', context),
+                          textInputType: TextInputType.name,
+                          focusNode: _fNameFocus,
+                          nextNode: _lNameFocus,
+                          isPhoneNumber: false,
+                          capitalization: TextCapitalization.words,
+                          controller: _firstNameController,
+                        )),
+                        SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT),
+                        Expanded(
+                            child: CustomTextField(
+                          hintText: getTranslated('LAST_NAME', context),
+                          focusNode: _lNameFocus,
+                          nextNode: _emailFocus,
+                          capitalization: TextCapitalization.words,
+                          controller: _lastNameController,
+                        )),
+                      ],
                     ),
                   ),
-                )
-              : CustomButton(
-                  onTap: addUser,
-                  buttonText: getTranslated('SIGN_UP', context)),
-        ),
 
-        SocialLoginWidget(),
+                  // Container(
+                  //   margin: EdgeInsets.only(
+                  //       left: Dimensions.MARGIN_SIZE_DEFAULT,
+                  //       right: Dimensions.MARGIN_SIZE_DEFAULT,
+                  //       top: Dimensions.MARGIN_SIZE_SMALL),
+                  //   child: CustomTextField(
+                  //     hintText: getTranslated('ENTER_YOUR_EMAIL', context),
+                  //     focusNode: _emailFocus,
+                  //     nextNode: _phoneFocus,
+                  //     textInputType: TextInputType.emailAddress,
+                  //     controller: _emailController,
+                  //   ),
+                  // ),
 
-        // for skip for now
-        Provider.of<AuthProvider>(context).isLoading
-            ? SizedBox()
-            : Center(
-                child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  TextButton(
-                      onPressed: () => Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (_) => DashBoardScreen())),
-                      child: Text(getTranslated('SKIP_FOR_NOW', context)!,
-                          style: titilliumRegular.copyWith(
-                              fontSize: Dimensions.FONT_SIZE_DEFAULT,
-                              color: ColorResources.getPrimary(context)))),
-                  Icon(
-                    Icons.arrow_forward,
-                    size: 15,
-                    color: Theme.of(context).primaryColor,
-                  )
+                  Container(
+                    margin: EdgeInsets.only(
+                        left: Dimensions.MARGIN_SIZE_DEFAULT,
+                        right: Dimensions.MARGIN_SIZE_DEFAULT,
+                        top: Dimensions.MARGIN_SIZE_SMALL),
+                    child: Row(children: [
+                      CodePickerWidget(
+                        onChanged: (CountryCode countryCode) {
+                          _countryDialCode = countryCode.dialCode ?? '+20';
+                        },
+                        initialSelection: _countryDialCode,
+                        favorite: [_countryDialCode],
+                        showDropDownButton: true,
+                        padding: EdgeInsets.zero,
+                        showFlagMain: true,
+                        textStyle: TextStyle(
+                            color: Theme.of(context)
+                                .textTheme
+                                .displayLarge!
+                                .color),
+                      ),
+                      Expanded(
+                          child: CustomTextField(
+                        hintText: getTranslated('ENTER_MOBILE_NUMBER', context),
+                        controller: _phoneController,
+                        focusNode: _phoneFocus,
+                        nextNode: _passwordFocus,
+                        isPhoneNumber: true,
+                        textInputAction: TextInputAction.next,
+                        textInputType: TextInputType.phone,
+                      )),
+                    ]),
+                  ),
+//!cities
+                  DropDownCities(items: splash.cities),
+                  Container(
+                    margin: EdgeInsets.only(
+                        left: Dimensions.MARGIN_SIZE_DEFAULT,
+                        right: Dimensions.MARGIN_SIZE_DEFAULT,
+                        top: Dimensions.MARGIN_SIZE_SMALL),
+                    child: CustomPasswordTextField(
+                      hintTxt: getTranslated('PASSWORD', context),
+                      controller: _passwordController,
+                      focusNode: _passwordFocus,
+                      nextNode: _confirmPasswordFocus,
+                      textInputAction: TextInputAction.next,
+                    ),
+                  ),
+
+                  Container(
+                    margin: EdgeInsets.only(
+                        left: Dimensions.MARGIN_SIZE_DEFAULT,
+                        right: Dimensions.MARGIN_SIZE_DEFAULT,
+                        top: Dimensions.MARGIN_SIZE_SMALL),
+                    child: CustomPasswordTextField(
+                      hintTxt: getTranslated('RE_ENTER_PASSWORD', context),
+                      controller: _confirmPasswordController,
+                      focusNode: _confirmPasswordFocus,
+                      textInputAction: TextInputAction.done,
+                    ),
+                  ),
                 ],
-              )),
-      ],
+              ),
+            ),
+
+            Container(
+              margin: EdgeInsets.only(
+                  left: Dimensions.MARGIN_SIZE_LARGE,
+                  right: Dimensions.MARGIN_SIZE_LARGE,
+                  bottom: Dimensions.MARGIN_SIZE_LARGE,
+                  top: Dimensions.MARGIN_SIZE_LARGE),
+              child: Provider.of<AuthProvider>(context).isLoading
+                  ? Center(
+                      child: CircularProgressIndicator(
+                        valueColor: new AlwaysStoppedAnimation<Color>(
+                          Theme.of(context).primaryColor,
+                        ),
+                      ),
+                    )
+                  : CustomButton(
+                      onTap: addUser,
+                      buttonText: getTranslated('SIGN_UP', context)),
+            ),
+
+            SocialLoginWidget(),
+
+            // for skip for now
+            Provider.of<AuthProvider>(context).isLoading
+                ? SizedBox()
+                : Center(
+                    child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      TextButton(
+                          onPressed: () => Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => DashBoardScreen())),
+                          child: Text(getTranslated('SKIP_FOR_NOW', context)!,
+                              style: titilliumRegular.copyWith(
+                                  fontSize: Dimensions.FONT_SIZE_DEFAULT,
+                                  color: ColorResources.getPrimary(context)))),
+                      Icon(
+                        Icons.arrow_forward,
+                        size: 15,
+                        color: Theme.of(context).primaryColor,
+                      )
+                    ],
+                  )),
+          ],
+        );
+      },
     );
   }
 }

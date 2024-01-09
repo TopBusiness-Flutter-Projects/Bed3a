@@ -8,10 +8,24 @@ import 'package:bed3a_ecommerce/utill/dimensions.dart';
 import 'package:bed3a_ecommerce/view/screen/home/widget/products_view.dart';
 import 'package:provider/provider.dart';
 
-class AllProductScreen extends StatelessWidget {
-  final ScrollController _scrollController = ScrollController();
+import '../../../provider/product_provider.dart';
+
+class AllProductScreen extends StatefulWidget {
   final ProductType productType;
   AllProductScreen({required this.productType});
+
+  @override
+  State<AllProductScreen> createState() => _AllProductScreenState();
+}
+
+class _AllProductScreenState extends State<AllProductScreen> {
+  final ScrollController _scrollController = ScrollController();
+  @override
+  void initState() {
+    Provider.of<ProductProvider>(context, listen: false)
+        .getLatestProductList(1, context, reload: false);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +46,7 @@ class AllProductScreen extends StatelessWidget {
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
-            productType == ProductType.FEATURED_PRODUCT
+            widget.productType == ProductType.FEATURED_PRODUCT
                 ? 'Featured Product'
                 : 'الاكثر مبيعاً',
             style: titilliumRegular.copyWith(
@@ -42,7 +56,8 @@ class AllProductScreen extends StatelessWidget {
         child: RefreshIndicator(
           backgroundColor: Theme.of(context).primaryColor,
           onRefresh: () async {
-            //  return true;
+            await Provider.of<ProductProvider>(context, listen: false)
+                .getLatestProductList(1, context, reload: true);
           },
           child: CustomScrollView(
             controller: _scrollController,
@@ -52,7 +67,7 @@ class AllProductScreen extends StatelessWidget {
                   padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
                   child: ProductView(
                       isHomePage: false,
-                      productType: productType,
+                      productType: widget.productType,
                       scrollController: _scrollController),
                 ),
               ),

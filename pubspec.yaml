@@ -68,6 +68,7 @@ dependencies:
   geocoding: ^2.0.0
   geolocator: ^8.2.0
   flutter_inappwebview: ^5.7.2+3
+  dropdown_button2: ^2.3.9
 dependency_overrides:
   modal_bottom_sheet:
     git:

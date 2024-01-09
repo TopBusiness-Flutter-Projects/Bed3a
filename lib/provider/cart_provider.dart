@@ -10,6 +10,9 @@ import 'package:bed3a_ecommerce/data/model/response/shipping_method_model.dart';
 import 'package:bed3a_ecommerce/data/model/response/shipping_model.dart';
 import 'package:bed3a_ecommerce/data/repository/cart_repo.dart';
 import 'package:bed3a_ecommerce/helper/api_checker.dart';
+import 'package:provider/provider.dart';
+
+import 'product_provider.dart';
 
 class CartProvider extends ChangeNotifier {
   final CartRepo? cartRepo;
@@ -120,11 +123,12 @@ class CartProvider extends ChangeNotifier {
   }
 
   Future<ResponseModel> updateCartProductQuantity(
-      int? key, int quantity, BuildContext context) async {
+      int? key, int quantity, BuildContext context,
+      {int isPro = 0}) async {
     _isLoading = true;
     ResponseModel responseModel;
     ApiResponse apiResponse;
-    apiResponse = await cartRepo!.updateQuantity(key, quantity);
+    apiResponse = await cartRepo!.updateQuantity(key, quantity, isPro: isPro);
     _isLoading = false;
 
     if (apiResponse.response != null &&
@@ -243,6 +247,7 @@ class CartProvider extends ChangeNotifier {
     ApiResponse apiResponse;
     apiResponse = await cartRepo!.removeFromCart(key);
     getCartDataAPI(context);
+
     _isLoading = false;
 
     if (apiResponse.response != null &&

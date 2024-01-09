@@ -15,6 +15,8 @@ import 'package:bed3a_ecommerce/utill/images.dart';
 import 'package:bed3a_ecommerce/view/screen/product/product_details_screen.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../provider/product_provider.dart';
+
 class CartWidget extends StatelessWidget {
   final CartModel? cartModel;
   final int index;
@@ -112,6 +114,10 @@ class CartWidget extends StatelessWidget {
                                               listen: false)
                                           .removeFromCart(index);
                                     }
+                                    Provider.of<ProductProvider>(context,
+                                            listen: false)
+                                        .getLatestProductList(1, context,
+                                            reload: false);
                                   },
                                   child: Container(
                                       width: 20,
@@ -143,16 +149,15 @@ class CartWidget extends StatelessWidget {
                             width: Dimensions.FONT_SIZE_DEFAULT,
                           ),
                           Text(
-                            PriceConverter.convertPrice(context,
-                                (cartModel!.price! * cartModel!.quantity!),
-                                discount: cartModel!.discount,
-                                discountType: 'amount'),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: titilliumRegular.copyWith(
-                                color: ColorResources.getPrimary(context),
-                                fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE),
-                          ),
+                              PriceConverter.convertPrice(context,
+                                  (cartModel!.price! * cartModel!.quantity!),
+                                  discount: cartModel!.discount,
+                                  discountType: 'amount'),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: titilliumRegular.copyWith(
+                                  color: ColorResources.getPrimary(context),
+                                  fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE)),
                         ],
                       ),
 
