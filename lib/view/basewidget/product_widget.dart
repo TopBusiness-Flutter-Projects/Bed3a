@@ -1,4 +1,5 @@
 import 'package:bed3a_ecommerce/view/basewidget/show_custom_snakbar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bed3a_ecommerce/data/model/response/product_model.dart';
 import 'package:bed3a_ecommerce/helper/price_converter.dart';
@@ -7,18 +8,15 @@ import 'package:bed3a_ecommerce/utill/color_resources.dart';
 import 'package:bed3a_ecommerce/utill/custom_themes.dart';
 import 'package:bed3a_ecommerce/utill/dimensions.dart';
 import 'package:bed3a_ecommerce/utill/images.dart';
-import 'package:bed3a_ecommerce/view/basewidget/rating_bar.dart';
 import 'package:bed3a_ecommerce/view/screen/product/product_details_screen.dart';
 import 'package:provider/provider.dart';
-
 import '../../data/model/response/cart_model.dart';
 import '../../localization/language_constrants.dart';
 import '../../provider/auth_provider.dart';
 import '../../provider/cart_provider.dart';
-import '../../provider/product_details_provider.dart';
 import '../../provider/product_provider.dart';
 import '../../provider/seller_provider.dart';
-import '../screen/cart/widget/cart_widget.dart';
+import '../screen/cart/cart_screen.dart';
 
 class ProductWidget extends StatefulWidget {
   final Product productModel;
@@ -120,11 +118,10 @@ class _ProductWidgetState extends State<ProductWidget> {
           Navigator.push(
               context,
               PageRouteBuilder(
-                transitionDuration: Duration(milliseconds: 1000),
-                pageBuilder: (context, anim1, anim2) => ProductDetails(
-                    productId: widget.productModel.id,
-                    slug: widget.productModel.slug),
-              ));
+                  transitionDuration: Duration(milliseconds: 1000),
+                  pageBuilder: (context, anim1, anim2) => ProductDetails(
+                      productId: widget.productModel.id,
+                      slug: widget.productModel.slug)));
         },
         child: Container(
           height: MediaQuery.of(context).size.width / 1.5,
@@ -277,7 +274,6 @@ class _ProductWidgetState extends State<ProductWidget> {
                           SizedBox(
                             height: 2,
                           ),
-
                           Visibility(
                             visible: widget.productModel.quantity == 0,
                             child: InkWell(
@@ -361,9 +357,8 @@ class _ProductWidgetState extends State<ProductWidget> {
                                                     listen: false)
                                                 .isLoggedIn()) {
                                               setState(() {
-                                                widget.productModel.quantity =
-                                                    widget.productModel
-                                                        .quantity = 1;
+                                                widget.productModel
+                                                    .quantityadd = 1;
                                               });
                                               Provider.of<CartProvider>(context,
                                                       listen: false)
@@ -392,7 +387,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                                           }
                                         },
                               child: Container(
-                                height: 50,
+                                height: 45,
                                 margin: EdgeInsets.symmetric(horizontal: 5),
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
@@ -411,51 +406,110 @@ class _ProductWidgetState extends State<ProductWidget> {
                           Visibility(
                             visible: widget.productModel.quantity! > 0,
                             child: Container(
-                              height: 30,
+                              height: 45,
                               child: Row(
                                 children: [
+                                  // Padding(
+                                  //   padding: EdgeInsets.only(
+                                  //       right: Dimensions.PADDING_SIZE_SMALL),
+                                  //   child: QuantityButton(
+                                  //     isIncrement: false,
+                                  //     index: widget.index,
+                                  //     quantity: widget.productModel.quantity,
+                                  //     maxQty:
+                                  //         widget.productModel.totalCurrentStock,
+                                  //     productModel: widget.productModel,
+                                  //     minimumOrderQuantity: widget
+                                  //         .productModel.minimumOrderQuantity,
+                                  //     digitalProduct:
+                                  //         widget.productModel.productType ==
+                                  //                 "digital"
+                                  //             ? true
+                                  //             : false,
+                                  //   ),
+                                  // ),
+                                  // Spacer(),
+
                                   Padding(
-                                    padding: EdgeInsets.only(
-                                        right: Dimensions.PADDING_SIZE_SMALL),
-                                    child: QuantityButton(
-                                      isIncrement: false,
-                                      index: widget.index,
-                                      quantity: widget.productModel.quantity,
-                                      maxQty:
-                                          widget.productModel.totalCurrentStock,
-                                      productModel: widget.productModel,
-                                      minimumOrderQuantity: widget
-                                          .productModel.minimumOrderQuantity,
-                                      digitalProduct:
-                                          widget.productModel.productType ==
-                                                  "digital"
-                                              ? true
-                                              : false,
+                                    padding: EdgeInsets.zero,
+                                    child: IconButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (_) => CartScreen()));
+                                      },
+                                      icon: CircleAvatar(
+                                        child: Icon(
+                                          Icons.done_rounded,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      // icon: Stack(
+                                      //     clipBehavior: Clip.none,
+                                      //     children: [
+                                      //       Image.asset(
+                                      //         Images.cart_arrow_down_image,
+                                      //         height:
+                                      //             Dimensions.ICON_SIZE_DEFAULT,
+                                      //         width:
+                                      //             Dimensions.ICON_SIZE_DEFAULT,
+                                      //         color: ColorResources.getPrimary(
+                                      //             context),
+                                      //       ),
+                                      //       Positioned(
+                                      //         top: -4,
+                                      //         right: -4,
+                                      //         child: Consumer<CartProvider>(
+                                      //             builder:
+                                      //                 (context, cart, child) {
+                                      //           return CircleAvatar(
+                                      //             radius: 7,
+                                      //             backgroundColor:
+                                      //                 ColorResources.RED,
+                                      //             child: Text(
+                                      //                 cart.cartList.length
+                                      //                     .toString(),
+                                      //                 style: titilliumSemiBold
+                                      //                     .copyWith(
+                                      //                   color: ColorResources
+                                      //                       .WHITE,
+                                      //                   fontSize: Dimensions
+                                      //                       .FONT_SIZE_EXTRA_SMALL,
+                                      //                 )),
+                                      //           );
+                                      //         }),
+                                      //       ),
+                                      //     ]),
                                     ),
                                   ),
+
                                   Spacer(),
-                                  Text(widget.productModel.quantity.toString(),
-                                      style: titilliumSemiBold),
-                                  Spacer(),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        left: Dimensions.PADDING_SIZE_SMALL),
-                                    child: QuantityButton(
-                                      index: widget.index,
-                                      isIncrement: true,
-                                      quantity: widget.productModel.quantity,
-                                      maxQty:
-                                          widget.productModel.totalCurrentStock,
-                                      productModel: widget.productModel,
-                                      minimumOrderQuantity: widget
-                                          .productModel.minimumOrderQuantity,
-                                      digitalProduct:
-                                          widget.productModel.productType ==
-                                                  "digital"
-                                              ? true
-                                              : false,
-                                    ),
-                                  ),
+                                  Flexible(
+                                    fit: FlexFit.tight,
+                                    child: Text(
+                                        widget.productModel.quantity.toString(),
+                                        style: titilliumSemiBold),
+                                  ), // Spacer(),
+                                  // Padding(
+                                  //   padding: EdgeInsets.only(
+                                  //       left: Dimensions.PADDING_SIZE_SMALL),
+                                  //   child: QuantityButton(
+                                  //     index: widget.index,
+                                  //     isIncrement: true,
+                                  //     quantity: widget.productModel.quantity,
+                                  //     maxQty:
+                                  //         widget.productModel.totalCurrentStock,
+                                  //     productModel: widget.productModel,
+                                  //     minimumOrderQuantity: widget
+                                  //         .productModel.minimumOrderQuantity,
+                                  //     digitalProduct:
+                                  //         widget.productModel.productType ==
+                                  //                 "digital"
+                                  //             ? true
+                                  //             : false,
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ),
@@ -469,5 +523,85 @@ class _ProductWidgetState extends State<ProductWidget> {
         ),
       );
     });
+  }
+}
+
+class QuantityButton extends StatelessWidget {
+  final Product? productModel;
+  final bool isIncrement;
+  final int? quantity;
+  final int index;
+  final int? maxQty;
+  final int? minimumOrderQuantity;
+  final bool? digitalProduct;
+  QuantityButton(
+      {required this.isIncrement,
+      required this.quantity,
+      required this.index,
+      required this.maxQty,
+      this.minimumOrderQuantity,
+      this.digitalProduct,
+      this.productModel});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        if (!isIncrement && quantity! > minimumOrderQuantity!) {
+          print('--q(-)q-->$quantity / $minimumOrderQuantity');
+          Provider.of<CartProvider>(context, listen: false)
+              .updateCartProductQuantity(
+                  isPro: 1,
+                  productModel!.id,
+                  productModel!.quantity! - 1,
+                  context)
+              .then((value) {
+            productModel!.quantityadd = productModel!.quantity! - 1;
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(value.message!),
+              backgroundColor: value.isSuccess ? Colors.green : Colors.red,
+            ));
+          });
+        } else if (isIncrement && quantity! < minimumOrderQuantity!) {
+          print(
+              '--q(+)q-->$quantity/$minimumOrderQuantity==bangla--------===>');
+          Provider.of<CartProvider>(context, listen: false)
+              .updateCartProductQuantity(
+                  isPro: 1,
+                  productModel!.id,
+                  productModel!.quantity! + 1,
+                  context)
+              .then((value) {
+            productModel!.quantityadd = productModel!.quantity! + 1;
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(value.message!),
+              backgroundColor: value.isSuccess ? Colors.green : Colors.red,
+            ));
+          });
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text("value.message!"), backgroundColor: Colors.green));
+        }
+      },
+      child: Container(
+        decoration: BoxDecoration(
+            color: Color(0xFF1B7FED),
+            borderRadius: BorderRadius.all(Radius.circular(10))),
+        child: Icon(
+            isIncrement
+                ? Icons.add
+                : quantity == 1
+                    ? CupertinoIcons.minus
+                    : Icons.remove,
+            color: isIncrement
+                ? quantity! >= maxQty! && !digitalProduct!
+                    ? Colors.white
+                    : Colors.white //ColorResources.getPrimary(context)
+                : quantity! > 1
+                    ? Colors.white //ColorResources.getPrimary(context)
+                    : Colors.white,
+            size: 30),
+      ),
+    );
   }
 }

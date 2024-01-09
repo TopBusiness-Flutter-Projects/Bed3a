@@ -30,6 +30,7 @@ class AppConstants {
   static const String PRODUCT_REVIEW_URI = '/api/v1/products/reviews/';
   static const String SEARCH_URI = '/api/v1/products/search?name=';
   static const String CONFIG_URI = '/api/v1/config';
+  static const String GET_CITIES = '/api/v1/cities';
   static const String ADD_WISH_LIST_URI =
       '/api/v1/customer/wish-list/add?product_id=';
   static const String REMOVE_WISH_LIST_URI =

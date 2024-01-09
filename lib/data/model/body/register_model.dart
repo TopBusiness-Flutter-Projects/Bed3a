@@ -6,11 +6,12 @@ class RegisterModel {
   String? phone;
   String? socialId;
   String? loginMedium;
-
+  int? cityId;
   RegisterModel(
       {this.email,
       this.password,
       this.fName,
+      this.cityId,
       this.lName,
       this.socialId,
       this.loginMedium});
@@ -20,6 +21,7 @@ class RegisterModel {
     password = json['password'];
     fName = json['f_name'];
     lName = json['l_name'];
+    cityId = json['city_id'];
     phone = json['phone'];
     socialId = json['social_id'];
     loginMedium = json['login_medium'];
@@ -34,6 +36,7 @@ class RegisterModel {
     data['phone'] = this.phone;
     data['social_id'] = this.socialId;
     data['login_medium'] = this.loginMedium;
+    data['city_id'] = this.cityId;
     return data;
   }
 }
