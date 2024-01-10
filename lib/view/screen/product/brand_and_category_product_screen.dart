@@ -12,6 +12,8 @@ import 'package:bed3a_ecommerce/view/basewidget/product_widget.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 
+import '../../../provider/profile_provider.dart';
+
 class BrandAndCategoryProductScreen extends StatelessWidget {
   final bool isBrand;
   final String id;
@@ -25,7 +27,14 @@ class BrandAndCategoryProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Provider.of<ProductProvider>(context, listen: false)
-        .initBrandOrCategoryProductList(isBrand, id, context);
+        .initBrandOrCategoryProductList(
+            isBrand,
+            id,
+            context,
+            Provider.of<ProfileProvider>(context, listen: false)
+                .userInfoModel!
+                .id
+                .toString());
     return Scaffold(
       backgroundColor: ColorResources.getIconBg(context),
       body: Consumer<ProductProvider>(

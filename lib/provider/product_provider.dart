@@ -236,11 +236,11 @@ class ProductProvider extends ChangeNotifier {
   bool? get hasData => _hasData;
 
   void initBrandOrCategoryProductList(
-      bool isBrand, String id, BuildContext context) async {
+      bool isBrand, String id, BuildContext context, String userId) async {
     _brandOrCategoryProductList.clear();
     _hasData = true;
     ApiResponse apiResponse =
-        await productRepo!.getBrandOrCategoryProductList(isBrand, id);
+        await productRepo!.getBrandOrCategoryProductList(isBrand, id, userId);
     if (apiResponse.response != null &&
         apiResponse.response!.statusCode == 200) {
       apiResponse.response!.data.forEach((product) =>

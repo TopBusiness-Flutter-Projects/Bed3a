@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:bed3a_ecommerce/data/model/body/order_place_model.dart';
 import 'package:bed3a_ecommerce/data/model/response/cart_model.dart';
@@ -202,11 +201,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           Consumer<OrderProvider>(builder: (context, order, child) {
         return InkWell(
           onTap: () async {
-            if (order.addressIndex == null && !widget.onlyDigital) {
-              showCustomSnackBar(
-                  getTranslated('select_a_shipping_address', context), context,
-                  isToaster: true);
-            } else if (order.billingAddressIndex == null && _billingAddress) {
+            // if (order.addressIndex == null && !widget.onlyDigital) {
+            //   showCustomSnackBar(
+            //       getTranslated('select_a_shipping_address', context), context,
+            //       isToaster: true);
+            // } else
+
+            if (order.billingAddressIndex == null && _billingAddress) {
               showCustomSnackBar(
                   getTranslated('select_a_billing_address', context), context,
                   isToaster: true);
@@ -234,12 +235,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               }
 
               String orderNote = _orderNoteController.text.trim();
-              double? couponDiscount = Provider.of<CouponProvider>(context,
-                              listen: false)
-                          .discount !=
-                      null
-                  ? Provider.of<CouponProvider>(context, listen: false).discount
-                  : 0;
+              double? couponDiscount =
+                  Provider.of<CouponProvider>(context, listen: false)
+                              .discount !=
+                          null
+                      ? Provider.of<CouponProvider>(context, listen: false)
+                              .discount ??
+                          0
+                      : 0;
               String couponCode =
                   Provider.of<CouponProvider>(context, listen: false)
                                   .discount !=
@@ -271,26 +274,28 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       couponDiscount,
                     ),
                     _callback,
-                    widget.onlyDigital
-                        ? ''
-                        : Provider.of<ProfileProvider>(context, listen: false)
-                            .addressList[order.addressIndex!]
-                            .id
-                            .toString(),
+                    // widget.onlyDigital
+                    //     ? ''
+                    //     : Provider.of<ProfileProvider>(context, listen: false)
+                    //         .addressList[order.addressIndex ?? 0]
+                    //         .id
+                    //         .toString(),
+                    '',
                     couponCode,
                     couponCodeAmount,
-                    _billingAddress
-                        ? Provider.of<ProfileProvider>(context, listen: false)
-                            .billingAddressList[order.billingAddressIndex!]
-                            .id
-                            .toString()
-                        : widget.onlyDigital
-                            ? ''
-                            : Provider.of<ProfileProvider>(context,
-                                    listen: false)
-                                .addressList[order.addressIndex!]
-                                .id
-                                .toString(),
+                    '',
+                    // _billingAddress
+                    //     ? Provider.of<ProfileProvider>(context, listen: false)
+                    //         .billingAddressList[order.billingAddressIndex ?? 0]
+                    //         .id
+                    //         .toString()
+                    //     : widget.onlyDigital
+                    //         ? ''
+                    //         : Provider.of<ProfileProvider>(context,
+                    //                 listen: false)
+                    //             .addressList[order.addressIndex ?? 0]
+                    //             .id
+                    //             .toString(),
                     orderNote,
                     paymentByController.text,
                     transactionIdController.text,
@@ -390,7 +395,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                 ? ''
                                 : Provider.of<ProfileProvider>(context,
                                         listen: false)
-                                    .addressList[order.addressIndex!]
+                                    .addressList[order.addressIndex ?? 0]
                                     .id
                                     .toString(),
                             couponCode,
@@ -399,14 +404,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                 ? Provider.of<ProfileProvider>(context,
                                         listen: false)
                                     .billingAddressList[
-                                        order.billingAddressIndex!]
+                                        order.billingAddressIndex ?? 0]
                                     .id
                                     .toString()
                                 : widget.onlyDigital
                                     ? ''
                                     : Provider.of<ProfileProvider>(context,
                                             listen: false)
-                                        .addressList[order.addressIndex!]
+                                        .addressList[order.addressIndex ?? 0]
                                         .id
                                         .toString(),
                             orderNote,
@@ -432,9 +437,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                   : Provider.of<ProfileProvider>(context,
                                           listen: false)
                                       .addressList[Provider.of<OrderProvider>(
-                                              context,
-                                              listen: false)
-                                          .addressIndex!]
+                                                  context,
+                                                  listen: false)
+                                              .addressIndex ??
+                                          0]
                                       .id
                                       .toString(),
                               couponCode: couponCode,
@@ -444,8 +450,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                           listen: false)
                                       .billingAddressList[
                                           Provider.of<OrderProvider>(context,
-                                                  listen: false)
-                                              .billingAddressIndex!]
+                                                      listen: false)
+                                                  .billingAddressIndex ??
+                                              0]
                                       .id
                                       .toString()
                                   : widget.onlyDigital
@@ -454,9 +461,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                               listen: false)
                                           .addressList[
                                               Provider.of<OrderProvider>(
-                                                      context,
-                                                      listen: false)
-                                                  .addressIndex!]
+                                                          context,
+                                                          listen: false)
+                                                      .addressIndex ??
+                                                  0]
                                           .id
                                           .toString(),
                               orderNote: orderNote,
@@ -484,7 +492,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             padding: EdgeInsets.symmetric(
                                 horizontal:
                                     MediaQuery.of(context).size.width / 2.9),
-                            child: Text(getTranslated('proceed', context)!,
+                            child: Text(getTranslated('proceed', context) ?? '',
                                 style: titilliumSemiBold.copyWith(
                                   fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE,
                                   color: Theme.of(context).cardColor,
@@ -520,125 +528,126 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            !widget.onlyDigital
-                                ? Card(
-                                    child: Container(
-                                      padding: EdgeInsets.all(
-                                          Dimensions.PADDING_SIZE_DEFAULT),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                            Dimensions.PADDING_SIZE_DEFAULT),
-                                        color: Theme.of(context).cardColor,
-                                      ),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Expanded(
-                                                  child: Text(
-                                                      '${getTranslated('shipping_address', context)}',
-                                                      style: titilliumRegular
-                                                          .copyWith(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600))),
-                                              InkWell(
-                                                onTap: () => Navigator.of(
-                                                        context)
-                                                    .push(MaterialPageRoute(
-                                                        builder: (BuildContext
-                                                                context) =>
-                                                            SavedAddressListScreen())),
-                                                child: Image.asset(
-                                                    Images.address,
-                                                    scale: 3),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height:
-                                                Dimensions.PADDING_SIZE_DEFAULT,
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Container(
-                                                child: Text(
-                                                  Provider.of<OrderProvider>(
-                                                                  context,
-                                                                  listen: false)
-                                                              .addressIndex ==
-                                                          null
-                                                      ? '${getTranslated('address_type', context)}'
-                                                      : Provider.of<ProfileProvider>(context, listen: false)
-                                                                  .addressList[
-                                                                      0]
-                                                                  .addressType !=
-                                                              null
-                                                          ? Provider.of<ProfileProvider>(
-                                                                  context,
-                                                                  listen: false)
-                                                              .addressList[0]
-                                                              .addressType!
-                                                          : Provider.of<ProfileProvider>(
-                                                                  context,
-                                                                  listen: false)
-                                                              .addressList[Provider.of<OrderProvider>(
-                                                                      context,
-                                                                      listen: false)
-                                                                  .addressIndex!]
-                                                              .addressType!,
-                                                  style: titilliumBold.copyWith(
-                                                      fontSize: Dimensions
-                                                          .FONT_SIZE_LARGE),
-                                                  maxLines: 3,
-                                                  overflow: TextOverflow.fade,
-                                                ),
-                                              ),
-                                              Divider(),
-                                              Container(
-                                                child: Text(
-                                                  Provider.of<OrderProvider>(
-                                                                  context,
-                                                                  listen: false)
-                                                              .addressIndex ==
-                                                          null
-                                                      ? getTranslated(
-                                                          'add_your_address',
-                                                          context)!
-                                                      : Provider.of<
-                                                                  ProfileProvider>(
-                                                              context,
-                                                              listen: false)
-                                                          .addressList[shipping
-                                                              .addressIndex!]
-                                                          .address!,
-                                                  style:
-                                                      titilliumRegular.copyWith(
-                                                          fontSize: Dimensions
-                                                              .FONT_SIZE_SMALL),
-                                                  maxLines: 3,
-                                                  overflow: TextOverflow.fade,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  )
-                                : SizedBox(),
-                            SizedBox(
-                                height: !widget.onlyDigital
-                                    ? Dimensions.PADDING_SIZE_SMALL
-                                    : 0),
+                            // !widget.onlyDigital
+                            //     ? Card(
+                            //         child: Container(
+                            //           padding: EdgeInsets.all(
+                            //               Dimensions.PADDING_SIZE_DEFAULT),
+                            //           decoration: BoxDecoration(
+                            //             borderRadius: BorderRadius.circular(
+                            //                 Dimensions.PADDING_SIZE_DEFAULT),
+                            //             color: Theme.of(context).cardColor,
+                            //           ),
+                            //           child: Column(
+                            //             crossAxisAlignment:
+                            //                 CrossAxisAlignment.start,
+                            //             children: [
+                            //               Row(
+                            //                 mainAxisAlignment:
+                            //                     MainAxisAlignment.start,
+                            //                 crossAxisAlignment:
+                            //                     CrossAxisAlignment.start,
+                            //                 children: [
+                            //                   Expanded(
+                            //                       child: Text(
+                            //                           '${getTranslated('shipping_address', context)}',
+                            //                           style: titilliumRegular
+                            //                               .copyWith(
+                            //                                   fontWeight:
+                            //                                       FontWeight
+                            //                                           .w600))),
+                            //                   InkWell(
+                            //                     onTap: () => Navigator.of(
+                            //                             context)
+                            //                         .push(MaterialPageRoute(
+                            //                             builder: (BuildContext
+                            //                                     context) =>
+                            //                                 SavedAddressListScreen())),
+                            //                     child: Image.asset(
+                            //                         Images.address,
+                            //                         scale: 3),
+                            //                   ),
+                            //                 ],
+                            //               ),
+                            //               SizedBox(
+                            //                 height:
+                            //                     Dimensions.PADDING_SIZE_DEFAULT,
+                            //               ),
+                            //               Column(
+                            //                 crossAxisAlignment:
+                            //                     CrossAxisAlignment.start,
+                            //                 children: [
+                            //                   Container(
+                            //                     child: Text(
+                            //                       Provider.of<OrderProvider>(context,
+                            //                                       listen: false)
+                            //                                   .addressIndex ==
+                            //                               null
+                            //                           ? '${getTranslated('address_type', context)}'
+                            //                           : Provider.of<ProfileProvider>(context, listen: false)
+                            //                                       .addressList[
+                            //                                           0]
+                            //                                       .addressType !=
+                            //                                   null
+                            //                               ? Provider.of<ProfileProvider>(context, listen: false)
+                            //                                       .addressList[
+                            //                                           0]
+                            //                                       .addressType ??
+                            //                                   ''
+                            //                               : Provider.of<ProfileProvider>(
+                            //                                       context,
+                            //                                       listen: false)
+                            //                                   .addressList[Provider.of<OrderProvider>(
+                            //                                           context,
+                            //                                           listen: false)
+                            //                                       .addressIndex!]
+                            //                                   .addressType!,
+                            //                       style: titilliumBold.copyWith(
+                            //                           fontSize: Dimensions
+                            //                               .FONT_SIZE_LARGE),
+                            //                       maxLines: 3,
+                            //                       overflow: TextOverflow.fade,
+                            //                     ),
+                            //                   ),
+                            //                   Divider(),
+                            //                   Container(
+                            //                     child: Text(
+                            //                       Provider.of<OrderProvider>(
+                            //                                       context,
+                            //                                       listen: false)
+                            //                                   .addressIndex ==
+                            //                               null
+                            //                           ? getTranslated(
+                            //                                   'add_your_address',
+                            //                                   context) ??
+                            //                               ''
+                            //                           : Provider.of<ProfileProvider>(
+                            //                                       context,
+                            //                                       listen: false)
+                            //                                   .addressList[shipping
+                            //                                           .addressIndex ??
+                            //                                       0]
+                            //                                   .address ??
+                            //                               '',
+                            //                       style:
+                            //                           titilliumRegular.copyWith(
+                            //                               fontSize: Dimensions
+                            //                                   .FONT_SIZE_SMALL),
+                            //                       maxLines: 3,
+                            //                       overflow: TextOverflow.fade,
+                            //                     ),
+                            //                   ),
+                            //                 ],
+                            //               ),
+                            //             ],
+                            //           ),
+                            //         ),
+                            //       )
+                            //     : SizedBox(),
+                            // SizedBox(
+                            //     height: !widget.onlyDigital
+                            //         ? Dimensions.PADDING_SIZE_SMALL
+                            //         : 0),
                             _billingAddress
                                 ? Card(
                                     child: Container(
@@ -721,16 +730,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                               .billingAddressIndex ==
                                                           null
                                                       ? getTranslated(
-                                                          'add_your_address',
-                                                          context)!
-                                                      : Provider.of<
-                                                                  ProfileProvider>(
-                                                              context,
-                                                              listen: false)
-                                                          .billingAddressList[
-                                                              shipping
-                                                                  .billingAddressIndex!]
-                                                          .address!,
+                                                              'add_your_address',
+                                                              context) ??
+                                                          ''
+                                                      : Provider.of<ProfileProvider>(
+                                                                  context,
+                                                                  listen: false)
+                                                              .billingAddressList[
+                                                                  shipping
+                                                                      .billingAddressIndex!]
+                                                              .address ??
+                                                          '',
                                                   style:
                                                       titilliumRegular.copyWith(
                                                           fontSize: Dimensions
@@ -755,7 +765,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: Dimensions.PADDING_SIZE_DEFAULT),
                     child: Text(
-                      getTranslated('ORDER_DETAILS', context)!,
+                      getTranslated('ORDER_DETAILS', context) ?? '',
                       style: robotoBold.copyWith(
                           fontSize: Dimensions.FONT_SIZE_LARGE),
                     ),
@@ -815,9 +825,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                           Expanded(
                                             child: Text(
                                               Provider.of<CartProvider>(context,
-                                                      listen: false)
-                                                  .cartList[index]
-                                                  .name!,
+                                                          listen: false)
+                                                      .cartList[index]
+                                                      .name ??
+                                                  '',
                                               style: titilliumRegular.copyWith(
                                                   fontSize: Dimensions
                                                       .FONT_SIZE_DEFAULT,
@@ -836,10 +847,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                             PriceConverter.convertPrice(
                                                 context,
                                                 Provider.of<CartProvider>(
-                                                        context,
-                                                        listen: false)
-                                                    .cartList[index]
-                                                    .price),
+                                                            context,
+                                                            listen: false)
+                                                        .cartList[index]
+                                                        .price ??
+                                                    0),
                                             style: titilliumSemiBold.copyWith(
                                                 fontSize:
                                                     Dimensions.FONT_SIZE_LARGE),
@@ -935,7 +947,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                 .PADDING_SIZE_EXTRA_SMALL))),
                                     child: Center(
                                         child: Text(
-                                      getTranslated('APPLY', context)!,
+                                      getTranslated('APPLY', context) ?? '',
                                       style: titleRegular.copyWith(
                                           color: Theme.of(context).cardColor,
                                           fontSize: Dimensions.FONT_SIZE_LARGE),
@@ -968,7 +980,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     ),
                     child: Center(
                         child: Text(
-                      getTranslated('order_summary', context)!,
+                      getTranslated('order_summary', context) ?? '',
                       style: titilliumSemiBold.copyWith(
                           fontSize: Dimensions.FONT_SIZE_LARGE),
                     )),
@@ -1017,7 +1029,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                   title:
                                       getTranslated('coupon_voucher', context),
                                   amount: PriceConverter.convertPrice(
-                                      context, _couponDiscount)),
+                                      context, _couponDiscount ?? 0)),
                               // AmountWidget(
                               //     title: getTranslated('TAX', context),
                               //     amount: PriceConverter.convertPrice(
@@ -1047,7 +1059,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            getTranslated('payment_method', context)!,
+                            getTranslated('payment_method', context) ?? '',
                             style: titilliumSemiBold.copyWith(
                                 fontSize: Dimensions.FONT_SIZE_LARGE),
                           ),

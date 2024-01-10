@@ -217,8 +217,9 @@ class CartModel {
 class ProductInfo {
   int? minimumOrderQty;
   int? totalCurrentStock;
-
-  ProductInfo({this.minimumOrderQty, this.totalCurrentStock});
+  int? minimumProductQty;
+  ProductInfo(
+      {this.minimumOrderQty, this.totalCurrentStock, this.minimumProductQty});
 
   ProductInfo.fromJson(Map<String, dynamic> json) {
     if (json['minimum_order_qty'] != null) {
@@ -229,12 +230,14 @@ class ProductInfo {
       }
     }
     totalCurrentStock = json['total_current_stock'];
+    minimumProductQty = json['minimum_product_qty'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['minimum_order_qty'] = this.minimumOrderQty;
     data['total_current_stock'] = this.totalCurrentStock;
+    data['minimum_product_qty'] = this.minimumProductQty;
     return data;
   }
 }

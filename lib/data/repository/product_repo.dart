@@ -50,14 +50,16 @@ class ProductRepo {
     }
   }
 
+//!
   Future<ApiResponse> getBrandOrCategoryProductList(
-      bool isBrand, String id) async {
+      bool isBrand, String id, String userId) async {
     try {
       String uri;
       if (isBrand) {
         uri = '${AppConstants.BRAND_PRODUCT_URI}$id';
       } else {
-        uri = '${AppConstants.CATEGORY_PRODUCT_URI}$id';
+        //!
+        uri = '${AppConstants.CATEGORY_PRODUCT_URI}$id?user_id=$userId';
       }
       final response = await dioClient!.get(uri);
       return ApiResponse.withSuccess(response);

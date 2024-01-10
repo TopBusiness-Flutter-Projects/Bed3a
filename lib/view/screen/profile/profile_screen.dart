@@ -294,13 +294,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       SizedBox(
                                           height: Dimensions.MARGIN_SIZE_SMALL),
                                       CustomTextField(
-                                        textInputType: TextInputType.name,
-                                        focusNode: _fNameFocus,
-                                        nextNode: _lNameFocus,
-                                        hintText:
-                                            profile.userInfoModel!.fName ?? '',
-                                        controller: _firstNameController,
-                                      ),
+                                          textInputType: TextInputType.name,
+                                          focusNode: _fNameFocus,
+                                          nextNode: _lNameFocus,
+                                          hintText:
+                                              profile.userInfoModel!.fName ??
+                                                  '',
+                                          controller: _firstNameController),
                                     ],
                                   )),
                                   SizedBox(
