@@ -87,7 +87,7 @@ class CartWidget extends StatelessWidget {
                       Row(
                         children: [
                           Expanded(
-                            child: Text(cartModel!.name!,
+                            child: Text(cartModel!.name ?? '',
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: titilliumBold.copyWith(
@@ -96,9 +96,7 @@ class CartWidget extends StatelessWidget {
                                       context),
                                 )),
                           ),
-                          SizedBox(
-                            width: Dimensions.PADDING_SIZE_SMALL,
-                          ),
+                          SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
                           !fromCheckout
                               ? InkWell(
                                   onTap: () {
@@ -225,7 +223,7 @@ class CartWidget extends StatelessWidget {
                                             .productInfo!.totalCurrentStock,
                                         cartModel: cartModel,
                                         minimumOrderQuantity: cartModel!
-                                            .productInfo!.minimumOrderQty,
+                                            .productInfo!.minimumProductQty,
                                         digitalProduct:
                                             cartModel!.productType == "digital"
                                                 ? true
@@ -257,7 +255,7 @@ class CartWidget extends StatelessWidget {
                                             .productInfo!.totalCurrentStock,
                                         cartModel: cartModel,
                                         minimumOrderQuantity: cartModel!
-                                            .productInfo!.minimumOrderQty,
+                                            .productInfo!.minimumProductQty,
                                         digitalProduct:
                                             cartModel!.productType == "digital"
                                                 ? true

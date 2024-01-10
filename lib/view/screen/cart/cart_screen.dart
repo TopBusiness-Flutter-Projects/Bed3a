@@ -217,7 +217,7 @@ class _CartScreenState extends State<CartScreen> {
                                                 Dimensions.FONT_SIZE_DEFAULT,
                                             decorationThickness: 1.5,
                                             decoration:
-                                                cartList[0].hasDiscount != null
+                                                cartList[0].discount! > 0
                                                     ? TextDecoration.lineThrough
                                                     : TextDecoration.none,
                                             decorationColor: Colors.red),
@@ -644,7 +644,7 @@ class _CartScreenState extends State<CartScreen> {
                                                         Text(
                                                           ' عدد منتجات: ${calculateTotalCount(cartProductList[index])}',
                                                           style: TextStyle(
-                                                              color: (calculateTotalCost(
+                                                              color: (calculateTotalCount(
                                                                           cartProductList[
                                                                               index]) <
                                                                       sellerGroupList[
