@@ -138,24 +138,29 @@ class _CartScreenState extends State<CartScreen> {
           double productTotalCost = (cart.price! * cart.quantity!);
           totalCosts += productTotalCost;
         }
+        print(
+            '..........$totalCosts...\$...${cartProductLists[0].productInfo!.minimumOrderQty}');
         return totalCosts;
       }
 
       int calculateTotalCount(List<CartModel> cartProductLists) {
         int totalCount = 0;
         for (var cart in cartProductLists) {
-          int productTotalCost = (cart.quantity!);
+          int productTotalCost = cart.quantity!;
           totalCount += productTotalCost;
         }
+
+        print(
+            '..........$totalCount......${cartProductLists[0].productInfo!.minimumProductQty}');
         return totalCount;
       }
 
       bool checkConditionForAllItems(List<CartModel> sellerGroupList) {
         for (int i = 0; i < sellerGroupList.length; i++) {
           if (!(calculateTotalCount(sellerGroupList) >=
-                  sellerGroupList[i].limitProduct!) ||
+                  sellerGroupList[i].productInfo!.minimumProductQty!) ||
               !(calculateTotalCost(sellerGroupList) >=
-                  sellerGroupList[i].limitPrice!)) {
+                  sellerGroupList[i].productInfo!.minimumOrderQty!)) {
             return false;
           }
         }
@@ -212,7 +217,7 @@ class _CartScreenState extends State<CartScreen> {
                                                 Dimensions.FONT_SIZE_DEFAULT,
                                             decorationThickness: 1.5,
                                             decoration:
-                                                cartList[0].hasDiscount != 0
+                                                cartList[0].hasDiscount != null
                                                     ? TextDecoration.lineThrough
                                                     : TextDecoration.none,
                                             decorationColor: Colors.red),
@@ -228,17 +233,13 @@ class _CartScreenState extends State<CartScreen> {
                                           fontSize:
                                               Dimensions.FONT_SIZE_DEFAULT),
                                     ),
-                                    // Text(
-                                    //   PriceConverter.convertPrice(
-                                    //       context, amount + shippingAmount,
-                                    //       discount: double.parse(cartList[0]
-                                    //           .discountPercent
-                                    //           .toString()),
-                                    //       discountType: 'percent'),
-                                    //   style: titilliumSemiBold.copyWith(
-                                    //       color: Theme.of(context).primaryColor,
-                                    //       fontSize: Dimensions.FONT_SIZE_LARGE),
-                                    // ),
+                                    Text(
+                                      PriceConverter.convertPrice(
+                                          context, amount + shippingAmount),
+                                      style: titilliumSemiBold.copyWith(
+                                          color: Theme.of(context).primaryColor,
+                                          fontSize: Dimensions.FONT_SIZE_LARGE),
+                                    ),
                                   ],
                                 )
                               ],
@@ -296,10 +297,11 @@ class _CartScreenState extends State<CartScreen> {
                                     //           backgroundColor: Colors.red));
                                     // }
                                     else {
-                                      print(cartProductList.length);
                                       bool conditionMet =
                                           checkConditionForAllItemsInList(
                                               cartProductList);
+                                      print(
+                                          '............$conditionMet......${cartProductList.length}');
                                       if (conditionMet) {
                                         Navigator.push(
                                             context,
@@ -309,10 +311,14 @@ class _CartScreenState extends State<CartScreen> {
                                                       totalOrderAmount: amount,
                                                       shippingFee:
                                                           shippingAmount,
-                                                      discount: double.parse(
-                                                          cartList[0]
-                                                              .discountPercent
-                                                              .toString()),
+                                                      discount: cartList[0]
+                                                                  .discountPercent ==
+                                                              null
+                                                          ? 0
+                                                          : double.parse(
+                                                              cartList[0]
+                                                                  .discountPercent
+                                                                  .toString()),
                                                       tax: tax,
                                                       onlyDigital: _onlyDigital,
                                                     )));
@@ -612,9 +618,9 @@ class _CartScreenState extends State<CartScreen> {
                                                     Column(
                                                       children: [
                                                         Text(
-                                                            'الحد الادني: ${sellerGroupList[index].limitPrice}'),
+                                                            'الحد الادني: ${sellerGroupList[index].productInfo?.minimumOrderQty ?? 0}'),
                                                         Text(
-                                                            'أقل عدد منتجات : ${sellerGroupList[index].limitProduct}'),
+                                                            'أقل عدد منتجات : ${sellerGroupList[index].productInfo?.minimumProductQty ?? 0}'),
                                                       ],
                                                     ),
                                                     Column(
@@ -627,7 +633,8 @@ class _CartScreenState extends State<CartScreen> {
                                                                               index]) <
                                                                       sellerGroupList[
                                                                               index]
-                                                                          .limitPrice!)
+                                                                          .productInfo!
+                                                                          .minimumOrderQty!)
                                                                   ? Colors.red
                                                                   : Colors.blue,
                                                               fontWeight:
@@ -642,7 +649,8 @@ class _CartScreenState extends State<CartScreen> {
                                                                               index]) <
                                                                       sellerGroupList[
                                                                               index]
-                                                                          .limitPrice!)
+                                                                          .productInfo!
+                                                                          .minimumProductQty!)
                                                                   ? Colors.red
                                                                   : Colors.blue,
                                                               fontWeight:

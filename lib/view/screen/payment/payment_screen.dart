@@ -6,7 +6,6 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:bed3a_ecommerce/localization/language_constrants.dart';
 import 'package:bed3a_ecommerce/utill/app_constants.dart';
 import 'package:bed3a_ecommerce/view/basewidget/animated_custom_dialog.dart';
-import 'package:bed3a_ecommerce/view/basewidget/custom_app_bar.dart';
 import 'package:bed3a_ecommerce/view/basewidget/my_dialog.dart';
 import 'package:bed3a_ecommerce/view/screen/dashboard/dashboard_screen.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -20,7 +19,14 @@ class PaymentScreen extends StatefulWidget {
   final String? couponCodeAmount;
   final String? paymentMethod;
 
-  PaymentScreen({required this.addressID, required this.customerID, required this.couponCode, required this.billingId, this.orderNote, this.couponCodeAmount, this.paymentMethod});
+  PaymentScreen(
+      {required this.addressID,
+      required this.customerID,
+      required this.couponCode,
+      required this.billingId,
+      this.orderNote,
+      this.couponCodeAmount,
+      this.paymentMethod});
 
   @override
   _PaymentScreenState createState() => _PaymentScreenState();
@@ -38,7 +44,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   void initState() {
     super.initState();
-    selectedUrl = '${AppConstants.BASE_URL}/customer/payment-mobile?customer_id='
+    selectedUrl =
+        '${AppConstants.BASE_URL}/customer/payment-mobile?customer_id='
         '${widget.customerID}&address_id=${widget.addressID}&coupon_code='
         '${widget.couponCode}&coupon_discount=${widget.couponCodeAmount}&billing_address_id=${widget.billingId}&order_note=${widget.orderNote}&payment_method=${widget.paymentMethod}';
     print(selectedUrl);
@@ -51,12 +58,17 @@ class _PaymentScreenState extends State<PaymentScreen> {
     if (Platform.isAndroid) {
       await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
 
-      bool swAvailable = await AndroidWebViewFeature.isFeatureSupported(AndroidWebViewFeature.SERVICE_WORKER_BASIC_USAGE);
-      bool swInterceptAvailable = await AndroidWebViewFeature.isFeatureSupported(AndroidWebViewFeature.SERVICE_WORKER_SHOULD_INTERCEPT_REQUEST);
+      bool swAvailable = await AndroidWebViewFeature.isFeatureSupported(
+          AndroidWebViewFeature.SERVICE_WORKER_BASIC_USAGE);
+      bool swInterceptAvailable =
+          await AndroidWebViewFeature.isFeatureSupported(
+              AndroidWebViewFeature.SERVICE_WORKER_SHOULD_INTERCEPT_REQUEST);
 
       if (swAvailable && swInterceptAvailable) {
-        AndroidServiceWorkerController serviceWorkerController = AndroidServiceWorkerController.instance();
-        await serviceWorkerController.setServiceWorkerClient(AndroidServiceWorkerClient(
+        AndroidServiceWorkerController serviceWorkerController =
+            AndroidServiceWorkerController.instance();
+        await serviceWorkerController
+            .setServiceWorkerClient(AndroidServiceWorkerClient(
           shouldInterceptRequest: (request) async {
             print(request);
             return null;
@@ -73,40 +85,45 @@ class _PaymentScreenState extends State<PaymentScreen> {
         if (Platform.isAndroid) {
           browser.webViewController.reload();
         } else if (Platform.isIOS) {
-          browser.webViewController.loadUrl(urlRequest: URLRequest(url: await browser.webViewController.getUrl()));
+          browser.webViewController.loadUrl(
+              urlRequest:
+                  URLRequest(url: await browser.webViewController.getUrl()));
         }
       },
     );
     browser.pullToRefreshController = pullToRefreshController;
 
     await browser.openUrlRequest(
-      urlRequest: URLRequest(url: Uri.parse(selectedUrl!)),
+      urlRequest: URLRequest(url: Uri.parse(selectedUrl ?? '')),
       options: InAppBrowserClassOptions(
         inAppWebViewGroupOptions: InAppWebViewGroupOptions(
-          crossPlatform: InAppWebViewOptions(useShouldOverrideUrlLoading: true, useOnLoadResource: true),
+          crossPlatform: InAppWebViewOptions(
+              useShouldOverrideUrlLoading: true, useOnLoadResource: true),
         ),
       ),
     );
   }
-
-
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () => _exitApp(context),
       child: Scaffold(
-        appBar: AppBar(title: Text(''),backgroundColor: Theme.of(context).cardColor),
+        appBar: AppBar(
+            title: Text(''), backgroundColor: Theme.of(context).cardColor),
         body: Center(
           child: Column(
             children: [
-
               Container(
                 child: Stack(
                   children: [
-                    _isLoading ? Center(
-                      child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor)),
-                    ) : SizedBox.shrink(),
+                    _isLoading
+                        ? Center(
+                            child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                    Theme.of(context).primaryColor)),
+                          )
+                        : SizedBox.shrink(),
                   ],
                 ),
               ),
@@ -122,29 +139,32 @@ class _PaymentScreenState extends State<PaymentScreen> {
       controllerGlobal.goBack();
       return Future.value(false);
     } else {
-      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) => DashBoardScreen()), (route) => false);
-      showAnimatedDialog(context, MyDialog(
-        icon: Icons.clear,
-        title: getTranslated('payment_cancelled', context),
-        description: getTranslated('your_payment_cancelled', context),
-        isFailed: true,
-      ), dismissible: false, isFlip: true);
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (_) => DashBoardScreen()),
+          (route) => false);
+      showAnimatedDialog(
+          context,
+          MyDialog(
+            icon: Icons.clear,
+            title: getTranslated('payment_cancelled', context),
+            description: getTranslated('your_payment_cancelled', context),
+            isFailed: true,
+          ),
+          dismissible: false,
+          isFlip: true);
       return Future.value(true);
     }
   }
 }
 
-
-
 class MyInAppBrowser extends InAppBrowser {
-
   final BuildContext context;
 
-  MyInAppBrowser(this.context, {
+  MyInAppBrowser(
+    this.context, {
     int? windowId,
     UnmodifiableListView<UserScript>? initialUserScripts,
-  })
-      : super(windowId: windowId, initialUserScripts: initialUserScripts);
+  }) : super(windowId: windowId, initialUserScripts: initialUserScripts);
 
   bool _canRedirect = true;
 
@@ -182,25 +202,29 @@ class MyInAppBrowser extends InAppBrowser {
 
   @override
   void onExit() {
-    if(_canRedirect) {
-      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
-          builder: (_) => DashBoardScreen()), (route) => false);
+    if (_canRedirect) {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (_) => DashBoardScreen()),
+          (route) => false);
 
-
-
-      showAnimatedDialog(context, MyDialog(
-        icon: Icons.clear,
-        title: getTranslated('payment_failed', context),
-        description: getTranslated('your_payment_failed', context),
-        isFailed: true,
-      ), dismissible: false, isFlip: true);
+      showAnimatedDialog(
+          context,
+          MyDialog(
+            icon: Icons.clear,
+            title: getTranslated('payment_failed', context),
+            description: getTranslated('your_payment_failed', context),
+            isFailed: true,
+          ),
+          dismissible: false,
+          isFlip: true);
     }
 
     print("\n\nBrowser closed!\n\n");
   }
 
   @override
-  Future<NavigationActionPolicy> shouldOverrideUrlLoading(navigationAction) async {
+  Future<NavigationActionPolicy> shouldOverrideUrlLoading(
+      navigationAction) async {
     print("\n\nOverride ${navigationAction.request.url}\n\n");
     return NavigationActionPolicy.ALLOW;
   }
@@ -220,57 +244,63 @@ class MyInAppBrowser extends InAppBrowser {
   }
 
   void _pageRedirect(String url) {
-    if(_canRedirect) {
-      bool _isSuccess = url.contains('success') && url.contains(AppConstants.BASE_URL);
-      bool _isFailed = url.contains('fail') && url.contains(AppConstants.BASE_URL);
-      bool _isCancel = url.contains('cancel') && url.contains(AppConstants.BASE_URL);
-      if(_isSuccess || _isFailed || _isCancel) {
+    if (_canRedirect) {
+      bool _isSuccess =
+          url.contains('success') && url.contains(AppConstants.BASE_URL);
+      bool _isFailed =
+          url.contains('fail') && url.contains(AppConstants.BASE_URL);
+      bool _isCancel =
+          url.contains('cancel') && url.contains(AppConstants.BASE_URL);
+      if (_isSuccess || _isFailed || _isCancel) {
         _canRedirect = false;
         close();
       }
-      if(_isSuccess){
-        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
-            builder: (_) => DashBoardScreen()), (route) => false);
+      if (_isSuccess) {
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (_) => DashBoardScreen()),
+            (route) => false);
 
+        showAnimatedDialog(
+            context,
+            MyDialog(
+              icon: Icons.done,
+              title: getTranslated('payment_done', context),
+              description:
+                  getTranslated('your_payment_successfully_done', context),
+            ),
+            dismissible: false,
+            isFlip: true);
+      } else if (_isFailed) {
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (_) => DashBoardScreen()),
+            (route) => false);
 
-        showAnimatedDialog(context, MyDialog(
-          icon: Icons.done,
-          title: getTranslated('payment_done', context),
-          description: getTranslated('your_payment_successfully_done', context),
-        ), dismissible: false, isFlip: true);
+        showAnimatedDialog(
+            context,
+            MyDialog(
+              icon: Icons.clear,
+              title: getTranslated('payment_failed', context),
+              description: getTranslated('your_payment_failed', context),
+              isFailed: true,
+            ),
+            dismissible: false,
+            isFlip: true);
+      } else if (_isCancel) {
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (_) => DashBoardScreen()),
+            (route) => false);
 
-
-      }else if(_isFailed) {
-        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
-            builder: (_) => DashBoardScreen()), (route) => false);
-
-
-
-        showAnimatedDialog(context, MyDialog(
-          icon: Icons.clear,
-          title: getTranslated('payment_failed', context),
-          description: getTranslated('your_payment_failed', context),
-          isFailed: true,
-        ), dismissible: false, isFlip: true);
-
-
-      }else if(_isCancel) {
-        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
-            builder: (_) => DashBoardScreen()), (route) => false);
-
-
-        showAnimatedDialog(context, MyDialog(
-          icon: Icons.clear,
-          title: getTranslated('payment_cancelled', context),
-          description: getTranslated('your_payment_cancelled', context),
-          isFailed: true,
-        ), dismissible: false, isFlip: true);
-
+        showAnimatedDialog(
+            context,
+            MyDialog(
+              icon: Icons.clear,
+              title: getTranslated('payment_cancelled', context),
+              description: getTranslated('your_payment_cancelled', context),
+              isFailed: true,
+            ),
+            dismissible: false,
+            isFlip: true);
       }
     }
-
   }
-
-
-
 }

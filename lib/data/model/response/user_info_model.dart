@@ -14,11 +14,19 @@ class UserInfoModel {
   double? loyaltyPoint;
 
   UserInfoModel(
-      {this.id, this.name, this.method, this.fName,
-        this.lName, this.phone, this.image,
-        this.email, this.emailVerifiedAt,
-        this.createdAt, this.updatedAt,
-      this.walletBalance, this.loyaltyPoint});
+      {this.id,
+      this.name,
+      this.method,
+      this.fName,
+      this.lName,
+      this.phone,
+      this.image,
+      this.email,
+      this.emailVerifiedAt,
+      this.createdAt,
+      this.updatedAt,
+      this.walletBalance,
+      this.loyaltyPoint});
 
   UserInfoModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -32,15 +40,14 @@ class UserInfoModel {
     emailVerifiedAt = json['email_verified_at'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    if(json['wallet_balance'] != null){
+    if (json['wallet_balance'] != null) {
       walletBalance = json['wallet_balance'].toDouble();
     }
-    if(json['loyalty_point'] != null){
+    if (json['loyalty_point'] != null) {
       loyaltyPoint = json['loyalty_point'].toDouble();
-    }else{
+    } else {
       walletBalance = 0.0;
     }
-
   }
 
   Map<String, dynamic> toJson() {
