@@ -87,6 +87,8 @@ class ProductProvider extends ChangeNotifier {
           _filterFirstLoading = false;
           _filterIsLoading = false;
         }
+
+        print('.......................................');
       } else {
         ApiChecker.checkApi(context, apiResponse);
       }

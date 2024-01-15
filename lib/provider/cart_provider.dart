@@ -74,6 +74,7 @@ class CartProvider extends ChangeNotifier {
     _cartList.removeAt(index);
     _isSelectedList.removeAt(index);
     cartRepo!.addToCartList(_cartList);
+
     notifyListeners();
   }
 

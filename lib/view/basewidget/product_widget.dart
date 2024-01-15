@@ -210,7 +210,11 @@ class _ProductWidgetState extends State<ProductWidget> {
                                           horizontal: 8.0, vertical: 8),
                                       child: Text(
                                           PriceConverter.convertPrice(context,
-                                              widget.productModel.unitPrice),
+                                              widget.productModel.unitPrice,
+                                              discount:
+                                                  widget.productModel.discount,
+                                              discountType: widget
+                                                  .productModel.discountType),
                                           maxLines: 1,
                                           style: TextStyle(fontSize: 12)),
                                     )),
