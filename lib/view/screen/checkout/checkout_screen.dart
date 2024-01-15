@@ -273,6 +273,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       'cash_on_delivery',
                       couponDiscount,
                     ),
+                    context: context,
                     _callback,
                     // widget.onlyDigital
                     //     ? ''
@@ -323,6 +324,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         } else {
                           Navigator.of(context).pop();
                           order.placeOrder(
+                              context: context,
                               OrderPlaceModel(
                                 'offline_payment',
                                 couponDiscount,
@@ -386,6 +388,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       } else {
                         Navigator.pop(context);
                         order.placeOrder(
+                            context: context,
                             OrderPlaceModel(
                               'pay_by_wallet',
                               couponDiscount,

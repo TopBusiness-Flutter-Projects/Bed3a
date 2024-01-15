@@ -14,6 +14,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+
+import 'product_provider.dart';
 
 class OrderProvider with ChangeNotifier {
   final OrderRepo? orderRepo;
@@ -139,6 +142,7 @@ class OrderProvider with ChangeNotifier {
       String transactionId,
       String paymentNote,
       {bool isfOffline = false,
+      required BuildContext context,
       bool wallet = false}) async {
     _isLoading = true;
     notifyListeners();
@@ -166,6 +170,9 @@ class OrderProvider with ChangeNotifier {
 
       String message = apiResponse.response!.data.toString();
       callback(true, message, '');
+
+      Provider.of<ProductProvider>(context, listen: false)
+          .getLProductList("1", context, reload: true);
     } else {
       String? errorMessage;
       if (apiResponse.error is String) {

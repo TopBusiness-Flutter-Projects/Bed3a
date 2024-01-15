@@ -112,10 +112,11 @@ class CartWidget extends StatelessWidget {
                                               listen: false)
                                           .removeFromCart(index);
                                     }
+
                                     Provider.of<ProductProvider>(context,
                                             listen: false)
-                                        .getLatestProductList(1, context,
-                                            reload: false);
+                                        .getLProductList("1", context,
+                                            reload: true);
                                   },
                                   child: Container(
                                       width: 20,
