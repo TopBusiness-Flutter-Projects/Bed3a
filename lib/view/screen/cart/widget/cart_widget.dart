@@ -1,8 +1,5 @@
-import 'package:bed3a_ecommerce/data/model/response/product_model.dart';
-import 'package:bed3a_ecommerce/utill/app_constants.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:bed3a_ecommerce/data/model/response/cart_model.dart';
+import 'package:bed3a_ecommerce/data/model/response/product_model.dart';
 import 'package:bed3a_ecommerce/helper/price_converter.dart';
 import 'package:bed3a_ecommerce/localization/language_constrants.dart';
 import 'package:bed3a_ecommerce/provider/auth_provider.dart';
@@ -13,6 +10,8 @@ import 'package:bed3a_ecommerce/utill/custom_themes.dart';
 import 'package:bed3a_ecommerce/utill/dimensions.dart';
 import 'package:bed3a_ecommerce/utill/images.dart';
 import 'package:bed3a_ecommerce/view/screen/product/product_details_screen.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../provider/product_provider.dart';
@@ -148,10 +147,11 @@ class CartWidget extends StatelessWidget {
                             width: Dimensions.FONT_SIZE_DEFAULT,
                           ),
                           Text(
-                              PriceConverter.convertPrice(context,
-                                  (cartModel!.price! * cartModel!.quantity!),
-                                  discount: cartModel!.discount,
-                                  discountType: 'amount'),
+                              PriceConverter.convertPrice(
+                                context,
+                                (cartModel!.price! -
+                                    (cartModel!.discount ?? 0)),
+                              ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: titilliumRegular.copyWith(
@@ -200,7 +200,7 @@ class CartWidget extends StatelessWidget {
                                                 .getReviewRattingColor(
                                                     context))),
                                     Text(
-                                        '${PriceConverter.convertPrice(context, cartModel!.shippingCost)}',
+                                        '${PriceConverter.convertPrice(context, (cartModel!.price! - (cartModel!.discount ?? 0)))}',
                                         style: robotoRegular.copyWith(
                                           fontSize: Dimensions.FONT_SIZE_SMALL,
                                           color:

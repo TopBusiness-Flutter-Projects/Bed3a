@@ -242,28 +242,45 @@ class _CartScreenState extends State<CartScreen> {
                                   Flexible(
                                     child: Row(
                                       children: [
-                                        Text(
-                                          '${getTranslated('total_price', context)}',
-                                          style: titilliumSemiBold.copyWith(
-                                              fontSize:
-                                                  Dimensions.FONT_SIZE_DEFAULT),
-                                        ),
-                                        Text(
-                                          PriceConverter.convertPrice(
-                                              context, amount + shippingAmount),
-                                          style: titilliumSemiBold.copyWith(
-                                              color: Theme.of(context)
-                                                  .primaryColor,
-                                              fontSize:
-                                                  Dimensions.FONT_SIZE_DEFAULT,
-                                              decorationThickness: 1.5,
-                                              decoration:
-                                                  cartList[0].discount! > 0
-                                                      ? TextDecoration
-                                                          .lineThrough
-                                                      : TextDecoration.none,
-                                              decorationColor: Colors.red),
-                                        ),
+                                        cartList[0].discount! > 0
+                                            ? Container(
+                                                height: 0,
+                                              )
+                                            : Text(
+                                                '${getTranslated('total_price', context)}',
+                                                style:
+                                                    titilliumSemiBold.copyWith(
+                                                        fontSize: Dimensions
+                                                            .FONT_SIZE_DEFAULT),
+                                              ),
+                                        cartList[0].discount! > 0
+                                            ? Container(
+                                                height: 0,
+                                              )
+                                            : Text(
+                                                PriceConverter.convertPrice(
+                                                    context,
+                                                    amount + shippingAmount),
+                                                style: titilliumSemiBold
+                                                    .copyWith(
+                                                        color: Theme.of(
+                                                                context)
+                                                            .primaryColor,
+                                                        fontSize: Dimensions
+                                                            .FONT_SIZE_DEFAULT,
+                                                        decorationThickness:
+                                                            1.5,
+                                                        decoration: cartList[
+                                                                        0]
+                                                                    .discount! >
+                                                                0
+                                                            ? TextDecoration
+                                                                .lineThrough
+                                                            : TextDecoration
+                                                                .none,
+                                                        decorationColor:
+                                                            Colors.red),
+                                              ),
                                       ],
                                     ),
                                   ),
@@ -277,7 +294,9 @@ class _CartScreenState extends State<CartScreen> {
                                       ),
                                       Text(
                                         PriceConverter.convertPrice(
-                                            context, amount + shippingAmount),
+                                          context,
+                                          amount + shippingAmount,
+                                        ),
                                         style: titilliumSemiBold.copyWith(
                                             color:
                                                 Theme.of(context).primaryColor,
@@ -674,7 +693,7 @@ class _CartScreenState extends State<CartScreen> {
                                                       Column(
                                                         children: [
                                                           Text(
-                                                            'إجمال الطلب: ${calculateTotalCost(cartProductList[index])}',
+                                                            'إجمال الطلب: ${PriceConverter.convertPrice(context, calculateTotalCost(cartProductList[index]), discount: sellerGroupList[index].discount, discountType: sellerGroupList[index].discountType)}',
                                                             style: TextStyle(
                                                                 color: (calculateTotalCost(cartProductList[
                                                                             index]) <
