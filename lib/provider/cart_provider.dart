@@ -58,6 +58,17 @@ class CartProvider extends ChangeNotifier {
     });
   }
 
+  double totalPrice = 0;
+  void getTotalPrice(List<CartModel> list) {
+    //!
+    for (int i = 0; i < list.length; i++) {
+      totalPrice += (list[i].quantity! * list[i].price!);
+    }
+    print(
+        '......................................................................$totalPrice');
+    notifyListeners();
+  }
+
   void addToCart(CartModel cartModel) {
     _cartList.add(cartModel);
     _isSelectedList.add(true);
@@ -98,6 +109,7 @@ class CartProvider extends ChangeNotifier {
       _isSelectedList.removeWhere((selected) => selected);
     });
     cartRepo!.addToCartList(_cartList);
+
     notifyListeners();
   }
 
@@ -136,7 +148,14 @@ class CartProvider extends ChangeNotifier {
         apiResponse.response!.statusCode == 200) {
       String message = apiResponse.response!.data['message'].toString();
       responseModel = ResponseModel(message, true);
+
       await getCartDataAPI(context);
+
+      await Provider.of<ProductProvider>(context, listen: false)
+          .getLProductList("1", context);
+      Provider.of<ProductProvider>(context, listen: false)
+          .getLatestProductList(1, context, reload: true);
+      print('......');
     } else {
       String? errorMessage = apiResponse.error.toString();
       if (apiResponse.error is String) {

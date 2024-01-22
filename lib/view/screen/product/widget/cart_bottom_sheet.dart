@@ -589,7 +589,9 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                                                   widget.product!.productType,
                                                   widget.product!.slug,
                                                   0,
-                                                  0);
+                                                  0, 
+                                                   0 
+                                                  );
 
                                               // cart.variations = _variation;
                                               if (Provider.of<AuthProvider>(
@@ -720,7 +722,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                                                   widget.product!.productType,
                                                   widget.product!.slug,
                                                   0,
-                                                  0);
+                                                  0,0);
 
                                               // cart.variations = _variation;
                                               if (Provider.of<AuthProvider>(

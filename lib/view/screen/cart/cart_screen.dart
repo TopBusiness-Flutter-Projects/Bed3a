@@ -91,13 +91,13 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => DashBoardScreen()),
-            (route) => false);
-
         print('.................');
+        await Provider.of<ProductProvider>(context, listen: false)
+            .getLProductList('1', context);
 
+        Provider.of<ProductProvider>(context, listen: false)
+            .getLProductList("1", context, reload: true)
+            .then((value) => Navigator.pop(context));
         return Future(() => false);
         // logic
       },
@@ -436,11 +436,13 @@ class _CartScreenState extends State<CartScreen> {
           body: Column(children: [
             CustomAppBar(
               title: getTranslated('CART', context),
-              onBackPressed: () {
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => DashBoardScreen()),
-                    (route) => false);
+              onBackPressed: () async {
+                await Provider.of<ProductProvider>(context, listen: false)
+                    .getLProductList('1', context);
+
+                Provider.of<ProductProvider>(context, listen: false)
+                    .getLProductList("1", context, reload: true)
+                    .then((value) => Navigator.pop(context));
               },
             ),
             cart.isXyz
