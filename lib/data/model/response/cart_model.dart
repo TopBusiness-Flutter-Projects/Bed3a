@@ -39,6 +39,8 @@ class CartModel {
   dynamic _limitProduct;
   dynamic _hasDiscount;
   dynamic _discountPercent;
+  dynamic _totalPrice;
+
   CartModel(
       this._hasDiscount,
       this._discountPercent,
@@ -73,12 +75,14 @@ class CartModel {
       this._productType,
       this._slug,
       this._limitPrice,
-      this._limitProduct);
+      this._limitProduct,
+      this._totalPrice);
   String? get variant => _variant;
   String? get color => _color;
   dynamic get hasDiscount => _hasDiscount;
   dynamic get discountPercent => _discountPercent;
   Variation? get variation => _variation;
+  dynamic get totalPrice => _totalPrice;
   // ignore: unnecessary_getters_setters
   int? get quantity => _quantity;
   // ignore: unnecessary_getters_setters
@@ -128,6 +132,7 @@ class CartModel {
     _sellerId = int.parse(json['seller_id'].toString());
     _sellerIs = json['seller_is'];
     _image = json['image'];
+    _totalPrice = json['total_price'];
     _price = json['price'].toDouble();
     _discountedPrice = json['discounted_price'];
     _quantity = int.parse(json['quantity'].toString());
@@ -209,7 +214,7 @@ class CartModel {
     data['_shippingType'] = this._shippingType;
     data['product_type'] = this._productType;
     data['slug'] = this._slug;
-
+    data['total_price'] = this._totalPrice;
     return data;
   }
 }

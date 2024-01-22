@@ -52,6 +52,7 @@ class Product {
   int? _userId;
   int? _quantity = 0;
   int? totalCurrentStock = 0;
+  dynamic _totalPrice;
   String? _name;
   String? _slug;
   String? _productType;
@@ -88,51 +89,53 @@ class Product {
   dynamic _limitProduct;
   dynamic _hasDiscount;
   dynamic _discountPercent;
-  Product(
-      {int? id,
-      Shop? sellerShop,
-      dynamic discountPercent,
-      dynamic hasDiscount,
-      String? addedBy,
-      int? userId,
-      String? name,
-      String? slug,
-      int? quantity,
-      String? productType,
-      List<CategoryIds>? categoryIds,
-      String? unit,
-      int? minQty,
-      int? refundable,
-      String? digitalProductType,
-      String? digitalFileReady,
-      List<String>? images,
-      String? thumbnail,
-      List<ProductColors>? colors,
-      String? variantProduct,
-      List<String>? attributes,
-      List<ChoiceOptions>? choiceOptions,
-      List<Variation>? variation,
-      double? unitPrice,
-      double? purchasePrice,
-      double? tax,
-      String? taxModel,
-      String? taxType,
-      double? discount,
-      String? discountType,
-      int? currentStock,
-      String? details,
-      String? attachment,
-      String? createdAt,
-      String? updatedAt,
-      int? featuredStatus,
-      List<Rating>? rating,
-      double? shippingCost,
-      int? isMultiPly,
-      int? reviewCount,
-      String? videoUrl,
-      int? minimumOrderQty,
-      dynamic limitPrice,
-      dynamic limitProduct}) {
+  Product({
+    int? id,
+    Shop? sellerShop,
+    dynamic discountPercent,
+    dynamic hasDiscount,
+    String? addedBy,
+    int? userId,
+    String? name,
+    String? slug,
+    int? quantity,
+    String? productType,
+    List<CategoryIds>? categoryIds,
+    String? unit,
+    int? minQty,
+    int? refundable,
+    String? digitalProductType,
+    String? digitalFileReady,
+    List<String>? images,
+    String? thumbnail,
+    List<ProductColors>? colors,
+    String? variantProduct,
+    List<String>? attributes,
+    List<ChoiceOptions>? choiceOptions,
+    List<Variation>? variation,
+    double? unitPrice,
+    double? purchasePrice,
+    double? tax,
+    String? taxModel,
+    String? taxType,
+    double? discount,
+    String? discountType,
+    int? currentStock,
+    String? details,
+    String? attachment,
+    String? createdAt,
+    String? updatedAt,
+    int? featuredStatus,
+    List<Rating>? rating,
+    double? shippingCost,
+    int? isMultiPly,
+    int? reviewCount,
+    String? videoUrl,
+    int? minimumOrderQty,
+    dynamic limitPrice,
+    dynamic limitProduct,
+    dynamic totalPrice,
+  }) {
     this._sellerShop = sellerShop;
     this._id = id;
     this._hasDiscount = hasDiscount;
@@ -181,6 +184,7 @@ class Product {
     this._minimumOrderQty = minimumOrderQty;
     this._limitPrice = limitPrice;
     this._limitProduct = limitProduct;
+    this._totalPrice = totalPrice;
   }
 
   int? get id => _id;
@@ -188,6 +192,7 @@ class Product {
   dynamic get discountPercent => _discountPercent;
   int? get quantity => _quantity;
   set quantityadd(int i) => _quantity = i;
+  dynamic get totalPrice => _totalPrice;
   Shop? get sellerShop => _sellerShop;
   String? get addedBy => _addedBy;
   int? get userId => _userId;
@@ -227,6 +232,7 @@ class Product {
   dynamic get limitProduct => _limitProduct;
   Product.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
+    _totalPrice = json['total_price'] == null ? null : json['total_price'];
     _sellerShop = json['shop'] == null ? null : Shop.fromJson(json['shop']);
     _addedBy = json['added_by'];
     _userId = json['user_id'];
@@ -418,6 +424,7 @@ class Product {
     data['limit_price'] = this._limitPrice;
 
     data['limit_product'] = this._limitProduct;
+    data['total_price'] = this._totalPrice;
     return data;
   }
 }

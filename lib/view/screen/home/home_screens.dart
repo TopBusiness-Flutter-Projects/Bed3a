@@ -43,6 +43,8 @@ import 'package:bed3a_ecommerce/view/screen/search/search_screen.dart';
 import 'package:bed3a_ecommerce/view/screen/topSeller/all_top_seller_screen.dart';
 import 'package:provider/provider.dart';
 
+import '../../../helper/price_converter.dart';
+
 class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
@@ -87,7 +89,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-
     singleVendor = Provider.of<SplashProvider>(context, listen: false)
             .configModel!
             .businessMode ==
@@ -100,8 +101,10 @@ class _HomePageState extends State<HomePage> {
     if (Provider.of<AuthProvider>(context, listen: false).isLoggedIn()) {
       Provider.of<CartProvider>(context, listen: false).uploadToServer(context);
       Provider.of<CartProvider>(context, listen: false).getCartDataAPI(context);
+      // Provider.of<CartProvider>(context, listen: false).getTotalPrice();
     } else {
       Provider.of<CartProvider>(context, listen: false).getCartData();
+      // Provider.of<CartProvider>(context, listen: false).getTotalPrice();
     }
   }
 
@@ -114,6 +117,28 @@ class _HomePageState extends State<HomePage> {
       getTranslated('discounted_product', context)
     ];
     return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+          backgroundColor: Colors.blue,
+          onPressed: () {
+            //!
+            Navigator.push(
+                context, MaterialPageRoute(builder: (_) => CartScreen()));
+          },
+          label: Consumer<CartProvider>(builder: (context, detailss, child) {
+            return Row(
+              children: [
+                Text(
+                  PriceConverter.convertPrice(
+                      context,
+                      detailss.cartList.isEmpty
+                          ? 0
+                          : detailss.cartList[0].totalPrice),
+                  // '${detailss.cartList.isEmpty ? 0 : detailss.cartList[0].totalPrice} ج.م',
+                  style: TextStyle(color: Colors.white, fontSize: 14),
+                )
+              ],
+            );
+          })),
       backgroundColor: ColorResources.getHomeBg(context),
       resizeToAvoidBottomInset: false,
       body: SafeArea(
@@ -401,30 +426,38 @@ class _HomePageState extends State<HomePage> {
                           //
                           //
                           // // Latest Products
-                          Provider.of<ProductProvider>(context, listen: false)
-                                  .lProductList
-                                  .isEmpty
-                              ? Container()
-                              : Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 7,
-                                      vertical:
-                                          Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                                  child: TitleRow(
-                                      title: 'الاكثر مبيعاً',
-                                      // getTranslated('latest_products', context),
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (_) => AllProductScreen(
-                                                // scrollController: _scrollController,
-                                                productType:
-                                                    ProductType.BEST_SELLING),
-                                          ),
-                                        );
-                                      }),
-                                ),
+                          // Provider.of<ProductProvider>(context, listen: false)
+                          //         .lProductList
+                          //         .isEmpty
+                          //     ? Container()
+                          //     :
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 7,
+                                vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                            child: TitleRow(
+                                title: 'الاكثر مبيعاً',
+                                onTap: () async {
+                                  await Provider.of<ProductProvider>(context,
+                                          listen: false)
+                                      .getLProductList("1", context,
+                                          reload: true);
+                                  await Provider.of<ProductProvider>(context,
+                                          listen: false)
+                                      .getLatestProductList(1, context,
+                                          reload: true)
+                                      .then((value) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => AllProductScreen(
+                                            productType:
+                                                ProductType.BEST_SELLING),
+                                      ),
+                                    );
+                                  });
+                                }),
+                          ),
                           SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                           LatestProductView(
                               scrollController: _scrollController),

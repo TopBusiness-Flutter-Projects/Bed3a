@@ -82,7 +82,10 @@ class ProductView extends StatelessWidget {
         } else if (productType == ProductType.TOP_PRODUCT) {
           productList = prodProvider.latestProductList;
         } else if (productType == ProductType.BEST_SELLING) {
+          //! here
           productList = prodProvider.latestProductList;
+
+          ///
         } else if (productType == ProductType.NEW_ARRIVAL) {
           productList = prodProvider.latestProductList;
         } else if (productType == ProductType.SELLER_PRODUCT) {
@@ -90,7 +93,7 @@ class ProductView extends StatelessWidget {
           print(
               '==========>Product List ==${prodProvider.firstLoading}====>${productList.length}');
         }
-        print('========hello hello===>${productList!.length}');
+        print('========hello hello $productType===>${productList!.length}');
         return Column(children: [
           !prodProvider.filterFirstLoading
               ? productList.length != 0

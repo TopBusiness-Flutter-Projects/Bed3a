@@ -56,11 +56,11 @@ class _OrderScreenState extends State<OrderScreen> {
                                 text: getTranslated('DELIVERED', context),
                                 index: 1,
                                 orderList: orderProvider.deliveredList),
-                            SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
-                            OrderTypeButton(
-                                text: getTranslated('CANCELED', context),
-                                index: 2,
-                                orderList: orderProvider.canceledList),
+                            // SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
+                            // OrderTypeButton(
+                            //     text: getTranslated('CANCELED', context),
+                            //     index: 2,
+                            //     orderList: orderProvider.canceledList),
                           ],
                         ),
                       ),
