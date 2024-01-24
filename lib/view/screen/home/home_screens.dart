@@ -19,24 +19,14 @@ import 'package:bed3a_ecommerce/utill/custom_themes.dart';
 import 'package:bed3a_ecommerce/utill/dimensions.dart';
 import 'package:bed3a_ecommerce/utill/images.dart';
 import 'package:bed3a_ecommerce/view/basewidget/title_row.dart';
-import 'package:bed3a_ecommerce/view/screen/brand/all_brand_screen.dart';
 import 'package:bed3a_ecommerce/view/screen/cart/cart_screen.dart';
 import 'package:bed3a_ecommerce/view/screen/category/all_category_screen.dart';
-import 'package:bed3a_ecommerce/view/screen/featureddeal/featured_deal_screen.dart';
 import 'package:bed3a_ecommerce/view/screen/home/widget/announcement.dart';
 import 'package:bed3a_ecommerce/view/screen/home/widget/banners_view.dart';
-import 'package:bed3a_ecommerce/view/screen/home/widget/brand_view.dart';
 import 'package:bed3a_ecommerce/view/screen/home/widget/category_view.dart';
-import 'package:bed3a_ecommerce/view/screen/home/widget/featured_deal_view.dart';
-import 'package:bed3a_ecommerce/view/screen/home/widget/featured_product_view.dart';
-import 'package:bed3a_ecommerce/view/screen/home/widget/flash_deals_view.dart';
-import 'package:bed3a_ecommerce/view/screen/home/widget/footer_banner.dart';
-import 'package:bed3a_ecommerce/view/screen/home/widget/home_category_product_view.dart';
+
 import 'package:bed3a_ecommerce/view/screen/home/widget/latest_product_view.dart';
-import 'package:bed3a_ecommerce/view/screen/home/widget/main_section_banner.dart';
-import 'package:bed3a_ecommerce/view/screen/home/widget/products_view.dart';
-import 'package:bed3a_ecommerce/view/screen/flashdeal/flash_deal_screen.dart';
-import 'package:bed3a_ecommerce/view/screen/home/widget/recommended_product_view.dart';
+
 import 'package:bed3a_ecommerce/view/screen/home/widget/top_seller_view.dart';
 import 'package:bed3a_ecommerce/view/screen/product/view_all_product_screen.dart';
 import 'package:bed3a_ecommerce/view/screen/search/search_screen.dart';
