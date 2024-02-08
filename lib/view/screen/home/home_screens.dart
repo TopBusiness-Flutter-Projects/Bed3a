@@ -115,18 +115,15 @@ class _HomePageState extends State<HomePage> {
                 context, MaterialPageRoute(builder: (_) => CartScreen()));
           },
           label: Consumer<CartProvider>(builder: (context, detailss, child) {
-            return Row(
-              children: [
-                Text(
-                  PriceConverter.convertPrice(
-                      context,
-                      detailss.cartList.isEmpty
-                          ? 0
-                          : detailss.cartList[0].totalPrice),
-                  // '${detailss.cartList.isEmpty ? 0 : detailss.cartList[0].totalPrice} ج.م',
-                  style: TextStyle(color: Colors.white, fontSize: 14),
-                )
-              ],
+            return Text(
+              PriceConverter.convertPrice(
+                  context,
+                  detailss.cartList.isEmpty
+                      ? 0
+                      : double.parse(
+                          detailss.cartList[0].totalPrice.toString())),
+              // '${detailss.cartList.isEmpty ? 0 : detailss.cartList[0].totalPrice} ج.م',
+              style: TextStyle(color: Colors.white, fontSize: 14),
             );
           })),
       backgroundColor: ColorResources.getHomeBg(context),

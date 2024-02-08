@@ -37,7 +37,7 @@ class _OrderScreenState extends State<OrderScreen> {
       body: Column(
         children: [
           CustomAppBar(
-              title: getTranslated('ORDER', context),
+              title: getTranslated('ORDERS', context),
               isBackButtonExist: widget.isBacButtonExist),
           isGuestMode
               ? SizedBox()

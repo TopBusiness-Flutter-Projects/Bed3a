@@ -179,7 +179,6 @@ class CartWidget extends StatelessWidget {
                             )
                           : SizedBox(),
                       SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
-
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -220,11 +219,10 @@ class CartWidget extends StatelessWidget {
                                         isIncrement: false,
                                         index: index,
                                         quantity: cartModel!.quantity,
-                                        maxQty: cartModel!
-                                            .productInfo!.totalCurrentStock,
+                                        maxQty: cartModel!.productInfo!.maxQty,
                                         cartModel: cartModel,
-                                        minimumOrderQuantity: cartModel!
-                                            .productInfo!.minimumProductQty,
+                                        minimumOrderQuantity:
+                                            cartModel!.productInfo!.minQty,
                                         digitalProduct:
                                             cartModel!.productType == "digital"
                                                 ? true
@@ -252,11 +250,10 @@ class CartWidget extends StatelessWidget {
                                         index: index,
                                         isIncrement: true,
                                         quantity: cartModel!.quantity,
-                                        maxQty: cartModel!
-                                            .productInfo!.totalCurrentStock,
+                                        maxQty: cartModel!.productInfo!.maxQty,
                                         cartModel: cartModel,
-                                        minimumOrderQuantity: cartModel!
-                                            .productInfo!.minimumProductQty,
+                                        minimumOrderQuantity:
+                                            cartModel!.productInfo!.minQty,
                                         digitalProduct:
                                             cartModel!.productType == "digital"
                                                 ? true
@@ -323,7 +320,17 @@ class QuantityButton extends StatelessWidget {
               content: Text(value.message!),
               backgroundColor: value.isSuccess ? Colors.green : Colors.red,
             ));
+          }).onError((error, stackTrace) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(error.toString()),
+              backgroundColor: Colors.red,
+            ));
           });
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('لقد وصلت للحد الاقصي من هذا المنتج'),
+            backgroundColor: Colors.red,
+          ));
         }
       },
       child: Container(
