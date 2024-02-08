@@ -197,25 +197,15 @@ class _CartScreenState extends State<CartScreen> {
         }
 
         bool checkConditionForAllItems(List<CartModel> sellerGroupList) {
-          for (int i = 0; i < sellerGroupList.length; i++) {
-            if (!(calculateTotalCount(sellerGroupList) >=
-                    sellerGroupList[i].productInfo!.minimumProductQty!) ||
-                !(calculateTotalCost(sellerGroupList) >=
-                    sellerGroupList[i].productInfo!.minimumOrderQty!)) {
-              return false;
-            }
+          // for (int i = 0; i < sellerGroupList.length; i++) {
+          if ((cartList.length >=
+                  cartList[0].productInfo!.minimumProductQty!) &&
+              ((amount + shippingAmount) >=
+                  sellerGroupList[0].productInfo!.minimumOrderQty!)) {
+            return true;
           }
-          return true;
-        }
-
-        bool checkConditionForAllItemsInList(
-            List<List<CartModel>> listOfSellerGroups) {
-          for (int i = 0; i < listOfSellerGroups.length; i++) {
-            if (!checkConditionForAllItems(listOfSellerGroups[i])) {
-              return false;
-            }
-          }
-          return true;
+          // }
+          return false;
         }
 
         return Scaffold(
@@ -259,8 +249,9 @@ class _CartScreenState extends State<CartScreen> {
                                               )
                                             : Text(
                                                 PriceConverter.convertPrice(
-                                                    context,
-                                                    amount + shippingAmount),
+                                                  context,
+                                                  calculateTotalCost(cartList),
+                                                ),
                                                 style: titilliumSemiBold
                                                     .copyWith(
                                                         color: Theme.of(
@@ -361,10 +352,9 @@ class _CartScreenState extends State<CartScreen> {
                                       // }
                                       else {
                                         bool conditionMet =
-                                            checkConditionForAllItemsInList(
-                                                cartProductList);
+                                            checkConditionForAllItems(cartList);
                                         print(
-                                            '............$conditionMet......${cartProductList.length}');
+                                            '............$conditionMet......${cartList.length}');
                                         if (conditionMet) {
                                           Navigator.push(
                                               context,
@@ -392,7 +382,7 @@ class _CartScreenState extends State<CartScreen> {
                                           //  Flutter
                                           showCustomSnackBar(
                                               isToaster: true,
-                                              "من فضلك تخطي الحد الادني من كل تاجر",
+                                              "من فضلك تخطي الحد الادني لاستكمال طلبك",
                                               context);
                                         }
                                       }
@@ -461,6 +451,52 @@ class _CartScreenState extends State<CartScreen> {
                         child: Container(
                           child: Column(
                             children: [
+                              Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal:
+                                          MediaQuery.of(context).size.width /
+                                              44),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Column(
+                                        children: [
+                                          Text(
+                                              'الحد الادني للسعر : ${sellerGroupList[0].productInfo?.minimumOrderQty ?? 0}'),
+                                          Text(
+                                              'أقل عدد منتجات : ${sellerGroupList[0].productInfo?.minimumProductQty ?? 0}'),
+                                        ],
+                                      ),
+                                      Column(
+                                        children: [
+                                          Text(
+                                            'إجمال الطلب: ${PriceConverter.convertPrice(context, amount + shippingAmount)}',
+                                            style: TextStyle(
+                                                color: ((amount +
+                                                            shippingAmount) <
+                                                        sellerGroupList[0]
+                                                            .productInfo!
+                                                            .minimumOrderQty!)
+                                                    ? Colors.red
+                                                    : Colors.blue,
+                                                fontWeight: FontWeight.w600),
+                                          ),
+                                          Text(
+                                            ' عدد منتجات: ${cartList.length}', //calculateTotalCount(cartList)
+                                            style: TextStyle(
+                                                color: (cartList.length <
+                                                        sellerGroupList[0]
+                                                            .productInfo!
+                                                            .minimumProductQty!)
+                                                    ? Colors.red
+                                                    : Colors.blue,
+                                                fontWeight: FontWeight.w600),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  )),
                               Flexible(
                                 fit: FlexFit.tight,
                                 child: RefreshIndicator(
@@ -499,7 +535,9 @@ class _CartScreenState extends State<CartScreen> {
                                                             child: Text(
                                                                 sellerGroupList[
                                                                         index]
-                                                                    .shopInfo!,
+                                                                    .sellerInfo!
+                                                                    .name!
+                                                                    .toString(),
                                                                 textAlign:
                                                                     TextAlign
                                                                         .start,
@@ -520,16 +558,62 @@ class _CartScreenState extends State<CartScreen> {
                                                                           .circular(
                                                                               12)),
                                                               onPressed: () {
+                                                                print(
+                                                                    "999999999999999 : ${sellerGroupList[index].sellerInfo!.id}");
                                                                 Navigator.push(
-                                                                    context,
-                                                                    MaterialPageRoute(
-                                                                        builder: (_) => TopSellerProductScreen(
-                                                                            // topSellerId: cartList[index]
-                                                                            //     .sellerId,
-                                                                            topSeller: TopSellerModel(address: cartList[index].sellerInfo!.address, banner: cartList[index].sellerInfo!.banner, contact: cartList[index].sellerInfo!.contact, createdAt: cartList[index].sellerInfo!.createdAt, id: cartList[index].sellerInfo!.id, image: cartList[index].sellerInfo!.image, name: cartList[index].sellerInfo!.name, sellerId: cartList[index].sellerId, temporaryClose: cartList[index].sellerInfo!.temporaryClose, updatedAt: cartList[index].sellerInfo!.updatedAt, vacationEndDate: cartList[index].sellerInfo!.vacationEndDate, vacationStartDate: cartList[index].sellerInfo!.vacationStartDate, vacationStatus: cartList[index].sellerInfo!.vacationStatus))));
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                    builder: (_) =>
+                                                                        TopSellerProductScreen(
+                                                                      // topSellerId: cartList[index]
+                                                                      //     .sellerId,
+                                                                      topSeller:
+                                                                          TopSellerModel(
+                                                                        address: sellerGroupList[index]
+                                                                            .sellerInfo!
+                                                                            .address,
+                                                                        banner: sellerGroupList[index]
+                                                                            .sellerInfo!
+                                                                            .banner,
+                                                                        contact: sellerGroupList[index]
+                                                                            .sellerInfo!
+                                                                            .contact,
+                                                                        createdAt: sellerGroupList[index]
+                                                                            .sellerInfo!
+                                                                            .createdAt,
+                                                                        id: sellerGroupList[index]
+                                                                            .sellerInfo!
+                                                                            .id,
+                                                                        image: sellerGroupList[index]
+                                                                            .sellerInfo!
+                                                                            .image,
+                                                                        name: sellerGroupList[index]
+                                                                            .sellerInfo!
+                                                                            .name,
+                                                                        sellerId:
+                                                                            sellerGroupList[index].sellerId,
+                                                                        temporaryClose: sellerGroupList[index]
+                                                                            .sellerInfo!
+                                                                            .temporaryClose,
+                                                                        updatedAt: sellerGroupList[index]
+                                                                            .sellerInfo!
+                                                                            .updatedAt,
+                                                                        vacationEndDate: sellerGroupList[index]
+                                                                            .sellerInfo!
+                                                                            .vacationEndDate,
+                                                                        vacationStartDate: sellerGroupList[index]
+                                                                            .sellerInfo!
+                                                                            .vacationStartDate,
+                                                                        vacationStatus: sellerGroupList[index]
+                                                                            .sellerInfo!
+                                                                            .vacationStatus,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                );
                                                               },
                                                               child: Text(
-                                                                'إضافة منتج',
+                                                                'أضف منتج',
                                                                 style: TextStyle(
                                                                     color: Colors
                                                                         .white),
@@ -672,62 +756,63 @@ class _CartScreenState extends State<CartScreen> {
                                                   ),
                                                 ),
                                               ),
-                                              Container(
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width /
-                                                              44),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                    children: [
-                                                      Column(
-                                                        children: [
-                                                          Text(
-                                                              'الحد الادني: ${sellerGroupList[index].productInfo?.minimumOrderQty ?? 0}'),
-                                                          Text(
-                                                              'أقل عدد منتجات : ${sellerGroupList[index].productInfo?.minimumProductQty ?? 0}'),
-                                                        ],
-                                                      ),
-                                                      Column(
-                                                        children: [
-                                                          Text(
-                                                            'إجمال الطلب: ${PriceConverter.convertPrice(context, calculateTotalCost(cartProductList[index]), discount: sellerGroupList[index].discount, discountType: sellerGroupList[index].discountType)}',
-                                                            style: TextStyle(
-                                                                color: (calculateTotalCost(cartProductList[
-                                                                            index]) <
-                                                                        sellerGroupList[index]
-                                                                            .productInfo!
-                                                                            .minimumOrderQty!)
-                                                                    ? Colors.red
-                                                                    : Colors
-                                                                        .blue,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600),
-                                                          ),
-                                                          Text(
-                                                            ' عدد منتجات: ${calculateTotalCount(cartProductList[index])}',
-                                                            style: TextStyle(
-                                                                color: (calculateTotalCount(cartProductList[
-                                                                            index]) <
-                                                                        sellerGroupList[index]
-                                                                            .productInfo!
-                                                                            .minimumProductQty!)
-                                                                    ? Colors.red
-                                                                    : Colors
-                                                                        .blue,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ))
+                                              //الحد
+                                              // Container(
+                                              //     padding: EdgeInsets.symmetric(
+                                              //         horizontal:
+                                              //             MediaQuery.of(context)
+                                              //                     .size
+                                              //                     .width /
+                                              //                 44),
+                                              //     child: Row(
+                                              //       mainAxisAlignment:
+                                              //           MainAxisAlignment
+                                              //               .spaceAround,
+                                              //       children: [
+                                              //         Column(
+                                              //           children: [
+                                              //             Text(
+                                              //                 'الحد الادني: ${sellerGroupList[index].productInfo?.minimumOrderQty ?? 0}'),
+                                              //             Text(
+                                              //                 'أقل عدد منتجات : ${sellerGroupList[index].productInfo?.minimumProductQty ?? 0}'),
+                                              //           ],
+                                              //         ),
+                                              //         Column(
+                                              //           children: [
+                                              //             Text(
+                                              //               'إجمال الطلب: ${PriceConverter.convertPrice(context, calculateTotalCost(cartProductList[index]), discount: sellerGroupList[index].discount, discountType: sellerGroupList[index].discountType)}',
+                                              //               style: TextStyle(
+                                              //                   color: (calculateTotalCost(cartProductList[
+                                              //                               index]) <
+                                              //                           sellerGroupList[index]
+                                              //                               .productInfo!
+                                              //                               .minimumOrderQty!)
+                                              //                       ? Colors.red
+                                              //                       : Colors
+                                              //                           .blue,
+                                              //                   fontWeight:
+                                              //                       FontWeight
+                                              //                           .w600),
+                                              //             ),
+                                              //             Text(
+                                              //               ' عدد منتجات: ${calculateTotalCount(cartProductList[index])}',
+                                              //               style: TextStyle(
+                                              //                   color: (calculateTotalCount(cartProductList[
+                                              //                               index]) <
+                                              //                           sellerGroupList[index]
+                                              //                               .productInfo!
+                                              //                               .minimumProductQty!)
+                                              //                       ? Colors.red
+                                              //                       : Colors
+                                              //                           .blue,
+                                              //                   fontWeight:
+                                              //                       FontWeight
+                                              //                           .w600),
+                                              //             ),
+                                              //           ],
+                                              //         ),
+                                              //       ],
+                                              //     ))
                                             ]),
                                       );
                                     },

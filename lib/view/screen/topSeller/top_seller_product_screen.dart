@@ -1,34 +1,22 @@
 import 'package:bed3a_ecommerce/view/screen/topSeller/widget/banners_view.dart';
-import 'package:bed3a_ecommerce/view/screen/topSeller/widget/category_widget.dart';
 import 'package:bed3a_ecommerce/view/screen/topSeller/widget/products_view.dart';
 import 'package:flutter/material.dart';
 import 'package:bed3a_ecommerce/data/model/response/top_seller_model.dart';
 
 import 'package:bed3a_ecommerce/helper/product_type.dart';
-import 'package:bed3a_ecommerce/localization/language_constrants.dart';
-import 'package:bed3a_ecommerce/provider/auth_provider.dart';
+
 import 'package:bed3a_ecommerce/provider/product_provider.dart';
 import 'package:bed3a_ecommerce/provider/seller_provider.dart';
-import 'package:bed3a_ecommerce/provider/splash_provider.dart';
 import 'package:bed3a_ecommerce/utill/color_resources.dart';
 import 'package:bed3a_ecommerce/utill/custom_themes.dart';
 import 'package:bed3a_ecommerce/utill/dimensions.dart';
 import 'package:bed3a_ecommerce/utill/images.dart';
-import 'package:bed3a_ecommerce/view/basewidget/animated_custom_dialog.dart';
 import 'package:bed3a_ecommerce/view/basewidget/custom_app_bar.dart';
-import 'package:bed3a_ecommerce/view/basewidget/guest_dialog.dart';
-import 'package:bed3a_ecommerce/view/basewidget/rating_bar.dart';
-import 'package:bed3a_ecommerce/view/basewidget/search_widget.dart';
-import 'package:bed3a_ecommerce/view/screen/chat/chat_screen.dart';
-import 'package:bed3a_ecommerce/view/screen/home/widget/products_view.dart';
+
 import 'package:provider/provider.dart';
 
 import '../../../provider/cart_provider.dart';
-import '../../../provider/product_details_provider.dart';
 import '../cart/cart_screen.dart';
-import '../home/widget/banners_view.dart';
-import '../product/widget/bottom_cart_view.dart';
-import 'widget/category_view.dart';
 
 class TopSellerProductScreen extends StatefulWidget {
   final TopSellerModel? topSeller;

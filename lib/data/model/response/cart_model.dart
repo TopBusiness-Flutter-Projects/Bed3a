@@ -223,8 +223,14 @@ class ProductInfo {
   int? minimumOrderQty;
   int? totalCurrentStock;
   int? minimumProductQty;
+  int? minQty;
+  int? maxQty;
   ProductInfo(
-      {this.minimumOrderQty, this.totalCurrentStock, this.minimumProductQty});
+      {this.minimumOrderQty,
+      this.totalCurrentStock,
+      this.minimumProductQty,
+      this.maxQty,
+      this.minQty});
 
   ProductInfo.fromJson(Map<String, dynamic> json) {
     if (json['minimum_order_qty'] != null) {
@@ -234,6 +240,8 @@ class ProductInfo {
         minimumOrderQty = int.parse(json['minimum_order_qty'].toString());
       }
     }
+    maxQty = json['max_qty'];
+    minQty = json['min_qty'];
     totalCurrentStock = json['total_current_stock'];
     minimumProductQty = json['minimum_product_qty'];
   }
@@ -243,6 +251,8 @@ class ProductInfo {
     data['minimum_order_qty'] = this.minimumOrderQty;
     data['total_current_stock'] = this.totalCurrentStock;
     data['minimum_product_qty'] = this.minimumProductQty;
+    data['min_qty'] = this.minQty;
+    data['max_qty'] = this.maxQty;
     return data;
   }
 }
