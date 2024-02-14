@@ -15,6 +15,7 @@ void showCustomSnackBar(String? message, BuildContext context,
         fontSize: 16.0);
   } else {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      duration: Duration(milliseconds: 500),
       backgroundColor: isError ? ColorResources.getRed(context) : Colors.green,
       content: Text(message!),
     ));
