@@ -353,10 +353,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                                                 widget.productModel.slug,
                                                 widget.productModel.limitPrice,
                                                 widget.productModel.limitProduct,
-                                                widget.productModel.totalPrice
-                                                );
-
-
+                                                widget.productModel.totalPrice);
 
                                             // cart.variations = _variation;
                                             if (Provider.of<AuthProvider>(
@@ -370,16 +367,15 @@ class _ProductWidgetState extends State<ProductWidget> {
                                               Provider.of<CartProvider>(context,
                                                       listen: false)
                                                   .addToCartAPI(
-                                                cart,
-                                                route,
-                                                context,
-                                                widget
-                                                    .productModel.choiceOptions,
-                                                Provider.of<ProductProvider>(
-                                                        context,
-                                                        listen: false)
-                                                    .variationIndex,
-                                              );
+                                                      cart,
+                                                      route,
+                                                      context,
+                                                      widget.productModel
+                                                          .choiceOptions,
+                                                      Provider.of<ProductProvider>(
+                                                              context,
+                                                              listen: false)
+                                                          .variationIndex);
                                             } else {
                                               Provider.of<CartProvider>(context,
                                                       listen: false)
@@ -564,12 +560,14 @@ class QuantityButton extends StatelessWidget {
                   context)
               .then((value) {
             productModel!.quantityadd = productModel!.quantity! - 1;
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(value.message!),
-              backgroundColor: value.isSuccess ? Colors.green : Colors.red,
-            ));
+
+            // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            //   duration: Duration(milliseconds: 200),
+            //   content: Text(value.message!),
+            //   backgroundColor: value.isSuccess ? Colors.green : Colors.red,
+            // ));
           });
-        } else if (isIncrement && quantity! < maxQty!) {
+        } else if (isIncrement && quantity! < minimumOrderQuantity!) {
           print(
               '--q(+)q-->$quantity/$minimumOrderQuantity==bangla--------===>');
           Provider.of<CartProvider>(context, listen: false)
@@ -580,11 +578,19 @@ class QuantityButton extends StatelessWidget {
                   context)
               .then((value) {
             productModel!.quantityadd = productModel!.quantity! + 1;
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(value.message!),
-              backgroundColor: value.isSuccess ? Colors.green : Colors.red,
-            ));
+            // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            //   duration: Duration(milliseconds: 200),
+            //   content: Text(value.message!),
+            //   backgroundColor: value.isSuccess ? Colors.green : Colors.red,
+            // ));
           });
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              duration: Duration(milliseconds: 300),
+              content: Text(quantity! >= maxQty!
+                  ? "لقد وصلت للحد الاقصي"
+                  : "لقد وصلت للحد الادني"),
+              backgroundColor: Colors.green));
         }
 
         // } else {
