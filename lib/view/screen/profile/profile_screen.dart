@@ -394,6 +394,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   SizedBox(
                                       height: Dimensions.MARGIN_SIZE_SMALL),
                                   CustomTextField(
+                                    isRead: true,
                                     textInputType: TextInputType.number,
                                     focusNode: _phoneFocus,
                                     hintText:
