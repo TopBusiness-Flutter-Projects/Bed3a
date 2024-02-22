@@ -1,36 +1,45 @@
 {
   "project_info": {
-    "project_number": "625094720482",
-    "project_id": "bed3a-b919a",
-    "storage_bucket": "bed3a-b919a.appspot.com"
+    "project_number": "758589996529",
+    "project_id": "beda3a-ed62f",
+    "storage_bucket": "beda3a-ed62f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:625094720482:android:ec1c6b20d56df2a9fcd7bb",
+        "mobilesdk_app_id": "1:758589996529:android:2e29d669e371742b4f9850",
         "android_client_info": {
           "package_name": "com.topbusiness.bed3aecom"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "625094720482-5ohjsqljkdl9gaf8c1i8q7sfl5746l5t.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBQWxp5tu1ddq-TMJwuVCe-PYRayJecbvI"
+          "current_key": "AIzaSyBVUyLYT-ADg_BLCiLGxcU2VBxHRNOzul4"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "625094720482-5ohjsqljkdl9gaf8c1i8q7sfl5746l5t.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:758589996529:android:b03f25c6ef93299b4f9850",
+        "android_client_info": {
+          "package_name": "com.topbusiness.bedaa"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVUyLYT-ADg_BLCiLGxcU2VBxHRNOzul4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
         }
       }
     }
