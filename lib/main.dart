@@ -52,7 +52,9 @@ Future<void> main() async {
   /////ahmed elsapagh
   HttpOverrides.global = new MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
+    name: 'bed3a_ecommerce',
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await FlutterDownloader.initialize(debug: true, ignoreSsl: true);
